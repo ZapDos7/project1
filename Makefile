@@ -1,9 +1,17 @@
-make:
-	gpp -o main main.c
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=main.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=hello
 
-run:
-	./main
+all: $(SOURCES) $(EXECUTABLE)
+    
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
-	rm main
-	rm *.o
+	rm -f $(OBJECTS) $(EXECUTABLE)
