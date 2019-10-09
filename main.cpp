@@ -1,6 +1,8 @@
 #include <iostream>
+#include "my_vector.h"
+#include <string.h>
+#include <fstream>
 
-#include <utils.cpp>
 
 int main (int argc, char*argv[]) {
 
@@ -57,6 +59,38 @@ int main (int argc, char*argv[]) {
     itemW //bonus
     */
 
+    //DWSE MONOPATI DATASET:
+    std::string dataset_path;
+    std::cout << "Define dataset path:\n";
+    std::cin >> dataset_path;
+    std::ifstream infile(dataset_path.c_str());
+    std::string line;
+    std::vector <my_vector> vectors_array;
+    while (std::getline(infile, line)){
+        my_vector one_v_atime(line);
+        //std::cout << one_v_atime.get_id()  <<"\n" ;
+        vectors_array.push_back(one_v_atime);
+    };
+    infile.close();
+    /*for(int i=0; i<vectors_array.size(); i++)
+        std::cout << vectors_array[i].get_id() << "\n";*/
+    std::string query_dataset_path;
+    std::string output_path;
+    //DWSE MONOPATH QUERIES
+    std::cout << "Define query dataset path:\n";
+    std::cin >> query_dataset_path;
+    std::ifstream qfile(query_dataset_path.c_str());
+    std::vector <my_vector> query_vectors_array;
+    while (std::getline(qfile, line)){
+        my_vector one_v_atime2(line);
+        //std::cout << one_v_atime.get_id()  <<"\n" ;
+        query_vectors_array.push_back(one_v_atime2);
+    };
+    infile.close();
+    //DWSE MONOPATI OUTPUT FILE
+    std::cout << "Define output file path:\n";
+    std::cin >> output_path;
+
 
 ////////////////////////////B - CURVES///////////////////////////////
     //read files
@@ -75,7 +109,7 @@ int main (int argc, char*argv[]) {
     //ka8e grammi meta: idS1    x11     x12     x13...
     //q to plithos twn
 
-    
+
     // PES MOU an 8es Bi - dld se kampules plegmatos alla anaparistwntai ws vectors - h Bii - dld se vectors-
     //&& PES MOU an 8es LSH h hypercube
 
@@ -89,14 +123,14 @@ int main (int argc, char*argv[]) {
 
     //when done all, ask if repeat with other dataset or exit ektelesi
 
-    
+
 
 
 
 
 
     //LSH for curves
-    int L=4; //default timi
+    L=4; //default timi
     //plithos kampulwn plegmatos
 
     //hypercube for curves
