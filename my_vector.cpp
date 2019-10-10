@@ -49,7 +49,7 @@ int my_vector::get_id_as_int() {
     int my_id=0;
     for (int i=0;i<id.length();i++) {
         if (isdigit(id[i])) {
-            tmp = id.substr(i, id.length()); //isws thelei length -i -1
+            tmp = id.substr(i, id.length()-1);
             my_id = atoi(tmp.c_str());
         }
     }
