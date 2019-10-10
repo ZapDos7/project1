@@ -16,7 +16,7 @@ double my_inner_product(std::vector<int> v1, std::vector<int> v2) { //vi * v2 = 
 		temp = v1[i]*v2[i];
 		products.push_back(temp);
 	}
-	temp = 0.0; 
+	temp = 0.0;
 	for(std::vector<int>::iterator it = products.begin(); it != products.end(); ++it) {
 		temp += *it; //to athroisma twn ginomenwn
 	}
@@ -30,14 +30,14 @@ double my_vector_metro(std::vector<int> v) {
 		temp = v[i]*v[i];
 		squared.push_back(temp);//tetragwna kathe thesis
 	}
-	temp = 0.0; 
+	temp = 0.0;
 	for(std::vector<int>::iterator it = squared.begin(); it != squared.end(); ++it) {
 		temp += *it; //to athroisma twn tetragwnwn
 	}
 	return sqrt(temp); //sqrt autwn
 }
 template <class T> //template <class//typename T>
-T manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apoluti timi twn diaforwn twn  (suntetagmeni i tou v1, syntetagmeni i tou v2) )
+double manhattan_metric<T>::manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apoluti timi twn diaforwn twn  (suntetagmeni i tou v1, syntetagmeni i tou v2) )
     if (v1.size() != v2.size()) {
 		//cerr << "Can't calculate distance, need same dimensions! Aborting...\n";
         exit(-1);
@@ -49,7 +49,7 @@ T manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apoluti 
 	else if (typeid(x) == typeid(int)) {
 		result = 0;
 	}
-	
+
 	std::vector<T> diffs;
 	for (unsigned int i = 0; i < v1.size(); ++i) {
 		result = abs(v1[i]-v2[i]);
@@ -67,5 +67,5 @@ T manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apoluti 
 	return result;
 }
 
-template class manhattan_distance<int>;
-template class manhattan_distance<float>;
+template class manhattan_metric<float>;
+template class manhattan_metric<int>;

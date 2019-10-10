@@ -2,8 +2,18 @@
 #include "my_vector.h"
 #include <string.h>
 #include <fstream>
+#include <typeinfo>
 #include "utils.h"
+#include <cmath>
 
+template <class T>
+T lousy_metric(std::vector<T> v1, std::vector<T> v2){
+
+  T result =31;
+
+	return result;
+
+}
 
 int main (int argc, char*argv[]) {
 
@@ -71,27 +81,30 @@ int main (int argc, char*argv[]) {
     std::cout << "Define query dataset path:\n";
     std::cin >> query_dataset_path;
     std::ifstream qfile(query_dataset_path.c_str());
-    std::vector <my_vector<int> > query_vectors_array;
+    //std::vector <my_vector<int> > query_vectors_array;
     //vector<vector<double>> DistanceMatrix;
+    int qlines_num =0;
     while (std::getline(qfile, line)){
         my_vector<int> one_v_atime2(line);
         //std::cout << one_v_atime.get_id()  <<"\n" ;
-        query_vectors_array.push_back(one_v_atime2);
+        //query_vectors_array.push_back(one_v_atime2);
     };
     infile.close();
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
 
-    std::vector<int> v1;
-    for (int i = 1; i <= 5; i++) 
-        v1.push_back(i); 
+    /*std::vector<int> v1;
+    for (int i = 1; i <= 5; i++)
+        v1.push_back(i);
     std::vector<int> v2;
-    for (int i = 4; i <= 8; i++) 
-        v1.push_back(i); 
+    for (int i = 4; i <= 8; i++)
+        v1.push_back(i);
 
-    int res = manhattan_distance(v1,v2);
-    printf("\nManh Dist is %d...\n", res);
+
+    int res = lousy_metric(v1,v2);
+    printf("\nManh Dist is %d...\n", res);*/
+
 
 ////////////////////////////METRISEIS///////////////////////////////
 /*
