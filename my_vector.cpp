@@ -8,7 +8,8 @@
 using namespace std;
 
 //to pneuma tou constructor einai na pairnei to input string - seira sto arxeio eisodou kai na kanei swsta tis arxikopoihseis
-my_vector::my_vector(std::string inp){
+template <class T>
+my_vector<T>::my_vector(std::string inp){
     vector <string> tokens;
     stringstream check1(inp);
 
@@ -29,22 +30,29 @@ my_vector::my_vector(std::string inp){
     }
 }
 
-void my_vector::set_id(string idd) {
+template <class T>
+void my_vector<T>::set_id(string idd) {
     id = idd;
     return;
 }
-void my_vector::set_v(std::vector<int> vv) {
-    vector<int>::iterator it2 = vv.begin();
-    for(vector<int>::iterator it = vec.begin(); it != vec.end(); ++it) {
+
+template <class T>
+void my_vector<T>::set_v(std::vector<T> vv) {
+    typename vector< T >::iterator it2 = vv.begin();
+    for(typename vector< T >::iterator it = vec.begin(); it != vec.end(); ++it) {
         *it = *it2;
         ++it2;
     }
     return;
 }
-string my_vector::get_id() {
+
+template <class T>
+string my_vector<T>::get_id() {
     return id;
 }
-int my_vector::get_id_as_int() {
+
+template <class T>
+int my_vector<T>::get_id_as_int() {
     string tmp = id;
     int my_id=0;
     for (int i=0;i<id.length();i++) {
@@ -55,6 +63,8 @@ int my_vector::get_id_as_int() {
     }
     return my_id;
 }
-std::vector<int> my_vector::get_v() {
+
+template <class T>
+std::vector<T> my_vector<T>::get_v() {
     return vec;
 }
