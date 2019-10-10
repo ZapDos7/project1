@@ -68,3 +68,6 @@ template <class T>
 std::vector<T> my_vector<T>::get_v() {
     return vec;
 }
+
+template class my_vector<float>;
+template class my_vector<int>;
