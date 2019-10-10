@@ -2,6 +2,7 @@
 #include "my_vector.h"
 #include <string.h>
 #include <fstream>
+#include "utils.h"
 
 
 int main (int argc, char*argv[]) {
@@ -82,7 +83,15 @@ int main (int argc, char*argv[]) {
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
 
+    std::vector<int> v1;
+    for (int i = 1; i <= 5; i++) 
+        v1.push_back(i); 
+    std::vector<int> v2;
+    for (int i = 4; i <= 8; i++) 
+        v1.push_back(i); 
 
+    int res = manhattan_distance(v1,v2);
+    printf("\nManh Dist is %d...\n", res);
 
 ////////////////////////////METRISEIS///////////////////////////////
 /*

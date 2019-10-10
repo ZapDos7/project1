@@ -36,22 +36,36 @@ double my_vector_metro(std::vector<int> v) {
 	}
 	return sqrt(temp); //sqrt autwn
 }
-
-double manhattan_distance(std::vector<int> v1, std::vector<int> v2) {
+template <class T> //template <class//typename T>
+T manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apoluti timi twn diaforwn twn  (suntetagmeni i tou v1, syntetagmeni i tou v2) )
     if (v1.size() != v2.size()) {
 		//cerr << "Can't calculate distance, need same dimensions! Aborting...\n";
         exit(-1);
 	}
-    //sum twn (apoluti timi twn diaforwn twn  (suntetagmeni i tou v1, syntetagmeni i tou v2) )
-    double result=0.0;
-	std::vector<int> diffs;
+    T result;
+	if ((typeid(x) == typeid(float)) || (typeid(x) == typeid(double))) {
+		result = 0.0;
+	}
+	else if (typeid(x) == typeid(int)) {
+		result = 0;
+	}
+	
+	std::vector<T> diffs;
 	for (unsigned int i = 0; i < v1.size(); ++i) {
 		result = abs(v1[i]-v2[i]);
 		diffs.push_back(result);
 	}
-	result = 0.0; 
-	for(std::vector<int>::iterator it = diffs.begin(); it != diffs.end(); ++it) {
+	if ((typeid(x) == typeid(float)) || (typeid(x) == typeid(double))) {
+		result = 0.0;
+	}
+	else if (typeid(x) == typeid(int)) {
+		result = 0;
+	}
+	for(std::vector<T>::iterator it = diffs.begin(); it != diffs.end(); ++it) {
 		result += *it; //to athroisma twn apol. diaforwn
 	}
 	return result;
 }
+
+template class manhattan_distance<int>;
+template class manhattan_distance<float>;

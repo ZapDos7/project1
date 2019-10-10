@@ -7,10 +7,12 @@
 #include <string>
 #include <sstream>
 #include <cmath>
+#include "my_vector.h"
 
 double my_inner_product(std::vector<int> v1, std::vector<int> v2);
 double my_vector_metro(std::vector<int> v);
-double manhattan_distance(std::vector<int> v1, std::vector<int> v2);
+template <class T>
+T manhattan_distance(std::vector<T> v1, std::vector<T> v2);
 
 
 #endif
