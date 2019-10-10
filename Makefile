@@ -1,9 +1,9 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=main.cpp my_vector.cpp
+SOURCES=lsh.cpp my_vector.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=main
+EXECUTABLE=lsh
 
 all: $(SOURCES) $(EXECUTABLE)
     
