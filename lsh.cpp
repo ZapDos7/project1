@@ -17,6 +17,19 @@ T lousy_metric(std::vector<T> v1, std::vector<T> v2){
 
 int main (int argc, char*argv[]) {
 
+    /*
+    AUTO LEITOURGEI - TESTING GIA MANHATTAN FUNCTION
+    NOT USED
+    std::vector<int> v1;
+    for (int i = 1; i <= 5; i++) 
+        v1.push_back(i); 
+    std::vector<int> v2;
+    for (int j = 8; j <= 12; j++) 
+        v2.push_back(j); 
+    
+    double res = manhattan_distance(v1,v2);
+    printf("\nManh Dist is %f...\n", res);
+    */
 
 ////////////////////////////A - VECTORS//////////////////////////////
     //read files
@@ -93,18 +106,6 @@ int main (int argc, char*argv[]) {
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
-
-    /*std::vector<int> v1;
-    for (int i = 1; i <= 5; i++)
-        v1.push_back(i);
-    std::vector<int> v2;
-    for (int i = 4; i <= 8; i++)
-        v1.push_back(i);
-
-
-    int res = lousy_metric(v1,v2);
-    printf("\nManh Dist is %d...\n", res);*/
-
 
 ////////////////////////////METRISEIS///////////////////////////////
 /*
