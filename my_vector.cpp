@@ -20,7 +20,7 @@ my_vector<T>::my_vector(std::string inp){
     }
 
     string the_id = tokens[0]; //to id einai to prwto
-    my_vector::set_id(the_id);
+    my_vector<T>::set_id(the_id);
 
     for(int i=1; i< tokens.size(); i++){
         stringstream tool(tokens[i]);
@@ -65,7 +65,7 @@ int my_vector<T>::get_id_as_int() {
 }
 
 template <class T>
-std::vector<T> my_vector<T>::get_v() {
+vector<T> my_vector<T>::get_v() {
     return vec;
 }
 

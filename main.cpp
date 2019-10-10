@@ -72,8 +72,8 @@ int main (int argc, char*argv[]) {
         vectors_array.push_back(one_v_atime);
     };
     infile.close();
-    /*for(int i=0; i<vectors_array.size(); i++)
-        std::cout << vectors_array[i].get_id() << "\n";*/
+    for(int i=0; i<vectors_array.size(); i++)
+        std::cout << vectors_array[i].get_id() << "\n";
     std::string query_dataset_path;
     std::string output_path;
     //DWSE MONOPATH QUERIES

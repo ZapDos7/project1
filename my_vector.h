@@ -11,7 +11,7 @@ private:
     std::string id;
     std::vector<T> vec;
 public:
-    my_vector(std::string inp); // o conustructor gia parametropoihsh
+    my_vector< T >(std::string inp); // o conustructor gia parametropoihsh
     void set_id(std::string idd);
     void set_v(std::vector<T> vv);
     std::string get_id();
