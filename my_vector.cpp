@@ -3,6 +3,7 @@
 #include <sstream>
 #include <stdlib.h> //atoi
 #include "my_vector.h"
+#include <cctype> //isdigit
 
 using namespace std;
 
@@ -42,6 +43,17 @@ void my_vector::set_v(std::vector<int> vv) {
 }
 string my_vector::get_id() {
     return id;
+}
+int my_vector::get_id_as_int() {
+    string tmp = id;
+    int my_id=0;
+    for (int i=0;i<id.length();i++) {
+        if (isdigit(id[i])) {
+            tmp = id.substr(i, id.length()); //isws thelei length -i -1
+            my_id = atoi(tmp.c_str());
+        }
+    }
+    return my_id;
 }
 std::vector<int> my_vector::get_v() {
     return vec;

@@ -14,6 +14,7 @@ public:
     void set_id(std::string idd);
     void set_v(std::vector<int> vv);
     std::string get_id();
+    int my_vector::get_id_as_int();
     std::vector<int> get_v();
 };
 
