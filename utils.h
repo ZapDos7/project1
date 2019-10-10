@@ -10,22 +10,6 @@
 #include <cmath> //abs with overload for float
 #include "my_vector.h"
 
-<<<<<<< HEAD
-double my_inner_product(std::vector<int> v1, std::vector<int> v2);
-double my_vector_metro(std::vector<int> v);
-//template <class T> double manhattan_distance(std::vector<T> v1, std::vector<T> v2);
-
-
-template <class T>
-class  manhattan_metric{
-
-public:
-    double manhattan_distance(std::vector<T> v1, std::vector<T> v2);
-};
-
-=======
->>>>>>> 833260e1fe0cc76178f43cc640ed6ab2282a52a8
-
 /*Inner Product*/
 //double my_inner_product(std::vector<int> v1, std::vector<int> v2);
 /*
