@@ -22,12 +22,12 @@ int main (int argc, char*argv[]) {
     AUTO LEITOURGEI - TESTING GIA MANHATTAN FUNCTION
     NOT USED
     std::vector<int> v1;
-    for (int i = 1; i <= 5; i++) 
-        v1.push_back(i); 
+    for (int i = 1; i <= 5; i++)
+        v1.push_back(i);
     std::vector<int> v2;
-    for (int j = 8; j <= 12; j++) 
-        v2.push_back(j); 
-    
+    for (int j = 8; j <= 12; j++)
+        v2.push_back(j);
+
     double res = manhattan_distance(v1,v2);
     printf("\nManh Dist is %f...\n", res);
     */
@@ -90,8 +90,8 @@ int main (int argc, char*argv[]) {
         vectors_array.push_back(one_v_atime);
     };
     infile.close();
-    for(int i=0; i<vectors_array.size(); i++)
-        std::cout << vectors_array[i].get_id() << "\n";
+    /*for(int i=0; i<vectors_array.size(); i++)
+        std::cout << vectors_array[i].get_id() << "\n";*/
     std::string query_dataset_path;
     std::string output_path;
     //DWSE MONOPATH QUERIES
@@ -102,11 +102,26 @@ int main (int argc, char*argv[]) {
     //vector<vector<double>> DistanceMatrix;
     int qlines_num =0;
     while (std::getline(qfile, line)){
-        my_vector<int> one_v_atime2(line);
-        //std::cout << one_v_atime.get_id()  <<"\n" ;
-        //query_vectors_array.push_back(one_v_atime2);
+      qlines_num++ ;
+
     };
-    infile.close();
+    //qfile.close();
+    qfile.clear();
+    qfile.seekg(0, qfile.beg);
+    double Brute_Distance_Matrix[qlines_num][vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
+    int qline_curr =0;
+    while (std::getline(qfile, line)){
+
+        my_vector<int> one_v_atime2(line);
+        for(int i=0; i<vectors_array.size(); i++)
+          Brute_Distance_Matrix[qline_curr][i] = manhattan_distance(vectors_array[i].get_v(), one_v_atime2.get_v());
+
+        qline_curr++ ;
+    };
+    qfile.close();
+    for(int i=0; i<qline_curr; i++)
+      for(int j=0; j< vectors_array.size(); j++)
+        std::cout << Brute_Distance_Matrix[qline_curr][i] << "\n";
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
