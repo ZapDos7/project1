@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include "utils.h"
 #include <cmath>
+#include "a.h"
 
 template <class T>
 T lousy_metric(std::vector<T> v1, std::vector<T> v2){
@@ -30,6 +31,9 @@ int main (int argc, char*argv[]) {
     double res = manhattan_distance(v1,v2);
     printf("\nManh Dist is %f...\n", res);
     */
+
+    a a1(1.0);
+    std::cerr << a1.get_a(1.2) << "\n";
 
 ////////////////////////////A - VECTORS//////////////////////////////
     //read files
