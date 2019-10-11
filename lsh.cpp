@@ -54,9 +54,9 @@ int main (int argc, char*argv[]) {
     //creation of L HTs
 
     //LSH for vectors
-    int k=0; //plithos hi functions gia dimiourgia twn g
+    //int k=0; //plithos hi functions gia dimiourgia twn g
     //default int k=4;
-    int L=0; //posa hash tables
+    //int L=0; //posa hash tables
     //default int L=5;
 
 
@@ -113,14 +113,14 @@ int main (int argc, char*argv[]) {
     while (std::getline(qfile, line)){
 
         my_vector<int> one_v_atime2(line);
-        for(int i=0; i<vectors_array.size(); i++)
+        for(unsigned int i=0; i<vectors_array.size(); i++)
           Brute_Distance_Matrix[qline_curr][i] = manhattan_distance(vectors_array[i].get_v(), one_v_atime2.get_v());
 
         qline_curr++ ;
     };
     qfile.close();
     for(int i=0; i<qline_curr; i++)
-      for(int j=0; j< vectors_array.size(); j++)
+      for(unsigned int j=0; j< vectors_array.size(); j++)
         std::cout << Brute_Distance_Matrix[qline_curr][i] << "\n";
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";

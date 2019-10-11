@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=lsh.cpp my_vector.cpp
+SOURCES=lsh.cpp my_vector.cpp a.cpp h_funs.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=lsh
 

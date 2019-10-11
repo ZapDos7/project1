@@ -84,7 +84,7 @@ double manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apo
         result = result + (double)*it; //to athroisma twn apol. diaforwn
         //std::cerr << result << "\n";
 	}
-    std::cerr << "Ara telika exw " << result << "\n";
+    //std::cerr << "Ara telika exw " << result << "\n";
 	return result;
 }
 
