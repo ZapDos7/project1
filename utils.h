@@ -25,7 +25,7 @@ double my_inner_product(std::vector<int> v1, std::vector<int> v2) { //vi * v2 = 
 		temp = v1[i]*v2[i];
 		products.push_back(temp);
 	}
-	temp = 0.0; 
+	temp = 0.0;
 	for(std::vector<int>::iterator it = products.begin(); it != products.end(); ++it) {
 		temp += *it; //to athroisma twn ginomenwn
 	}
@@ -43,15 +43,13 @@ double my_vector_metro(std::vector<int> v) {
 		temp = v[i]*v[i];
 		squared.push_back(temp);//tetragwna kathe thesis
 	}
-	temp = 0.0; 
+	temp = 0.0;
 	for(std::vector<int>::iterator it = squared.begin(); it != squared.end(); ++it) {
 		temp += *it; //to athroisma twn tetragwnwn
 	}
 	return sqrt(temp); //sqrt autwn
 }
 */
-
-
 
 
 /*Manhattan Distance*/
@@ -70,7 +68,7 @@ double manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apo
 	else if (typeid(temp) == typeid(int)) {
 		temp = 0;
 	}
-	
+
 	std::vector<T> diffs;
 	for (unsigned int i = 0; i < v1.size(); ++i) {
 		temp = abs(v1[i]-v2[i]);
@@ -78,13 +76,13 @@ double manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apo
         //ws edw leitourgei ok
 	}
     double result = 0.0;
-	
+
 	for(typename std::vector<T>::iterator it = diffs.begin(); it != diffs.end(); ++it) {
 		//std::cerr << *it << "\n";
         result = result + (double)*it; //to athroisma twn apol. diaforwn
         //std::cerr << result << "\n";
 	}
-    std::cerr << "Ara telika exw " << result << "\n";
+    //std::cerr << "Ara telika exw " << result << "\n";
 	return result;
 }
 

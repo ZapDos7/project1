@@ -4,6 +4,8 @@
 #include <fstream>
 #include <typeinfo>
 #include "utils.h"
+#include <limits>
+#include "NNpair.h"
 #include <cmath>
 
 template <class T>
@@ -96,28 +98,48 @@ int main (int argc, char*argv[]) {
     std::ifstream qfile(query_dataset_path.c_str());
     //std::vector <my_vector<int> > query_vectors_array;
     //vector<vector<double>> DistanceMatrix;
-    int qlines_num =0;
+    std::vector <my_vector<int> > query_vectors_array;
     while (std::getline(qfile, line)){
-      qlines_num++ ;
+      my_vector<int> one_v_atime2(line);
+      query_vectors_array.push_back(one_v_atime2);
 
-    };
-    //qfile.close();
-    qfile.clear();
-    qfile.seekg(0, qfile.beg);
-    double Brute_Distance_Matrix[qlines_num][vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
-    int qline_curr =0;
-    while (std::getline(qfile, line)){
 
-        my_vector<int> one_v_atime2(line);
-        for(int i=0; i<vectors_array.size(); i++)
-          Brute_Distance_Matrix[qline_curr][i] = manhattan_distance(vectors_array[i].get_v(), one_v_atime2.get_v());
-
-        qline_curr++ ;
     };
     qfile.close();
-    for(int i=0; i<qline_curr; i++)
-      for(int j=0; j< vectors_array.size(); j++)
-        std::cout << Brute_Distance_Matrix[qline_curr][i] << "\n";
+
+    double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
+    for(int i=0; i<vectors_array.size(); i++)
+      for(int j=0; j<query_vectors_array.size(); j++)
+        Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
+
+
+    /*std::ofstream myfile;
+    myfile.open ("example.txt");
+    for(int i=0; i<vectors_array.size(); i++)
+      for(int j=0; j< query_vectors_array.size(); j++)
+        myfile << Brute_Distance_Matrix[i][j] << "\n";
+    myfile.close();*/
+
+    //prepei na brw ton actual nearest neighbour
+    std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
+    for(int i=0; i<query_vectors_array.size(); i++){
+      std::string min_id;
+      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
+      for(int j=0; j<vectors_array.size(); j++){
+        if(Brute_Distance_Matrix[j][i] < min){
+          min = Brute_Distance_Matrix[j][i];
+          min_id =  vectors_array[j].get_id();
+        }
+      }
+      NNpair single_pair(query_vectors_array[i].get_id(), min_id);
+      actual_NNs.push_back(single_pair);
+    }
+
+    /*std::ofstream myfile;
+    myfile.open ("example.txt");
+    for(int i=0; i<actual_NNs.size(); i++)
+        myfile << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
+    myfile.close();*/
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;

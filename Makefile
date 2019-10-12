@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall
 LDFLAGS=
-SOURCES=lsh.cpp my_vector.cpp
+SOURCES=lsh.cpp my_vector.cpp NNpair.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=lsh
 
