@@ -7,7 +7,8 @@
 #include <limits>
 #include "NNpair.h"
 #include <cmath>
-#include "a.h"
+//#include "a.h"
+
 
 int main (int argc, char*argv[]) {
 
@@ -86,24 +87,24 @@ int main (int argc, char*argv[]) {
     qfile.close();
 
     double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
-    for(unsigned int i=0; i<vectors_array.size(); i++)
-      for(unsigned int j=0; j<query_vectors_array.size(); j++)
+    for(int i=0; i<vectors_array.size(); i++)
+      for(int j=0; j<query_vectors_array.size(); j++)
         Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
 
 
-    /*std::ofstream myfile;
+    std::ofstream myfile;
     myfile.open ("example.txt");
     for(int i=0; i<vectors_array.size(); i++)
       for(int j=0; j< query_vectors_array.size(); j++)
         myfile << Brute_Distance_Matrix[i][j] << "\n";
-    myfile.close();*/
+    myfile.close();
 
     //prepei na brw ton actual nearest neighbour
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
-    for(unsigned int i=0; i<query_vectors_array.size(); i++){
+    for(int i=0; i<query_vectors_array.size(); i++){
       std::string min_id;
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-      for(unsigned int j=0; j<vectors_array.size(); j++){
+      for(int j=0; j<vectors_array.size(); j++){
         if(Brute_Distance_Matrix[j][i] < min){
           min = Brute_Distance_Matrix[j][i];
           min_id =  vectors_array[j].get_id();
@@ -113,27 +114,16 @@ int main (int argc, char*argv[]) {
       actual_NNs.push_back(single_pair);
     }
 
-    /*std::ofstream myfile;
-    myfile.open ("example.txt");
+    std::ofstream myfile2;
+    myfile2.open ("example2.txt");
     for(int i=0; i<actual_NNs.size(); i++)
-        myfile << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
-    myfile.close();*/
-/*
-        my_vector<int> one_v_atime2(line);
-        for(unsigned int i=0; i<vectors_array.size(); i++)
-          Brute_Distance_Matrix[qline_curr][i] = manhattan_distance(vectors_array[i].get_v(), one_v_atime2.get_v());
+        myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
+    myfile2.close();
 
-        qline_curr++ ;
-    };
-    qfile.close();
-    for(int i=0; i<qline_curr; i++)
-      for(unsigned int j=0; j< vectors_array.size(); j++)
-        std::cout << Brute_Distance_Matrix[qline_curr][i] << "\n";
-    
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
-*/
+
 ////////////////////////////METRISEIS///////////////////////////////
 /*
 Compare apotelesmata twn 4 parallagwn:{
@@ -146,7 +136,6 @@ ws pros: {
     b) mean time euresis tou approx NN
 }
 */
-
 
 
 }
