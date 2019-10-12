@@ -3,6 +3,7 @@
 #include <string.h>
 #include <fstream>
 #include <typeinfo>
+#include <stdlib.h>
 #include "utils.h"
 #include <limits>
 #include "NNpair.h"
@@ -14,6 +15,30 @@ int main (int argc, char*argv[]) {
 
 
 ////////////////////////////A - VECTORS//////////////////////////////
+  int k=-1;
+  int L=-1;
+  bool dset, qset, oset = false;
+  char dataset_path[256];
+  char query_dataset_path[256];
+  char output_path[256];
+
+  for(int i=0; i<argc; i++){
+    if(strcmp("-d",argv[i])==0)
+      {strcpy(dataset_path,argv[i+1]); dset = true;} //pairnw to swsto onoma arxeiou apo to command line
+
+    if(strcmp("-q",argv[i])==0)
+      {strcpy(query_dataset_path,argv[i+1]); qset=true;}  //dinw timh sto K bash command line
+
+    if(strcmp("-o",argv[i])==0)
+      {strcpy(output_path,argv[i+1]); oset=true;}
+
+    if(strcmp("-k",argv[i])==0)
+      {k = atoi(argv[i+1]);}
+
+    if(strcmp("-L",argv[i])==0)
+      {L = atoi(argv[i+1]);}
+
+  }
     //read files
     //an oxi apo path pou grafei o user
     //    $./lsh –d <input file> –q <query file> –k <int> -L <int> -ο <output file>
@@ -55,11 +80,13 @@ int main (int argc, char*argv[]) {
     itemW //bonus
     */
 
-    //DWSE MONOPATI DATASET:
-    std::string dataset_path;
-    std::cout << "Define dataset path:\n";
-    std::cin >> dataset_path;
-    std::ifstream infile(dataset_path.c_str());
+    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI DATASET:
+    if(dset == false){
+      std::cout << "Define dataset path:\n";
+      std::string inp1;
+      std::cin >> dataset_path;
+    }
+    std::ifstream infile(dataset_path);
     std::string line;
     std::vector <my_vector<int> > vectors_array;
     while (std::getline(infile, line)){
@@ -68,14 +95,13 @@ int main (int argc, char*argv[]) {
         vectors_array.push_back(one_v_atime);
     };
     infile.close();
-    /*for(int i=0; i<vectors_array.size(); i++)
-        std::cout << vectors_array[i].get_id() << "\n";*/
-    std::string query_dataset_path;
-    std::string output_path;
-    //DWSE MONOPATH QUERIES
-    std::cout << "Define query dataset path:\n";
-    std::cin >> query_dataset_path;
-    std::ifstream qfile(query_dataset_path.c_str());
+    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATH QUERIES
+    if(qset == false){
+      std::cout << "Define query dataset path:\n";
+      std::string inp1;
+      std::cin >> query_dataset_path;
+    }
+    std::ifstream qfile(query_dataset_path);
     //std::vector <my_vector<int> > query_vectors_array;
     //vector<vector<double>> DistanceMatrix;
     std::vector <my_vector<int> > query_vectors_array;
@@ -120,9 +146,22 @@ int main (int argc, char*argv[]) {
         myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
     myfile2.close();
 
-    //DWSE MONOPATI OUTPUT FILE
-    std::cout << "Define output file path:\n";
-    std::cin >> output_path;
+    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
+    if(oset == false){
+      std::cout << "Define output file path:\n";
+      std::string inp1;
+      std::cin >> output_path;
+    }
+    //TO IDIO GIA TA k, L
+    if(k < 0){
+      std::cout << "Define k value\n";
+      std::cin >> k;
+    }
+    if(L < 0){
+      std::cout << "Define L value\n";
+      std::cin >> L;
+    }
+
 
 ////////////////////////////METRISEIS///////////////////////////////
 /*

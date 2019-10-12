@@ -15,7 +15,7 @@ string NNpair::getq_id(){
 int NNpair::getq_id_as_int() {
     string tmp = q_id;
     int my_id=0;
-    for (int i=0;i<q_id.length();i++) {
+    for (unsigned int i=0;i<q_id.length();i++) {
         if (isdigit(q_id[i])) {
             tmp = q_id.substr(i, q_id.length()-1);
             my_id = atoi(tmp.c_str());
@@ -35,7 +35,7 @@ string NNpair::getp_id(){
 int NNpair::getp_id_as_int() {
     string tmp = p_id;
     int my_id=0;
-    for (int i=0;i<p_id.length();i++) {
+    for (unsigned int i=0;i<p_id.length();i++) {
         if (isdigit(p_id[i])) {
             tmp = p_id.substr(i, p_id.length()-1);
             my_id = atoi(tmp.c_str());
