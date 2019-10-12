@@ -9,15 +9,6 @@
 #include <cmath>
 #include "a.h"
 
-template <class T>
-T lousy_metric(std::vector<T> v1, std::vector<T> v2){
-
-  T result =31;
-
-	return result;
-
-}
-
 int main (int argc, char*argv[]) {
 
 
@@ -95,8 +86,8 @@ int main (int argc, char*argv[]) {
     qfile.close();
 
     double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
-    for(int i=0; i<vectors_array.size(); i++)
-      for(int j=0; j<query_vectors_array.size(); j++)
+    for(unsigned int i=0; i<vectors_array.size(); i++)
+      for(unsigned int j=0; j<query_vectors_array.size(); j++)
         Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
 
 
@@ -109,10 +100,10 @@ int main (int argc, char*argv[]) {
 
     //prepei na brw ton actual nearest neighbour
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
-    for(int i=0; i<query_vectors_array.size(); i++){
+    for(unsigned int i=0; i<query_vectors_array.size(); i++){
       std::string min_id;
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-      for(int j=0; j<vectors_array.size(); j++){
+      for(unsigned int j=0; j<vectors_array.size(); j++){
         if(Brute_Distance_Matrix[j][i] < min){
           min = Brute_Distance_Matrix[j][i];
           min_id =  vectors_array[j].get_id();
@@ -127,7 +118,7 @@ int main (int argc, char*argv[]) {
     for(int i=0; i<actual_NNs.size(); i++)
         myfile << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
     myfile.close();*/
-
+/*
         my_vector<int> one_v_atime2(line);
         for(unsigned int i=0; i<vectors_array.size(); i++)
           Brute_Distance_Matrix[qline_curr][i] = manhattan_distance(vectors_array[i].get_v(), one_v_atime2.get_v());
@@ -138,11 +129,11 @@ int main (int argc, char*argv[]) {
     for(int i=0; i<qline_curr; i++)
       for(unsigned int j=0; j< vectors_array.size(); j++)
         std::cout << Brute_Distance_Matrix[qline_curr][i] << "\n";
-
+    
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
-
+*/
 ////////////////////////////METRISEIS///////////////////////////////
 /*
 Compare apotelesmata twn 4 parallagwn:{
@@ -155,6 +146,7 @@ ws pros: {
     b) mean time euresis tou approx NN
 }
 */
+
 
 
 }
