@@ -22,7 +22,7 @@ my_vector<T>::my_vector(std::string inp){
     string the_id = tokens[0]; //to id einai to prwto
     my_vector<T>::set_id(the_id);
 
-    for(int i=1; i< tokens.size(); i++){
+    for(unsigned int i=1; i< tokens.size(); i++){
         stringstream tool(tokens[i]);
         int dimens_i = 0;
         tool >> dimens_i;
@@ -55,7 +55,7 @@ template <class T>
 int my_vector<T>::get_id_as_int() {
     string tmp = id;
     int my_id=0;
-    for (int i=0;i<id.length();i++) {
+    for (unsigned int i=0;i<id.length();i++) {
         if (isdigit(id[i])) {
             tmp = id.substr(i, id.length()-1);
             my_id = atoi(tmp.c_str());

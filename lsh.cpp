@@ -7,6 +7,7 @@
 #include <limits>
 #include "NNpair.h"
 #include <cmath>
+#include "a.h"
 
 template <class T>
 T lousy_metric(std::vector<T> v1, std::vector<T> v2){
@@ -19,19 +20,6 @@ T lousy_metric(std::vector<T> v1, std::vector<T> v2){
 
 int main (int argc, char*argv[]) {
 
-    /*
-    AUTO LEITOURGEI - TESTING GIA MANHATTAN FUNCTION
-    NOT USED
-    std::vector<int> v1;
-    for (int i = 1; i <= 5; i++)
-        v1.push_back(i);
-    std::vector<int> v2;
-    for (int j = 8; j <= 12; j++)
-        v2.push_back(j);
-
-    double res = manhattan_distance(v1,v2);
-    printf("\nManh Dist is %f...\n", res);
-    */
 
 ////////////////////////////A - VECTORS//////////////////////////////
     //read files
@@ -52,9 +40,9 @@ int main (int argc, char*argv[]) {
     //creation of L HTs
 
     //LSH for vectors
-    int k=0; //plithos hi functions gia dimiourgia twn g
+    //int k=0; //plithos hi functions gia dimiourgia twn g
     //default int k=4;
-    int L=0; //posa hash tables
+    //int L=0; //posa hash tables
     //default int L=5;
 
 
@@ -103,7 +91,6 @@ int main (int argc, char*argv[]) {
       my_vector<int> one_v_atime2(line);
       query_vectors_array.push_back(one_v_atime2);
 
-
     };
     qfile.close();
 
@@ -140,6 +127,18 @@ int main (int argc, char*argv[]) {
     for(int i=0; i<actual_NNs.size(); i++)
         myfile << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
     myfile.close();*/
+
+        my_vector<int> one_v_atime2(line);
+        for(unsigned int i=0; i<vectors_array.size(); i++)
+          Brute_Distance_Matrix[qline_curr][i] = manhattan_distance(vectors_array[i].get_v(), one_v_atime2.get_v());
+
+        qline_curr++ ;
+    };
+    qfile.close();
+    for(int i=0; i<qline_curr; i++)
+      for(unsigned int j=0; j< vectors_array.size(); j++)
+        std::cout << Brute_Distance_Matrix[qline_curr][i] << "\n";
+
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
