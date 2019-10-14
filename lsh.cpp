@@ -13,14 +13,6 @@
 
 int main (int argc, char*argv[]) {
 
-
-  
-  //a a1 = a::a(0.5);
-  a<double> a1(0.5);
-  int a2 = a1.get_a(-3.5);
-  fprintf(stderr, "\n\n%d\n\n", a2);
-
-////////////////////////////A - VECTORS//////////////////////////////
   int k=-1;
   int L=-1;
   bool dset, qset, oset = false;
@@ -74,10 +66,10 @@ int main (int argc, char*argv[]) {
     while (std::getline(qfile, line)){
       my_vector<int> one_v_atime2(line);
       query_vectors_array.push_back(one_v_atime2);
-
     };
     qfile.close();
 
+    fprintf(stderr, "ws edw ok\n");
     double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
     for(unsigned int i=0; i<vectors_array.size(); i++)
       for(unsigned int j=0; j<query_vectors_array.size(); j++)
@@ -92,6 +84,7 @@ int main (int argc, char*argv[]) {
     myfile.close();
 */
     //prepei na brw ton actual nearest neighbour
+    
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
     for(unsigned int i=0; i<query_vectors_array.size(); i++){
       std::string min_id;
@@ -114,11 +107,13 @@ int main (int argc, char*argv[]) {
     myfile2.close();
 */
     //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
+    
     if(oset == false){
       std::cout << "Define output file path:\n";
       std::string inp1;
       std::cin >> output_path;
     }
+    fprintf(stderr,"OUT FILE OK\n\n");
     //TO IDIO GIA TA k, L
     if(k < 0){
       std::cout << "Define k value\n";
@@ -129,10 +124,7 @@ int main (int argc, char*argv[]) {
       std::cin >> L;
     }
 
-    //read files
-    //an oxi apo path pou grafei o user
-    //    $./lsh –d <input file> –q <query file> –k <int> -L <int> -ο <output file>
-    //dataset: me tabs anamesa, ka8e grammi: id1    x11     x12     x13...
+    //dataset: me spaces anamesa, ka8e grammi: id1 x11 x12 x13...
     //N to plithos twn
     //ids mporei na einai mondaikoi akeraioi h strings
 
@@ -185,6 +177,4 @@ ws pros: {
     b) mean time euresis tou approx NN
 }
 */
-
-
 }
