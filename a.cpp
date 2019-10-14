@@ -13,7 +13,7 @@ a<T>::a(double w_to_be) { //pairnei san orisma to 4 * r opou r h mesi apostasi v
     std::mt19937 generator(rand_dev());
     std::uniform_real_distribution<double>  distr(range_from, range_to);
     si = distr(generator);
-    //fprintf(stderr, "My si is %f\n", si);
+    fprintf(stderr, "My si is %f\n", si);
 }
 
 template <class T>

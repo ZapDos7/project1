@@ -17,7 +17,7 @@ int main (int argc, char*argv[]) {
   
   //a a1 = a::a(0.5);
   a<double> a1(0.5);
-  int a2 = a1.get_a(3.5);
+  int a2 = a1.get_a(-3.5);
   fprintf(stderr, "\n\n%d\n\n", a2);
 
 ////////////////////////////A - VECTORS//////////////////////////////
