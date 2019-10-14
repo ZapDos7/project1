@@ -2,7 +2,8 @@
 
 using namespace std;
 
-a::a(double w_to_be) { //pairnei san orisma to 4 * r opou r h mesi apostasi vectors
+template <class T>
+a<T>::a(double w_to_be) { //pairnei san orisma to 4 * r opou r h mesi apostasi vectors
     w = w_to_be;
 
     //http://www.cplusplus.com/reference/random/uniform_real_distribution/
@@ -11,13 +12,14 @@ a::a(double w_to_be) { //pairnei san orisma to 4 * r opou r h mesi apostasi vect
     std::random_device rand_dev;
     std::mt19937 generator(rand_dev());
     std::uniform_real_distribution<double>  distr(range_from, range_to);
-    si = distr(generator); 
+    si = distr(generator);
 }
 
-a::~a() {}
+template <class T>
+a<T>::~a() {}
 
-
-int a::get_a(double coordinate) { //pairnei san orisma ena coordinate enos vector (tupou double) kai epistrefei to ai(xi)
+template <class T>
+int a<T>::get_a(T coordinate) { //pairnei san orisma ena coordinate enos vector (tupou double) kai epistrefei to ai(xi)
     double result = 0;
     result = coordinate - si;
     return floor(result / w);

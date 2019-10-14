@@ -4,6 +4,7 @@
 #include <fstream>
 #include <typeinfo>
 #include <stdlib.h>
+#include <cstring>
 #include "utils.h"
 #include <limits>
 #include "NNpair.h"
@@ -24,13 +25,13 @@ int main (int argc, char*argv[]) {
 
   for(int i=0; i<argc; i++){
     if(strcmp("-d",argv[i])==0)
-      {strcpy(dataset_path,argv[i+1]); dset = true;} //pairnw to swsto onoma arxeiou apo to command line
+      {strcpy(dataset_path,argv[i+1]); dset = true; std::cout <<"toxw\n";} //pairnw to swsto onoma arxeiou apo to command line
 
     if(strcmp("-q",argv[i])==0)
-      {strcpy(query_dataset_path,argv[i+1]); qset=true;}  //dinw timh sto K bash command line
+      {strcpy(query_dataset_path,argv[i+1]); qset=true;std::cout <<"toxw\n";}  //dinw timh sto K bash command line
 
     if(strcmp("-o",argv[i])==0)
-      {strcpy(output_path,argv[i+1]); oset=true;}
+      {strcpy(output_path,argv[i+1]); oset=true;std::cout <<"toxw\n";}
 
     if(strcmp("-k",argv[i])==0)
       {k = atoi(argv[i+1]);}
@@ -39,6 +40,7 @@ int main (int argc, char*argv[]) {
       {L = atoi(argv[i+1]);}
 
   }
+
     //read files
     //an oxi apo path pou grafei o user
     //    $./lsh –d <input file> –q <query file> –k <int> -L <int> -ο <output file>
@@ -86,6 +88,7 @@ int main (int argc, char*argv[]) {
       std::string inp1;
       std::cin >> dataset_path;
     }
+
     std::ifstream infile(dataset_path);
     std::string line;
     std::vector <my_vector<int> > vectors_array;
@@ -118,12 +121,35 @@ int main (int argc, char*argv[]) {
         Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
 
 
-    std::ofstream myfile;
+
+    /*std::ofstream myfile;
     myfile.open ("example.txt");
     for(int i=0; i<vectors_array.size(); i++)
       for(int j=0; j< query_vectors_array.size(); j++)
         myfile << Brute_Distance_Matrix[i][j] << "\n";
-    myfile.close();
+    myfile.close();*/
+
+    //prepei na brw ta zeugaria ap to input gia ypologismo w???
+    std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
+    for(int i=0; i<vectors_array.size(); i++){
+
+      std::string min_id1;
+      double min1 = std::numeric_limits<double>::max();//min pairnei timh apeiro
+      for(int j=0; j<vectors_array.size(); j++){
+        if(manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v()) ==0) //einai to idio shmeio
+          continue;
+
+        if(manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v()) < min1){
+          min1 = manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v());
+          min_id1 =  vectors_array[j].get_id();
+        }
+      }
+      NNpair single_pair1(vectors_array[i].get_id(), min_id1);
+      single_pair1.set_distance(min1);
+      input_actual_NNs.push_back(single_pair1);
+
+    }
+
 
     //prepei na brw ton actual nearest neighbour
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
@@ -137,16 +163,25 @@ int main (int argc, char*argv[]) {
         }
       }
       NNpair single_pair(query_vectors_array[i].get_id(), min_id);
+      single_pair.set_distance(min);
       actual_NNs.push_back(single_pair);
+
     }
 
-    std::ofstream myfile2;
+    /*std::ofstream myfile2;
     myfile2.open ("example2.txt");
     for(int i=0; i<actual_NNs.size(); i++)
-        myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
-    myfile2.close();
+        myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << " " << actual_NNs[i].get_distance() <<"\n";
+    myfile2.close();*/
+
+    /*std::ofstream myfile3;
+    myfile3.open ("example3.txt");
+    for(int i=0; i<input_actual_NNs.size(); i++)
+        myfile3 << input_actual_NNs[i].getq_id() << " " << input_actual_NNs[i].getp_id() << " " << input_actual_NNs[i].get_distance() << "\n";
+    myfile3.close();*/
 
     //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
+    std::cout <<"anneyong ok\n";
     if(oset == false){
       std::cout << "Define output file path:\n";
       std::string inp1;
