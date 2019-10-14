@@ -8,11 +8,17 @@
 #include <limits>
 #include "NNpair.h"
 #include <cmath>
-//#include "a.h"
+#include "a.h"
 
 
 int main (int argc, char*argv[]) {
 
+
+  
+  //a a1 = a::a(0.5);
+  a<double> a1(0.5);
+  int a2 = a1.get_a(3.5);
+  fprintf(stderr, "\n\n%d\n\n", a2);
 
 ////////////////////////////A - VECTORS//////////////////////////////
   int k=-1;
@@ -39,6 +45,90 @@ int main (int argc, char*argv[]) {
       {L = atoi(argv[i+1]);}
 
   }
+
+    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI DATASET:
+    if(dset == false){
+      std::cout << "Define dataset path:\n";
+      //std::string inp1;
+      std::cin >> dataset_path;
+    }
+    std::ifstream infile(dataset_path);
+    std::string line;
+    std::vector <my_vector<int> > vectors_array;
+    while (std::getline(infile, line)){
+        my_vector<int> one_v_atime(line);
+        //std::cout << one_v_atime.get_id()  <<"\n" ;
+        vectors_array.push_back(one_v_atime);
+    };
+    infile.close();
+    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATH QUERIES
+    if(qset == false){
+      std::cout << "Define query dataset path:\n";
+      //std::string inp1;
+      std::cin >> query_dataset_path;
+    }
+    std::ifstream qfile(query_dataset_path);
+    //std::vector <my_vector<int> > query_vectors_array;
+    //vector<vector<double>> DistanceMatrix;
+    std::vector <my_vector<int> > query_vectors_array;
+    while (std::getline(qfile, line)){
+      my_vector<int> one_v_atime2(line);
+      query_vectors_array.push_back(one_v_atime2);
+
+    };
+    qfile.close();
+
+    double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
+    for(unsigned int i=0; i<vectors_array.size(); i++)
+      for(unsigned int j=0; j<query_vectors_array.size(); j++)
+        Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
+/*Distance Matrix*/
+/*
+    std::ofstream myfile;
+    myfile.open ("example.txt");
+    for(int i=0; i<vectors_array.size(); i++)
+      for(int j=0; j< query_vectors_array.size(); j++)
+        myfile << Brute_Distance_Matrix[i][j] << "\n";
+    myfile.close();
+*/
+    //prepei na brw ton actual nearest neighbour
+    std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
+    for(unsigned int i=0; i<query_vectors_array.size(); i++){
+      std::string min_id;
+      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
+      for(unsigned int j=0; j<vectors_array.size(); j++){
+        if(Brute_Distance_Matrix[j][i] < min){
+          min = Brute_Distance_Matrix[j][i];
+          min_id =  vectors_array[j].get_id();
+        }
+      }
+      NNpair single_pair(query_vectors_array[i].get_id(), min_id);
+      actual_NNs.push_back(single_pair);
+    }
+    /*Actual NN*/
+/*
+    std::ofstream myfile2;
+    myfile2.open ("example2.txt");
+    for(int i=0; i<actual_NNs.size(); i++)
+        myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
+    myfile2.close();
+*/
+    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
+    if(oset == false){
+      std::cout << "Define output file path:\n";
+      std::string inp1;
+      std::cin >> output_path;
+    }
+    //TO IDIO GIA TA k, L
+    if(k < 0){
+      std::cout << "Define k value\n";
+      std::cin >> k;
+    }
+    if(L < 0){
+      std::cout << "Define L value\n";
+      std::cin >> L;
+    }
+
     //read files
     //an oxi apo path pou grafei o user
     //    $./lsh –d <input file> –q <query file> –k <int> -L <int> -ο <output file>
@@ -80,87 +170,7 @@ int main (int argc, char*argv[]) {
     itemW //bonus
     */
 
-    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI DATASET:
-    if(dset == false){
-      std::cout << "Define dataset path:\n";
-      std::string inp1;
-      std::cin >> dataset_path;
-    }
-    std::ifstream infile(dataset_path);
-    std::string line;
-    std::vector <my_vector<int> > vectors_array;
-    while (std::getline(infile, line)){
-        my_vector<int> one_v_atime(line);
-        //std::cout << one_v_atime.get_id()  <<"\n" ;
-        vectors_array.push_back(one_v_atime);
-    };
-    infile.close();
-    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATH QUERIES
-    if(qset == false){
-      std::cout << "Define query dataset path:\n";
-      std::string inp1;
-      std::cin >> query_dataset_path;
-    }
-    std::ifstream qfile(query_dataset_path);
-    //std::vector <my_vector<int> > query_vectors_array;
-    //vector<vector<double>> DistanceMatrix;
-    std::vector <my_vector<int> > query_vectors_array;
-    while (std::getline(qfile, line)){
-      my_vector<int> one_v_atime2(line);
-      query_vectors_array.push_back(one_v_atime2);
 
-    };
-    qfile.close();
-
-    double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
-    for(int i=0; i<vectors_array.size(); i++)
-      for(int j=0; j<query_vectors_array.size(); j++)
-        Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
-
-
-    std::ofstream myfile;
-    myfile.open ("example.txt");
-    for(int i=0; i<vectors_array.size(); i++)
-      for(int j=0; j< query_vectors_array.size(); j++)
-        myfile << Brute_Distance_Matrix[i][j] << "\n";
-    myfile.close();
-
-    //prepei na brw ton actual nearest neighbour
-    std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
-    for(int i=0; i<query_vectors_array.size(); i++){
-      std::string min_id;
-      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-      for(int j=0; j<vectors_array.size(); j++){
-        if(Brute_Distance_Matrix[j][i] < min){
-          min = Brute_Distance_Matrix[j][i];
-          min_id =  vectors_array[j].get_id();
-        }
-      }
-      NNpair single_pair(query_vectors_array[i].get_id(), min_id);
-      actual_NNs.push_back(single_pair);
-    }
-
-    std::ofstream myfile2;
-    myfile2.open ("example2.txt");
-    for(int i=0; i<actual_NNs.size(); i++)
-        myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << "\n";
-    myfile2.close();
-
-    //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
-    if(oset == false){
-      std::cout << "Define output file path:\n";
-      std::string inp1;
-      std::cin >> output_path;
-    }
-    //TO IDIO GIA TA k, L
-    if(k < 0){
-      std::cout << "Define k value\n";
-      std::cin >> k;
-    }
-    if(L < 0){
-      std::cout << "Define L value\n";
-      std::cin >> L;
-    }
 
 
 ////////////////////////////METRISEIS///////////////////////////////

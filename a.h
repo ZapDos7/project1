@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random> // uniform_real_distribution
 
+template <class T>
 class a
 {
 private:
@@ -13,6 +14,6 @@ private:
 public:
     a(double w_to_be); //pairnei san orisma to 4 * r opou r h mesi apostasi vectors
     ~a();
-    int get_a(double coordinate); //pairnei san orisma ena coordinate enos vector (tupou double) kai epistrefei to ai(xi)
+    int get_a(T coordinate); //pairnei san orisma ena coordinate enos vector kai epistrefei to ai(xi)
 };
 #endif
