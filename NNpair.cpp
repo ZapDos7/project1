@@ -47,3 +47,11 @@ int NNpair::getp_id_as_int() {
 void NNpair::setp_id(std::string idd){
 	p_id = idd;
 }
+
+double NNpair::get_distance(){
+	return distance;
+}
+
+void NNpair::set_distance(double dis){
+	distance = dis;
+}
