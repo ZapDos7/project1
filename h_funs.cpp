@@ -11,8 +11,9 @@ h_funs<T>::h_funs(int k, int dimens, int w_to_be) {
     std::mt19937 generator(rand_dev());
     std::uniform_real_distribution<double>  distr(0, w);
     for (int i=0; i<dimensions; ++i) {
-        sis[i] = distr(generator);
-        fprintf(stderr, "%f\n", sis[i]);
+        //sis[i].push_back(distr(generator);
+        sis.push_back(distr(generator));
+        //fprintf(stderr, "%f\n", sis[i]);
     }
 }
 
