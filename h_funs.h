@@ -1,21 +1,28 @@
 #ifndef _H_FUNS_H_
 #define _H_FUNS_H_
 
-#include "a.h"
+#include "utils.h"
 #include <vector>
+#include "my_vector.h"
+#include <cmath> //floor
+#include <iostream>
+#include <random> // uniform_real_distribution
+
 /*Here we have a class of h functions which, concat'ed produce a G function which is associated with a HT - and we make L of them!*/
 
 template <class T>
 class h_funs
 {
 private:
-    int m;
-    //M
-    //std::vector<a<T>> ais;
-    int dimensions;
+    const long int m = 4294967291; //2 ^ 32 - 5
+    double w; //paronomastis - cell size gia ta ai
+    long int M; //M = 2^(32/k)
+    std::vector<double> sis; //ta si pou xaraktirizoun thn h
+    int dimensions; //edw d = 128 but we never know
 public:
-    h_funs(/* args */);
+    h_funs(int k, int dimens, int w_to_be);
     ~h_funs();
+    long int actual_function(my_vector<T> x);
 };
 
 

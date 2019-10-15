@@ -9,11 +9,9 @@
 #include <limits>
 #include "NNpair.h"
 #include <cmath>
-//#include "a.h"
 
 
 int main (int argc, char*argv[]) {
-
 
 ////////////////////////////A - VECTORS//////////////////////////////
   int k=-1;
@@ -116,8 +114,8 @@ int main (int argc, char*argv[]) {
     qfile.close();
 
     double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
-    for(int i=0; i<vectors_array.size(); i++)
-      for(int j=0; j<query_vectors_array.size(); j++)
+    for(unsigned int i=0; i<vectors_array.size(); i++)
+      for(unsigned int j=0; j<query_vectors_array.size(); j++)
         Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
 
 
@@ -131,11 +129,11 @@ int main (int argc, char*argv[]) {
 
     //prepei na brw ta zeugaria ap to input gia ypologismo w???
     std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
-    for(int i=0; i<vectors_array.size(); i++){
+    for(unsigned int i=0; i<vectors_array.size(); i++){
 
       std::string min_id1;
       double min1 = std::numeric_limits<double>::max();//min pairnei timh apeiro
-      for(int j=0; j<vectors_array.size(); j++){
+      for(unsigned int j=0; j<vectors_array.size(); j++){
         if(manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v()) ==0) //einai to idio shmeio
           continue;
 
@@ -153,10 +151,10 @@ int main (int argc, char*argv[]) {
 
     //prepei na brw ton actual nearest neighbour
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
-    for(int i=0; i<query_vectors_array.size(); i++){
+    for(unsigned int i=0; i<query_vectors_array.size(); i++){
       std::string min_id;
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-      for(int j=0; j<vectors_array.size(); j++){
+      for(unsigned int j=0; j<vectors_array.size(); j++){
         if(Brute_Distance_Matrix[j][i] < min){
           min = Brute_Distance_Matrix[j][i];
           min_id =  vectors_array[j].get_id();
