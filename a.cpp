@@ -19,8 +19,13 @@ template <class T>
 a<T>::~a() {}
 
 template <class T>
-int a<T>::get_a(T coordinate) { //pairnei san orisma ena coordinate enos vector (tupou double) kai epistrefei to ai(xi)
+int a<T>::get_a(T coordinate) { //pairnei san orisma ena coordinate enos vector kai epistrefei to ai(xi)
     double result = 0;
     result = coordinate - si;
-    return floor(result / w);
+    return (int)floor(result / w);
 }
+
+template class a<float>;
+template class a<int>;
+template class a<double>;
+
