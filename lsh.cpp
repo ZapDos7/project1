@@ -9,9 +9,12 @@
 #include <limits>
 #include "NNpair.h"
 #include <cmath>
+#include "h_funs.h"
 
 
 int main (int argc, char*argv[]) {
+
+  h_funs<int> h_funs(1,2,3);
 
 ////////////////////////////A - VECTORS//////////////////////////////
   int k=-1;

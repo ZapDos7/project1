@@ -22,7 +22,7 @@ private:
 public:
     h_funs(int k, int dimens, int w_to_be);
     ~h_funs();
-    long int actual_function(my_vector<T> x);
+    long int actual_function(my_vector<T> x); //long int takes at least 32 bits = 4 bytes
 };
 
 

@@ -85,13 +85,13 @@ double manhattan_distance(std::vector<T> v1, std::vector<T> v2) { //sum twn (apo
     //std::cerr << "Ara telika exw " << result << "\n";
 	return result;
 }
-
-int our_mod(int a, int b); //a mod b
+/*
+//int our_mod(int a, int b); //a mod b
 int our_mod (int a, int b){ //returns remainder as it should
 	return (a % b + b) % b;
 }
 
-int mod_pow(int b, int e, int m);//https://en.wikipedia.org/wiki/Modular_exponentiation#Memory-efficient_method
+//int mod_pow(int b, int e, int m);//https://en.wikipedia.org/wiki/Modular_exponentiation#Memory-efficient_method
 int mod_pow(int b, int e, int m) {
 	int c = 0;
 	if (m==1) {
@@ -105,5 +105,5 @@ int mod_pow(int b, int e, int m) {
 	}
 }
 
-
+*/
 #endif
