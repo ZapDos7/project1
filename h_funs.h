@@ -1,7 +1,6 @@
 #ifndef _H_FUNS_H_
 #define _H_FUNS_H_
 
-//#include "utils.h"
 #include <vector>
 #include "my_vector.h"
 #include <cmath> //floor

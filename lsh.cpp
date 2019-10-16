@@ -15,7 +15,7 @@
 int main (int argc, char*argv[]) {
 
   //h_funs<int> h_funs(1,2,3);
-  fprintf(stderr, "\n%d\n", mod_pow(4,13,497));
+  //fprintf(stderr, "\n%d\n", mod_pow(4,13,497));
 
 ////////////////////////////A - VECTORS//////////////////////////////
   int k=-1;

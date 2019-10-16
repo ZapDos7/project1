@@ -30,14 +30,15 @@ h_funs<T>::~h_funs() {}
 
 template <class T>
 long int h_funs<T>::actual_function(my_vector<T> x) {
+    std::vector<T> the_v = x.get_v();
     /*
     double result = 0;
     result = coordinate - si;
     return (int)floor(result / w);
     */
-    std::vector<T> the_v = x.get_v();
-    long int result_part =0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
-    long int ai =0;
+    
+    long int result_part = 0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
+    long int ai = 0;
     long int result = 0;
     for(int i=0; i<dimensions; i++){
         ai = floor((the_v[i] - sis[i])/w);
