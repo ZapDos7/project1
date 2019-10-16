@@ -13,9 +13,9 @@ template <class T>
 class h_funs
 {
 private:
-    const long int m = 4294967291; //2 ^ 32 - 5
+    const long long int m = 4294967291; //2 ^ 32 - 5 de xwraei se mikrotero!
     double w; //paronomastis - cell size gia ta ai
-    long int M; //M = 2^(32/k)
+    long long int M; //M = 2^(32/k) de xwraei se mikrotero!
     std::vector<double> sis; //ta si pou xaraktirizoun thn h
     int dimensions; //edw d = 128 but we never know
 public:
@@ -25,8 +25,8 @@ public:
     long int actual_function(my_vector<T> x); //long int takes at least 32 bits = 4 bytes
 };
 
-int our_mod(int a, int b); //a mod b
-int mod_pow(int b, int e, int m);//https://en.wikipedia.org/wiki/Modular_exponentiation#Memory-efficient_method
+long int our_mod(long int a, long int b); //a mod b
+long int mod_pow(long int b, int e, long long int m);//https://en.wikipedia.org/wiki/Modular_exponentiation#Memory-efficient_method
 
 
 

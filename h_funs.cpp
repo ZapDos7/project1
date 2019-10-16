@@ -10,7 +10,8 @@ int our_mod(T a, T b){ //returns remainder as it should
 
 template <class T>
 h_funs<T>::h_funs(int k, int dimens, int w_to_be) {
-    M = floor(pow(2,(double)(32/k)));
+    M = (long int) floor(pow(2,(double)(32/k)));
+    //std::cout << "eftiaksa" << M <<"\n";
     dimensions = dimens;
     w = w_to_be;
     //now si's
@@ -31,6 +32,7 @@ h_funs<T>::~h_funs() {}
 
 template <class T>
 long int h_funs<T>::individual_comp(long int ai, int expon){//expon o ek8eths tou m
+  std::cout << "eftiaksa" << M <<"\n";
   int component_1 = mod_pow(m, expon, M);
   int component_2 = our_mod(ai, M);
   long int result = our_mod(component_1*component_2, M); //de xreiazetai exponentiation, kai ta 2 components mikrotera tou M
@@ -42,7 +44,7 @@ long int h_funs<T>::individual_comp(long int ai, int expon){//expon o ek8eths to
 template <class T>
 long int h_funs<T>::actual_function(my_vector<T> x) {
     std::vector<T> the_v = x.get_v();
-  
+
     long int result_part = 0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
     long int ai = 0;
     long int result = 0;
@@ -57,13 +59,13 @@ long int h_funs<T>::actual_function(my_vector<T> x) {
 }
 
 
-int our_mod (int a, int b){ //returns remainder as it should
+long int our_mod (long int a, long int b){ //returns remainder as it should
 	return (a % b + b) % b;
 }
 
 
-int mod_pow(int b, int e, int m) {
-	int c = 1;
+long int mod_pow(long int b, int e, long long int m) {
+	long int c = 1;
 	if (m==1) {
 		return 0;
 	}
@@ -71,6 +73,7 @@ int mod_pow(int b, int e, int m) {
 		for (int i = 0; i < e; i++) {
 			c = our_mod(c*b, m);
 		}
+
 		return c;
 	}
 }
