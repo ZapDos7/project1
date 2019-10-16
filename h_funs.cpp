@@ -43,12 +43,31 @@ long int h_funs<T>::actual_function(my_vector<T> x) {
         ai = floor((the_v[i] - sis[i])/w);
         result_part = floor(pow(m, (double)(dimensions - i) ));
         result_part *= ai;
-        //result_part = our_mod(result_part, M);
+        result_part = our_mod(result_part, M);
         result += result_part;
     }
 
    return result;
 }
+
+int our_mod (int a, int b){ //returns remainder as it should
+	return (a % b + b) % b;
+}
+
+
+int mod_pow(int b, int e, int m) {
+	int c = 1;
+	if (m==1) {
+		return 0;
+	}
+	else {
+		for (int i = 0; i < e; i++) {
+			c = our_mod(c*b, m);
+		}
+		return c;
+	}
+}
+
 
 template class h_funs<float>;
 template class h_funs<int>;
