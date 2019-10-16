@@ -1,9 +1,11 @@
 #include "h_funs.h"
 
+/*
 template <class T>
 int our_mod(T a, T b){ //returns remainder as it should
 	return (a % b + b) % b;
 }
+*/
 
 template <class T>
 h_funs<T>::h_funs(int k, int dimens, int w_to_be) {
@@ -26,23 +28,23 @@ template <class T>
 h_funs<T>::~h_funs() {}
 
 template <class T>
-long int actual_function(my_vector<T> x) {
+long int h_funs<T>::actual_function(my_vector<T> x) {
     /*
     double result = 0;
     result = coordinate - si;
     return (int)floor(result / w);
     */
     std::vector<T> the_v = x.get_v();
-   long int result_part =0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
-   long int ai =0;
-   long int result = 0;
-   for(int i=0; i<dimensions; i++){
-     ai = floor((the_v[i] - sis[i])/w);
-     result_part = floor(pow(m, (double)i ));
-     result_part *= ai;
-     result_part = our_mod(result_part, M);
-     result += result_part;
-   }
+    long int result_part =0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
+    long int ai =0;
+    long int result = 0;
+    for(int i=0; i<dimensions; i++){
+        ai = floor((the_v[i] - sis[i])/w);
+        result_part = floor(pow(m, (double)(dimensions - i) ));
+        result_part *= ai;
+        result_part = our_mod(result_part, M);
+        result += result_part;
+    }
 
    return result;
 }
