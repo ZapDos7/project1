@@ -28,28 +28,34 @@ h_funs<T>::h_funs(int k, int dimens, int w_to_be) {
 template <class T>
 h_funs<T>::~h_funs() {}
 
+
+template <class T>
+long int h_funs<T>::individual_comp(long int ai, int expon){//expon o ek8eths tou m
+  int component_1 = mod_pow(m, expon, M);
+  int component_2 = our_mod(ai, M);
+  long int result = our_mod(component_1*component_2, M); //de xreiazetai exponentiation, kai ta 2 components mikrotera tou M
+  return result;
+}
+
+
+
 template <class T>
 long int h_funs<T>::actual_function(my_vector<T> x) {
     std::vector<T> the_v = x.get_v();
-    /*
-    double result = 0;
-    result = coordinate - si;
-    return (int)floor(result / w);
-    */
-    
+  
     long int result_part = 0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
     long int ai = 0;
     long int result = 0;
-    for(int i=0; i<dimensions; i++){
-        ai = floor((the_v[i] - sis[i])/w);
-        result_part = floor(pow(m, (double)(dimensions - i) ));
-        result_part *= ai;
-        result_part = our_mod(result_part, M);
+    for(int i=dimensions-1; i<=0; i--){
+        ai = (long int)floor((the_v[i] - sis[i])/w);
+        result_part = individual_comp(ai, dimensions-1-i);
         result += result_part;
     }
+    result = our_mod(result, M);
 
    return result;
 }
+
 
 int our_mod (int a, int b){ //returns remainder as it should
 	return (a % b + b) % b;
