@@ -16,8 +16,8 @@ private:
 public:
     ht(int size_to_be);
     ~ht();
-    void set_vector(my_vector v);
-    int get_vector_bucket_number(my_vector v);
+    //void set_vector(my_vector v);
+    //int get_vector_bucket_number(my_vector v);
 };
 
 #endif
