@@ -7,6 +7,7 @@ int our_mod(T a, T b){ //returns remainder as it should
 }
 */
 
+
 template <class T>
 h_funs<T>::h_funs(int k, int dimens, int w_to_be) {
     M = floor(pow(2,(double)(32/k)));
@@ -42,7 +43,7 @@ long int h_funs<T>::actual_function(my_vector<T> x) {
         ai = floor((the_v[i] - sis[i])/w);
         result_part = floor(pow(m, (double)(dimensions - i) ));
         result_part *= ai;
-        result_part = our_mod(result_part, M);
+        //result_part = our_mod(result_part, M);
         result += result_part;
     }
 

@@ -93,9 +93,9 @@ int our_mod (int a, int b){ //returns remainder as it should
 
 //int mod_pow(int b, int e, int m);//https://en.wikipedia.org/wiki/Modular_exponentiation#Memory-efficient_method
 int mod_pow(int b, int e, int m) {
-	int c = 0;
+	int c = 1;
 	if (m==1) {
-		return c;
+		return 0;
 	}
 	else {
 		for (int i = 0; i < e; i++) {
