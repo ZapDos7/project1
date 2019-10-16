@@ -42,7 +42,7 @@ long int h_funs<T>::individual_comp(long int ai, int expon){//expon o ek8eths to
 
 
 template <class T>
-long int h_funs<T>::actual_function(my_vector<T> x) {
+long int h_funs<T>::actual_h_function(my_vector<T> x) {
     std::vector<T> the_v = x.get_v();
 
     long int result_part = 0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h

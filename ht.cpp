@@ -1,6 +1,13 @@
 #include "ht.h"
 
-ht::ht(/* args */){}
+template <class T>
+ht<T>::ht(int size_to_be){}
 
-ht::~ht(){}
+template <class T>
+ht<T>::~ht(){}
 
+template <class T>
+void ht<T>::set_vector(my_vector v) {}
+
+template <class T>
+int ht<T>::get_vector_bucket_number(my_vector v) {}

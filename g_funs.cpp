@@ -1,11 +1,17 @@
 #include "g_funs.h"
 
+template <class T>
+g_funs<T>::g_funs(int k_to_be) {
+    k = k_to_be;
+}
 
-g_funs::g_funs(/* args */){}
+template <class T>
+g_funs<T>::~g_funs(){}
 
-g_funs::~g_funs(){}
-
-int g_funs::actual_g_fun() {
-
-    return 0; //epistrefei int >= 0
+template <class T>
+int g_funs<T>::actual_g_function() {//epistrefei int >= 0
+    //pairnw tis k h_funs gia ena vector v
+    //tis kanw concat (me left shift + addition)
+    //to apotelesma to kanw mod Table_Size (blepe lsh.cpp)
+    //auto kathorize pou bazw to v sto Hash Table m
 }
