@@ -8,7 +8,7 @@
 template <class T>
 class my_vector {
 private:
-    std::string id;
+    std::string id; //ids mporei na einai mondaikoi akeraioi h strings opote valame int gia na dexetai kathe periptwsi
     std::vector<T> vec;
 public:
     my_vector< T >(std::string inp); // o conustructor gia parametropoihsh
