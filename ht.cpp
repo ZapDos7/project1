@@ -18,7 +18,6 @@ long int ht_cell<T>::get_g_value() {
     return g_value;
 }
 
-
 //?????????????????????????????
 template <class T>
 void ht_cell<T>::set_vector(my_vector<T> my_v_to_be) {
@@ -33,6 +32,9 @@ void ht_cell<T>::set_g_value(long int my_g_val_to_be) {
     return;
 }
 
+
+
+
 //HT
 
 template <class T>
@@ -40,6 +42,8 @@ ht<T>::ht(int size_to_be, int k_to_be, int dimensions, int w_to_be){
     g_funs<T> my_g_to_be(k_to_be, dimensions, w_to_be);
     my_g = my_g_to_be;
     size = size_to_be;
+    std::unordered_map<int, ht_cell<T> > table_to_be(size);
+    table = table_to_be;
 }
 
 template <class T>
@@ -47,5 +51,15 @@ ht<T>::~ht(){}
 
 template <class T>
 void ht<T>::hash_vector(my_vector<T> v) {
-    my_g.actual_g_function(v);
+    long int keyv = my_g.actual_g_function(v); //ypologise thn timh ths g gia to vector v
+    long int modded_keyv = our_mod(keyv, size); //kane thn timh auti mod table size
+    ht_cell<T> tmp_ht_cell(v,keyv); //krata se ena ht_cell to vector & to actual g value
+    table[modded_keyv] = tmp_ht_cell; //vale auto to ht_cell sto katallilo bucket tou table
 }
+
+
+
+
+//template class ht<float>;
+template class ht<int>;
+//template class ht<double>;
