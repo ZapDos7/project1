@@ -21,10 +21,11 @@ long int g_funs<T>::actual_g_function(my_vector<T> x) {//epistrefei int >= 0
     //std::vector<T> the_v = x.get_v();
     long int g_value=0;
     long int g_value2=0;
-    long int temp;
+    long int temp=0;
     for(int i =0; i<k; i++){
       temp = my_h_funs[i].actual_h_function(x);
       temp = temp << i+1;
+      std::cout << temp << " ";
       g_value += temp;
       g_value2 = g_value2 | temp;
     }

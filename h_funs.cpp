@@ -32,7 +32,7 @@ h_funs<T>::~h_funs() {}
 
 template <class T>
 long int h_funs<T>::individual_comp(long int ai, int expon){//expon o ek8eths tou m
-  std::cout << "eftiaksa" << M <<"\n";
+  //std::cout << "eftiaksa" << M <<"\n";
   int component_1 = mod_pow(m, expon, M);
   int component_2 = our_mod(ai, M);
   long int result = our_mod(component_1*component_2, M); //de xreiazetai exponentiation, kai ta 2 components mikrotera tou M
@@ -48,7 +48,7 @@ long int h_funs<T>::actual_h_function(my_vector<T> x) {
     long int result_part = 0; //h ontothta m^d * ai mod M, sto telos 8a a8roistoun auta gia to teliko apotelesma ths h
     long int ai = 0;
     long int result = 0;
-    for(int i=dimensions-1; i<=0; i--){
+    for(int i=dimensions-1; i>=0; i--){
         ai = (long int)floor((the_v[i] - sis[i])/w);
         result_part = individual_comp(ai, dimensions-1-i);
         result += result_part;
