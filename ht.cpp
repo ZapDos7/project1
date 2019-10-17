@@ -51,10 +51,10 @@ ht<T>::~ht(){}
 
 template <class T>
 void ht<T>::hash_vector(my_vector<T> v) {
-    long int keyv = my_g.actual_g_function(v); //ypologise thn timh ths g gia to vector v
+    /*long int keyv = my_g.actual_g_function(v); //ypologise thn timh ths g gia to vector v
     long int modded_keyv = our_mod(keyv, size); //kane thn timh auti mod table size
     ht_cell<T> tmp_ht_cell(v,keyv); //krata se ena ht_cell to vector & to actual g value
-    table[modded_keyv] = tmp_ht_cell; //vale auto to ht_cell sto katallilo bucket tou table
+    table[modded_keyv] = tmp_ht_cell; //vale auto to ht_cell sto katallilo bucket tou table*/
 }
 
 
