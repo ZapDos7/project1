@@ -49,5 +49,3 @@ template <class T>
 void ht<T>::hash_vector(my_vector<T> v) {
     my_g.actual_g_function(v);
 }
-
-template class ht<int>;

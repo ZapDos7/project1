@@ -19,7 +19,7 @@ private:
     std::vector<double> sis; //ta si pou xaraktirizoun thn h
     int dimensions; //edw d = 128 but we never know
 public:
-    h_funs<T>(int k, int dimens, int w_to_be);
+    h_funs(int k, int dimens, int w_to_be);
     ~h_funs();
     long int individual_comp(long int ai, int expon);//dinei ton kathe typo poy xreiazetai gia to teliko h, expon o ek8eths tou m
     long int actual_h_function(my_vector<T> x); //long int takes at least 32 bits = 4 bytes
