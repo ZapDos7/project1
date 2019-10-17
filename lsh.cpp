@@ -10,9 +10,14 @@
 #include "utils.h"
 #include "NNpair.h"
 #include "h_funs.h"
+#include "g_funs.h"
 
 
 int main (int argc, char*argv[]) {
+
+  my_vector<int> veko("item_id88	88 35 2 1 3 4 5 5 8 32 0 2 8 7 20 17 77 24 4 12 80 10 4 2 42 10 1 9 26 10 4 8 27 15 2 2 27 29 6 3 6 62 2 0 14 23 27 12 65 141 26 41 90 1 0 0 109 14 32 90 137 1 0 0 2 4 0 3 48 38 0 5 13 32 8 33 66 19 1 6 22 141 47 35 25 0 0 0 109 95 27 44 141 15 0 0 9 4 3 6 56 26 0 0 4 58 79 70 20 6 0 1 8 141 141 82 2 0 0 0 11 94 22 1 50 21 0 0 4 ");
+  g_funs<int> gufun(1, 128, 3000);
+  gufun.actual_g_function(veko);
 
   int k=-1;
   int L=-1;
@@ -170,7 +175,7 @@ int main (int argc, char*argv[]) {
       std::string inp1;
       std::cin >> output_path;
     }
-    
+
     //output.txt:
     //for each itemJ in queryset:
     /*

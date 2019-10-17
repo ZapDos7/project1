@@ -15,7 +15,7 @@ private:
 public:
     g_funs(int k_to_be, int dimensions, int w_to_be);
     ~g_funs();
-    int actual_g_function();
+    long int actual_g_function(my_vector<T> x);
 };
 
 #endif
