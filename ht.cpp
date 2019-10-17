@@ -32,15 +32,16 @@ void ht_cell<T>::set_g_value(long int my_g_val_to_be) {
     return;
 }
 
-
+template <class T>
+ht_cell<T>::~ht_cell(){}
 
 
 //HT
 
 template <class T>
 ht<T>::ht(int size_to_be, int k_to_be, int dimensions, int w_to_be){
-    g_funs<T> my_g_to_be(k_to_be, dimensions, w_to_be);
-    my_g = my_g_to_be;
+    //g_funs<T> my_g_to_be(k_to_be, dimensions, w_to_be);
+    my_g = g_funs<T>(k_to_be, dimensions, w_to_be);
     size = size_to_be;
     std::unordered_map<int, ht_cell<T> > table_to_be(size);
     table = table_to_be;

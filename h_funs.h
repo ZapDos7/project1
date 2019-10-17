@@ -13,7 +13,7 @@ template <class T>
 class h_funs
 {
 private:
-    const long long int m = 4294967291; //2 ^ 32 - 5 de xwraei se mikrotero!
+    long long int m = 4294967291; //2 ^ 32 - 5 de xwraei se mikrotero!
     double w; //paronomastis - cell size gia ta ai
     long long int M; //M = 2^(32/k) de xwraei se mikrotero!
     std::vector<double> sis; //ta si pou xaraktirizoun thn h

@@ -21,6 +21,7 @@ public:
     std::string get_id();
     int get_id_as_int();
     std::vector<T> get_v();
+    ~my_vector();
 };
 
 #endif

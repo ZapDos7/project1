@@ -74,6 +74,9 @@ vector<T> my_vector<T>::get_v() {
     return vec;
 }
 
+template <class T>
+my_vector<T>::~my_vector(){}
+
 template class my_vector<float>;
 template class my_vector<int>;
 template class my_vector<double>;

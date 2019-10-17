@@ -13,6 +13,7 @@ private:
   long int g_value;
 public:
   ht_cell<T>(my_vector<T> vector_in_cell, long int g_val_to_be);
+  ht_cell<T>(){};
   ~ht_cell();
   my_vector<T> get_vector();
   long int get_g_value();
