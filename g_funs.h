@@ -2,7 +2,7 @@
 #define _G_FUNS_H
 
 #include "h_funs.h"
-
+#include <bitset>
 
 /*Our class about the G-functions (k*h_functions) which produce the key which will determine where in the hash table our vector will go*/
 
