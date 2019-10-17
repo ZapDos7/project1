@@ -13,7 +13,7 @@ private:
     int k;
     std::vector<h_funs<T>> my_h_funs;
 public:
-    g_funs(int k_to_be);
+    g_funs(int k_to_be, int dimensions, int w_to_be);
     ~g_funs();
     int actual_g_function();
 };

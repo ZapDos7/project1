@@ -11,8 +11,8 @@ class ht
 private:
     int size;
     //https://en.cppreference.com/w/cpp/container/unordered_map
-    std::unordered_map<int, my_vector> table; //key == int, mapped value == my_vectors EKTOS an kanei map tis g(vectors) kai oxi ta idia?
-    g_funs my_g;
+    //std::unordered_map<int, my_vector> table; //key == int, mapped value == my_vectors EKTOS an kanei map tis g(vectors) kai oxi ta idia?
+    //g_funs my_g;
 public:
     ht(int size_to_be);
     ~ht();

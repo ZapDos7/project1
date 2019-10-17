@@ -1,8 +1,12 @@
 #include "g_funs.h"
 
 template <class T>
-g_funs<T>::g_funs(int k_to_be) {
+g_funs<T>::g_funs(int k_to_be, int dimensions, int w_to_be) {
     k = k_to_be;
+    for (unsigned int i = 0; i < k; i++) {
+        h_funs<T> temp_h_fun(k_to_be, dimensions, w_to_be);
+        my_h_funs.push_back(temp_h_fun);
+    }
 }
 
 template <class T>

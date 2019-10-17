@@ -25,7 +25,7 @@ public:
     long int actual_h_function(my_vector<T> x); //long int takes at least 32 bits = 4 bytes
 };
 
-long int our_mod(long int a, long int b); //a mod b
+long int our_mod(long int a, long long int b); //a mod b
 long int mod_pow(long int b, int e, long long int m);//https://en.wikipedia.org/wiki/Modular_exponentiation#Memory-efficient_method
 
 

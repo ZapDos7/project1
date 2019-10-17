@@ -59,12 +59,12 @@ long int h_funs<T>::actual_h_function(my_vector<T> x) {
 }
 
 
-long int our_mod (long int a, long int b){ //returns remainder as it should
+long int our_mod (long int a, long long int b){ //returns remainder as it should
 	return (a % b + b) % b;
 }
 
 
-long int mod_pow(long int b, int e, long long int m) {
+long int mod_pow(long int b, int e, long long int m) { //kaluptei thn akraia periptwsh k=1 => M = 2^32
 	long int c = 1;
 	if (m==1) {
 		return 0;
