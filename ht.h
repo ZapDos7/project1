@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "my_vector.h"
 
-
+//HT_CELL
 template <class T>
 class ht_cell {
 private:
@@ -20,8 +20,7 @@ public:
   void set_g_value(long int my_g_val_to_be);
 };
 
-
-
+//HT
 
 template <class T>
 class ht
