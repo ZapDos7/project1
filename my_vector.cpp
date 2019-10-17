@@ -1,11 +1,16 @@
-#include <string>
-#include <vector>
-#include <sstream>
-#include <stdlib.h> //atoi
 #include "my_vector.h"
-#include <cctype> //isdigit
 
 using namespace std;
+
+template <class T>
+my_vector<T>::my_vector(std::vector<T> v_to_be, std::string id_to_be) {
+    id = id_to_be;
+    typename vector< T >::iterator it2 = v_to_be.begin();
+    for(typename vector< T >::iterator it = vec.begin(); it != vec.end(); ++it) {
+        *it = *it2;
+        ++it2;
+    }
+}
 
 //to pneuma tou constructor einai na pairnei to input string - seira sto arxeio eisodou kai na kanei swsta tis arxikopoihseis
 template <class T>
