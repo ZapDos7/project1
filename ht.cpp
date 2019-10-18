@@ -43,8 +43,8 @@ ht<T>::ht(int size_to_be, int k_to_be, int dimensions, int w_to_be){
     //g_funs<T> my_g_to_be(k_to_be, dimensions, w_to_be);
     my_g = g_funs<T>(k_to_be, dimensions, w_to_be);
     size = size_to_be;
-    std::unordered_map<int, ht_cell<T> > table_to_be(size);
-    table = table_to_be;
+    //std::unordered_map<int, ht_cell<T> > table_to_be(size);
+    table.resize(size_to_be);
 }
 
 template <class T>
@@ -52,10 +52,14 @@ ht<T>::~ht(){}
 
 template <class T>
 void ht<T>::hash_vector(my_vector<T> v) {
-    /*long int keyv = my_g.actual_g_function(v); //ypologise thn timh ths g gia to vector v
+    long int keyv = my_g.actual_g_function(v); //ypologise thn timh ths g gia to vector v
     long int modded_keyv = our_mod(keyv, size); //kane thn timh auti mod table size
-    ht_cell<T> tmp_ht_cell(v,keyv); //krata se ena ht_cell to vector & to actual g value
-    table[modded_keyv] = tmp_ht_cell; //vale auto to ht_cell sto katallilo bucket tou table*/
+    //ht_cell<T> tmp_ht_cell(v,keyv); //krata se ena ht_cell to vector & to actual g value
+    std::pair<my_vector<T> * , long int> thepair;
+    thepair.first = &v;
+    thepair.second = keyv;
+    //table[modded_keyv] = tmp_ht_cell; //vale auto to ht_cell sto katallilo bucket tou table
+    table[modded_keyv].push_back(thepair);
 }
 
 

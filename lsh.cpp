@@ -15,9 +15,10 @@
 
 
 int main (int argc, char*argv[]) {
-  
+
   //test
   ht<int> a_table(10,20,3,40);
+  std::cout << "jADADDADAADADADADADaja";
   //
 
   int k=-1;
