@@ -15,7 +15,7 @@ g_funs<T>::~g_funs(){}
 template <class T>
 long int g_funs<T>::actual_g_function(my_vector<T> x) {//epistrefei int >= 0
 
-    
+
     //to apotelesma to kanw mod Table_Size (blepe lsh.cpp)
     //auto kathorize pou bazw to v sto Hash Table m
     //std::vector<T> the_v = x.get_v();
@@ -28,7 +28,7 @@ long int g_funs<T>::actual_g_function(my_vector<T> x) {//epistrefei int >= 0
         x = x << i+1; //tis kanw concat (me left shift...
         g_value2 = g_value2 | x; //... kai bitwise OR)
     }
-    std::cout << "G_value 2 as a long int is  " << g_value2.to_ulong() << "\n";
+    //std::cout << "G_value 2 as a long int is  " << g_value2.to_ulong() << "\n";
     return (long)(g_value2.to_ulong());
 }
 

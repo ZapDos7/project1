@@ -18,6 +18,9 @@ int main (int argc, char*argv[]) {
 
   //test
   ht<int> a_table(10,20,3,40);
+  std::string hatsu = "item_id8	8 16 36 10 7 0 0 31 30 11 69 90 7 0 17 38 29 0 15 112 15 5 9 41 5 0 3 22 36 32 10 6 1 112 66 11 36 13 2 7 29 112 102 96 32 36 4 0 30 3 5 68 44 91 34 2 1 3 16 30 55 42 14 6 0 112 15 22 86 24 24 10 30 112 6 6 10 52 43 112 112 6 1 1 7 84 112 99 21 6 7 11 17 9 59 44 4 13 0 0 14 70 51 7 2 8 1 0 0 27 45 100 91 28 5 0 0 0 33 75 62 20 8 9 5 0 3 7 41";
+  my_vector<int> veko(hatsu);
+  a_table.hash_vector(veko);
   std::cout << "jADADDADAADADADADADaja";
   //
 
