@@ -17,11 +17,11 @@
 int main (int argc, char*argv[]) {
 
   //test
-  ht<int> a_table(10,20,3,40);
-  std::string hatsu = "item_id8	8 16 36 10 7 0 0 31 30 11 69 90 7 0 17 38 29 0 15 112 15 5 9 41 5 0 3 22 36 32 10 6 1 112 66 11 36 13 2 7 29 112 102 96 32 36 4 0 30 3 5 68 44 91 34 2 1 3 16 30 55 42 14 6 0 112 15 22 86 24 24 10 30 112 6 6 10 52 43 112 112 6 1 1 7 84 112 99 21 6 7 11 17 9 59 44 4 13 0 0 14 70 51 7 2 8 1 0 0 27 45 100 91 28 5 0 0 0 33 75 62 20 8 9 5 0 3 7 41";
-  my_vector<int> veko(hatsu);
+  //ht<int> a_table(10,20,3,40);
+  //std::string hatsu = "item_id8	8 16 36 10 7 0 0 31 30 11 69 90 7 0 17 38 29 0 15 112 15 5 9 41 5 0 3 22 36 32 10 6 1 112 66 11 36 13 2 7 29 112 102 96 32 36 4 0 30 3 5 68 44 91 34 2 1 3 16 30 55 42 14 6 0 112 15 22 86 24 24 10 30 112 6 6 10 52 43 112 112 6 1 1 7 84 112 99 21 6 7 11 17 9 59 44 4 13 0 0 14 70 51 7 2 8 1 0 0 27 45 100 91 28 5 0 0 0 33 75 62 20 8 9 5 0 3 7 41";
+  //my_vector<int> veko(hatsu);
   //std::cout << "Up till here all is ok!\n";
-  a_table.hash_vector(veko);
+  //a_table.hash_vector(veko);
   //std::cout << "Up till here all is ok!2\n";
   //std::cout << typeid(a_table.table[1]).name() << '\n' ;
 /*
@@ -29,7 +29,7 @@ int main (int argc, char*argv[]) {
   std::cout << a_table.table[pou][0].first->get_id_as_int() << '\n';
   std::cout << a_table.table[pou][0].second << '\n';
 */
-  for(unsigned int i = 0; i < a_table.table.size(); i++) {
+/*  for(unsigned int i = 0; i < a_table.table.size(); i++) {
     if (a_table.table[i].empty() == true) {
       continue;
     }
@@ -39,7 +39,7 @@ int main (int argc, char*argv[]) {
         std::cout << a_table.table[i][j].second << '\n' << '\n';
       }
     }
-  }
+  }*/
   //
 
   int k=-1;
@@ -86,8 +86,11 @@ int main (int argc, char*argv[]) {
     };
     infile.close();
     //fprintf(stderr, "Input vectors = %d\n\n", n);
+    
+    //upologizw to dimensions tou kosmou mou
+    /*const*/int diastaseis = vectors_array[0].get_v().size();
 
-    const int Table_Size = floor(n/16);
+    /*const*/int Table_Size = floor(n/16);
 
     //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATH QUERIES
     if(qset == false){
@@ -153,7 +156,7 @@ int main (int argc, char*argv[]) {
     fprintf(stderr, "Mesi apostasi = %f\n", mean_distance);
 
     //also test gia w = 10 * mean_distance
-    const double w = 4*mean_distance; //to w pou vazw sta ai
+    /*const*/double w = 4*mean_distance; //to w pou vazw sta ai
 
     //prepei na brw ton actual nearest neighbour
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
@@ -186,9 +189,23 @@ int main (int argc, char*argv[]) {
 
 /////////////////////////////LSH TIME////////////////////////////////
 
+  std::vector<ht<int>> our_hash_tables;
+  for (int i = 0; i < L; i++) {
+    ht<int> temp_hash_table(Table_Size, k, diastaseis, w);
+    our_hash_tables.push_back(temp_hash_table);
+  }
+  
+  //ola ta input vectors
+  //ta pernaei apo L g functions kai ta bazei sta L hash tables
 
+  //ola ta query vectors
+  //ta pernaei apo L g functions kai ta bazei sta L hash tables
 
-
+  //gia ka8e query
+  //vres poia input vectors einai sto idio bucket me to query se *ka8e* hash table
+  //elegxei tis g autwn
+  //gia idio g, elegxei tis apostaseis mexri 3L input vectors pou plhroun autes tis proipotheseis
+  //krataei to approx NN tou
 
 
 ////////////////////////output///////////////////////////////////////
