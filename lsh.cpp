@@ -3,8 +3,10 @@
 #include <fstream>
 #include <typeinfo>
 #include <stdlib.h>
+#include <algorithm>    // std::count
 #include <cstring>
 #include <limits>
+#include <set>
 #include <cmath>
 #include "my_vector.h"
 #include "utils.h"
@@ -86,7 +88,7 @@ int main (int argc, char*argv[]) {
     };
     infile.close();
     //fprintf(stderr, "Input vectors = %d\n\n", n);
-    
+
     //upologizw to dimensions tou kosmou mou
     /*const*/int diastaseis = vectors_array[0].get_v().size();
 
@@ -190,11 +192,75 @@ int main (int argc, char*argv[]) {
 /////////////////////////////LSH TIME////////////////////////////////
 
   std::vector<ht<int>> our_hash_tables;
-  for (int i = 0; i < L; i++) {
+  for (unsigned int i = 0; i < L; i++) {
     ht<int> temp_hash_table(Table_Size, k, diastaseis, w);
     our_hash_tables.push_back(temp_hash_table);
   }
-  
+
+  for(unsigned int i =0; i< vectors_array.size(); i++){
+    for (unsigned int j = 0; j < L; j++)
+      our_hash_tables[j].hash_vector(vectors_array[i]);
+  }
+
+  std::vector<NNpair> approx_NNs; //pinakas apo zeugaria lsh approx NNs me prwto stoixeio to q
+
+  std::vector<int> this_HT_potential_neighbs; //boh8htikh metavlhth gia thn anazhthsh
+  std::vector<int> full_potential_neighbs; //major metavlhth
+  std::set<int> setOfids;
+  for(unsigned int i =0; i< query_vectors_array.size(); i++){
+    full_potential_neighbs.clear();
+    setOfids.clear();
+    for(unsigned int j = 0; j < L; j++){
+      this_HT_potential_neighbs = our_hash_tables[j].hash_query(query_vectors_array[i]); //epistrefei vector me ta int ids twn dianusmatwn sto idio bucket me to q kai me idia timh ths g
+      for(unsigned int yod=0; yod< this_HT_potential_neighbs.size(); yod++){
+        full_potential_neighbs.push_back(this_HT_potential_neighbs[yod]); //vazw ola auta sto main metavlhth
+        setOfids.insert(this_HT_potential_neighbs[yod]); //mpaine ws unique values sto sunolo poy tha mas boh8hsei sto telos
+      }
+    }
+    //afou anetrekse olous tous HT, twra tha brei poia ids emfanisthkan se OLOUS tous HT
+    for(unsigned int yod=0; yod < full_potential_neighbs.size(); yod++){
+      int myvcount = std::count(full_potential_neighbs.begin(), full_potential_neighbs.end(), full_potential_neighbs[yod]);
+      if(myvcount == L) //einai se OLA ta HT sto idio bucket mazi me q kai me idio g
+        setOfids.insert(full_potential_neighbs[yod]);
+    }
+
+    std::vector<int> lsh_neighbs(setOfids.begin(), setOfids.end());
+    if(lsh_neighbs.size() <= 3*L ){
+      for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){
+        double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
+        std::string min_id;
+        if(Brute_Distance_Matrix[lsh_neighbs[yod]][i] < min){
+          min = Brute_Distance_Matrix[lsh_neighbs[yod]][i];
+          min_id =  vectors_array[lsh_neighbs[yod]].get_id();
+        }
+        NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
+        approx_pair.set_distance(min);
+        approx_NNs.push_back(approx_pair);
+      }
+    }
+    else{
+      for(unsigned int yod = 0; yod < 3*L; yod++){
+        double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
+        std::string min_id;
+        if(Brute_Distance_Matrix[lsh_neighbs[yod]][i] < min){
+          min = Brute_Distance_Matrix[lsh_neighbs[yod]][i];
+          min_id =  vectors_array[lsh_neighbs[yod]].get_id();
+        }
+        NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
+        approx_pair.set_distance(min);
+        approx_NNs.push_back(approx_pair);
+      }
+    }
+
+
+
+    }
+
+
+
+
+
+
   //ola ta input vectors
   //ta pernaei apo L g functions kai ta bazei sta L hash tables
 
