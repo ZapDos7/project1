@@ -27,15 +27,15 @@ template <class T>
 class ht
 {
 private:
-    int size;
+    //int size;
     //https://en.cppreference.com/w/cpp/container/unordered_map
     //std::unordered_map<int, ht_cell<T> > table; //key == int, mapped value == my_vectors
+    //std::vector< std::vector< std::pair<my_vector<T> * , long int> > > table; //pinakas (o hash table) apo pinakes (h lista ana bucket) apo zeugaria (zeugari dianusmatos kai timhs g)
+    //g_funs<T> my_g;
+public:
+    int size;
     std::vector< std::vector< std::pair<my_vector<T> * , long int> > > table; //pinakas (o hash table) apo pinakes (h lista ana bucket) apo zeugaria (zeugari dianusmatos kai timhs g)
     g_funs<T> my_g;
-public:
-    /*int size;
-    std::vector< std::vector< std::pair<my_vector<T> * , long int> > > table; //pinakas (o hash table) apo pinakes (h lista ana bucket) apo zeugaria (zeugari dianusmatos kai timhs g)
-    g_funs<T> my_g;*/
     ht<T>(int size_to_be, int k_to_be, int dimensions, int w_to_be);
     ~ht();
     void hash_vector(my_vector<T> v);

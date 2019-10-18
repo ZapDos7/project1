@@ -45,6 +45,10 @@ ht<T>::ht(int size_to_be, int k_to_be, int dimensions, int w_to_be){
     size = size_to_be;
     //std::unordered_map<int, ht_cell<T> > table_to_be(size);
     table.resize(size_to_be);
+    for (int i = 0; i < size_to_be; i++) {
+        table[i].clear();
+    }
+    
 }
 
 template <class T>
