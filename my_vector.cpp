@@ -64,6 +64,7 @@ int my_vector<T>::get_id_as_int() {
         if (isdigit(id[i])) {
             tmp = id.substr(i, id.length()-1);
             my_id = atoi(tmp.c_str());
+            break;
         }
     }
     return my_id;

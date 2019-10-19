@@ -177,11 +177,11 @@ int main (int argc, char*argv[]) {
 
     }
 
-    /*std::ofstream myfile2;
-    myfile2.open ("example2.txt");
+    std::ofstream myfile2;
+    myfile2.open ("actualNNs.txt");
     for(int i=0; i<actual_NNs.size(); i++)
         myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << " " << actual_NNs[i].get_distance() <<"\n";
-    myfile2.close();*/
+    myfile2.close();
 
     /*std::ofstream myfile3;
     myfile3.open ("example3.txt");
@@ -227,11 +227,12 @@ int main (int argc, char*argv[]) {
     std::vector<int> lsh_neighbs(setOfids.begin(), setOfids.end());
     if(lsh_neighbs.size() <= 3*L ){
       for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){
+        //std::cout << "i am q " << query_vectors_array[i].get_id_as_int() << "and this is a prob neighb" << lsh_neighbs[yod] << "\n" ;
         double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
         std::string min_id;
-        if(Brute_Distance_Matrix[lsh_neighbs[yod]][i] < min){
-          min = Brute_Distance_Matrix[lsh_neighbs[yod]][i];
-          min_id =  vectors_array[lsh_neighbs[yod]].get_id();
+        if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){
+          min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i];
+          min_id =  vectors_array[lsh_neighbs[yod]-1].get_id();
         }
         NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
         approx_pair.set_distance(min);
@@ -242,9 +243,9 @@ int main (int argc, char*argv[]) {
       for(unsigned int yod = 0; yod < 3*L; yod++){
         double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
         std::string min_id;
-        if(Brute_Distance_Matrix[lsh_neighbs[yod]][i] < min){
-          min = Brute_Distance_Matrix[lsh_neighbs[yod]][i];
-          min_id =  vectors_array[lsh_neighbs[yod]].get_id();
+        if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){
+          min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i];
+          min_id =  vectors_array[lsh_neighbs[yod]-1].get_id();
         }
         NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
         approx_pair.set_distance(min);
@@ -252,9 +253,13 @@ int main (int argc, char*argv[]) {
       }
     }
 
-
-
     }
+
+    std::ofstream myfile3;
+    myfile3.open ("approxNNs.txt");
+    for(int i=0; i<approx_NNs.size(); i++)
+        myfile3 << approx_NNs[i].getq_id() << " " << approx_NNs[i].getp_id() << " " << approx_NNs[i].get_distance() << "\n";
+    myfile3.close();
 
 
 
