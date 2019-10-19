@@ -225,6 +225,10 @@ int main (int argc, char*argv[]) {
     }
 
     std::vector<int> lsh_neighbs(setOfids.begin(), setOfids.end());
+    /*std::cout << "oi ypopshfioi geitonoi moy einai : ";
+    for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++)
+      std::cout << lsh_neighbs[yod];
+    std::cout << "\n";*/
     if(lsh_neighbs.size() <= 3*L ){
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
       std::string min_id;
