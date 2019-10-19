@@ -179,7 +179,7 @@ int main (int argc, char*argv[]) {
 
     std::ofstream myfile2;
     myfile2.open ("actualNNs.txt");
-    for(int i=0; i<actual_NNs.size(); i++)
+    for(unsigned int i=0; i<actual_NNs.size(); i++)
         myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << " " << actual_NNs[i].get_distance() <<"\n";
     myfile2.close();
 
@@ -192,13 +192,13 @@ int main (int argc, char*argv[]) {
 /////////////////////////////LSH TIME////////////////////////////////
 
   std::vector<ht<int>> our_hash_tables;
-  for (unsigned int i = 0; i < L; i++) {
+  for (int i = 0; i < L; i++) {
     ht<int> temp_hash_table(Table_Size, k, diastaseis, w);
     our_hash_tables.push_back(temp_hash_table);
   }
 
   for(unsigned int i =0; i< vectors_array.size(); i++){
-    for (unsigned int j = 0; j < L; j++)
+    for (int j = 0; j < L; j++)
       our_hash_tables[j].hash_vector(vectors_array[i]);
   }
 
@@ -210,7 +210,7 @@ int main (int argc, char*argv[]) {
   for(unsigned int i =0; i< query_vectors_array.size(); i++){
     full_potential_neighbs.clear();
     setOfids.clear();
-    for(unsigned int j = 0; j < L; j++){
+    for(int j = 0; j < L; j++){
       this_HT_potential_neighbs = our_hash_tables[j].hash_query(query_vectors_array[i]); //epistrefei vector me ta int ids twn dianusmatwn sto idio bucket me to q kai me idia timh ths g
       for(unsigned int yod=0; yod< this_HT_potential_neighbs.size(); yod++){
         full_potential_neighbs.push_back(this_HT_potential_neighbs[yod]); //vazw ola auta sto main metavlhth
@@ -230,13 +230,13 @@ int main (int argc, char*argv[]) {
       std::cout << lsh_neighbs[yod];
     std::cout << "\n";*/
     if(lsh_neighbs.size() <= 3*L ){
-      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-      std::string min_id;
-      for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){
+      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro arxika
+      std::string min_id; //to id tou aNN
+      for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){ //gia kathe pithano aNN
         //std::cout << "i am q " << query_vectors_array[i].get_id_as_int() << "and this is a prob neighb" << lsh_neighbs[yod] << "\n" ;
-        if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){
-          min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i];
-          min_id =  vectors_array[lsh_neighbs[yod]-1].get_id();
+        if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){ //if dist(pi,q) < min
+          min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i]; //this is minimum distance
+          min_id =  vectors_array[lsh_neighbs[yod]-1].get_id(); //this is min pi
         }
 
       }
@@ -244,10 +244,10 @@ int main (int argc, char*argv[]) {
       approx_pair.set_distance(min);
       approx_NNs.push_back(approx_pair);
     }
-    else{
+    else{ //if 3L or more do the same
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
       std::string min_id;
-      for(unsigned int yod = 0; yod < 3*L; yod++){
+      for(int yod = 0; yod < 3*L; yod++){ //but stop
         if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){
           min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i];
           min_id =  vectors_array[lsh_neighbs[yod]-1].get_id();
@@ -262,7 +262,7 @@ int main (int argc, char*argv[]) {
 
     std::ofstream myfile3;
     myfile3.open ("approxNNs.txt");
-    for(int i=0; i<approx_NNs.size(); i++)
+    for(unsigned int i=0; i<approx_NNs.size(); i++)
         myfile3 << approx_NNs[i].getq_id() << " " << approx_NNs[i].getp_id() << " " << approx_NNs[i].get_distance() << "\n";
     myfile3.close();
 
