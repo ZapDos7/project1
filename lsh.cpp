@@ -214,7 +214,7 @@ int main (int argc, char*argv[]) {
       this_HT_potential_neighbs = our_hash_tables[j].hash_query(query_vectors_array[i]); //epistrefei vector me ta int ids twn dianusmatwn sto idio bucket me to q kai me idia timh ths g
       for(unsigned int yod=0; yod< this_HT_potential_neighbs.size(); yod++){
         full_potential_neighbs.push_back(this_HT_potential_neighbs[yod]); //vazw ola auta sto main metavlhth
-        setOfids.insert(this_HT_potential_neighbs[yod]); //mpaine ws unique values sto sunolo poy tha mas boh8hsei sto telos
+        //setOfids.insert(this_HT_potential_neighbs[yod]); //mpaine ws unique values sto sunolo poy tha mas boh8hsei sto telos
       }
     }
     //afou anetrekse olous tous HT, twra tha brei poia ids emfanisthkan se OLOUS tous HT
@@ -226,31 +226,32 @@ int main (int argc, char*argv[]) {
 
     std::vector<int> lsh_neighbs(setOfids.begin(), setOfids.end());
     if(lsh_neighbs.size() <= 3*L ){
+      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
+      std::string min_id;
       for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){
         //std::cout << "i am q " << query_vectors_array[i].get_id_as_int() << "and this is a prob neighb" << lsh_neighbs[yod] << "\n" ;
-        double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-        std::string min_id;
         if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){
           min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i];
           min_id =  vectors_array[lsh_neighbs[yod]-1].get_id();
         }
-        NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
-        approx_pair.set_distance(min);
-        approx_NNs.push_back(approx_pair);
+
       }
+      NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
+      approx_pair.set_distance(min);
+      approx_NNs.push_back(approx_pair);
     }
     else{
+      double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
+      std::string min_id;
       for(unsigned int yod = 0; yod < 3*L; yod++){
-        double min = std::numeric_limits<double>::max();//min pairnei timh apeiro
-        std::string min_id;
         if(Brute_Distance_Matrix[lsh_neighbs[yod]-1][i] < min){
           min = Brute_Distance_Matrix[lsh_neighbs[yod]-1][i];
           min_id =  vectors_array[lsh_neighbs[yod]-1].get_id();
         }
-        NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
-        approx_pair.set_distance(min);
-        approx_NNs.push_back(approx_pair);
       }
+      NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
+      approx_pair.set_distance(min);
+      approx_NNs.push_back(approx_pair);
     }
 
     }
