@@ -202,7 +202,7 @@ int main (int argc, char*argv[]) {
       our_hash_tables[j].hash_vector(vectors_array[i]);
   }
 
-  for (unsigned int i = 0; i < L; i++) {
+  for (int i = 0; i < L; i++) {
     for(unsigned int j = 0; j < our_hash_tables[i].table.size(); j++)
       for(unsigned int fa = 0; fa < our_hash_tables[i].table[j].size(); fa++)
       std::cout << our_hash_tables[i].table[j][fa].first->get_id_as_int();
