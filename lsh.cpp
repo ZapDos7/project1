@@ -199,13 +199,15 @@ int main (int argc, char*argv[]) {
 
   for(unsigned int i =0; i< vectors_array.size(); i++){
     for (int j = 0; j < L; j++)
-      our_hash_tables[j].hash_vector(vectors_array[i]);
+      our_hash_tables[j].hash_vector(&vectors_array[i]);
   }
 
   for (int i = 0; i < L; i++) {
     for(unsigned int j = 0; j < our_hash_tables[i].table.size(); j++)
-      for(unsigned int fa = 0; fa < our_hash_tables[i].table[j].size(); fa++)
-      std::cout << our_hash_tables[i].table[j][fa].first->get_id_as_int();
+      for(unsigned int fa = 0; fa < our_hash_tables[i].table[j].size(); fa++){
+        std::cout << our_hash_tables[i].table[j][fa].first->get_id_as_int();
+        //std::cout << our_hash_tables[i].table[j][fa].second;
+      }
   }
 
   std::vector<NNpair> approx_NNs; //pinakas apo zeugaria lsh approx NNs me prwto stoixeio to q
