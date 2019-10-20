@@ -76,8 +76,8 @@ void ht<T>::hash_vector(my_vector<T> *v) {
 
 
 template <class T>
-std::vector<int> ht<T>::hash_query(my_vector<T> q) {
-    long int keyv = my_g.actual_g_function(q); //ypologise thn timh ths g gia to vector v
+std::vector<int> ht<T>::hash_query(my_vector<T> *q) {
+    long int keyv = my_g.actual_g_function(*q); //ypologise thn timh ths g gia to vector v
     long int modded_keyv = our_mod(keyv, size); //kane thn timh auti mod table size
     std::vector<int> this_HT_potential_neighbs;
     this_HT_potential_neighbs.clear();

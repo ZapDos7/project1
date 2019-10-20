@@ -202,13 +202,13 @@ int main (int argc, char*argv[]) {
       our_hash_tables[j].hash_vector(&vectors_array[i]);
   }
 
-  for (int i = 0; i < L; i++) {
+  /*for (int i = 0; i < L; i++) {
     for(unsigned int j = 0; j < our_hash_tables[i].table.size(); j++)
       for(unsigned int fa = 0; fa < our_hash_tables[i].table[j].size(); fa++){
         std::cout << our_hash_tables[i].table[j][fa].first->get_id_as_int();
         //std::cout << our_hash_tables[i].table[j][fa].second;
       }
-  }
+  }*/
 
   std::vector<NNpair> approx_NNs; //pinakas apo zeugaria lsh approx NNs me prwto stoixeio to q
 
@@ -219,7 +219,7 @@ int main (int argc, char*argv[]) {
     full_potential_neighbs.clear();
     setOfids.clear();
     for(int j = 0; j < L; j++){
-      this_HT_potential_neighbs = our_hash_tables[j].hash_query(query_vectors_array[i]); //epistrefei vector me ta int ids twn dianusmatwn sto idio bucket me to q kai me idia timh ths g
+      this_HT_potential_neighbs = our_hash_tables[j].hash_query(&query_vectors_array[i]); //epistrefei vector me ta int ids twn dianusmatwn sto idio bucket me to q kai me idia timh ths g
       for(unsigned int yod=0; yod< this_HT_potential_neighbs.size(); yod++){
         full_potential_neighbs.push_back(this_HT_potential_neighbs[yod]); //vazw ola auta sto main metavlhth
         //setOfids.insert(this_HT_potential_neighbs[yod]); //mpaine ws unique values sto sunolo poy tha mas boh8hsei sto telos
