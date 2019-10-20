@@ -338,7 +338,7 @@ int main(int argc, char *argv[])
   auto end_of_LSH = std::chrono::high_resolution_clock::now() - start_of_LSH;
   long long microseconds_LSH = std::chrono::duration_cast<std::chrono::microseconds>(end_of_LSH).count();
 
-  fprintf(stderr, "Time needed for distance matrix calculation is %lld microseconds.\n\n", microseconds_LSH);
+  fprintf(stderr, "Time needed for LSH is %lld microseconds.\n\n", microseconds_LSH);
 
   std::ofstream myfile3;
   myfile3.open("../approxNNs.txt");
@@ -354,9 +354,18 @@ int main(int argc, char *argv[])
     std::string inp1;
     std::cin >> output_path;
   }
+  std::ofstream outfile(output_path);
 
-  //output.txt:
-  //for each itemJ in queryset:
+  for (unsigned int i = 0; i < approx_NNs.size(); i++) //for each itemJ in queryset:
+  {
+    //http://www.cplusplus.com/reference/ostream/ostream/write/
+    std::string query_id = actual_NNs[i - 1].getq_id();
+    //outfile.write(query_id, size_of(std::string)); //auti i grammi einai lathos, need char * buffer?
+    std::string actual_NN_id = actual_NNs[i - 1].getp_id();
+    double distranceTrue = actual_NNs[i - 1].get_distance();
+    double distanceLSH = approx_NNs[i - 1].get_distance();
+  }
+
   /*
     Query: itemJ
     Nearest neighbor: itemY
@@ -370,19 +379,6 @@ int main(int argc, char *argv[])
     . . .
     itemW //bonus
     */
-
-  ////////////////////////////METRISEIS///////////////////////////////
-  /*
-Compare apotelesmata twn 4 parallagwn:{
-LSH for curves / LSH L1,
-LSH for curves / Hypercube,
-Random Projection / LSH L1,
-Random Projection / Hypercube}
-ws pros: {
-    a) max klasma proseggisis = {approx NN distance } / {actual NN distance}
-    b) mean time euresis tou approx NN
-}
-*/
 
   //when done all, ask if repeat with other dataset or exit ektelesi
 }
