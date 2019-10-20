@@ -14,7 +14,7 @@
 #include "h_funs.h"
 #include "g_funs.h"
 #include "ht.h"
-
+#include <chrono> // time measurements
 
 int main (int argc, char*argv[]) {
 
@@ -113,14 +113,17 @@ int main (int argc, char*argv[]) {
     qfile.close();
     //fprintf(stderr, "Query vectors = %d\n\n", q);
 
-
+    auto start_of_distance_matrix = std::chrono::high_resolution_clock::now(); 
     /*Distance Matrix Input X Query vectors me tis apostaseis tous*/
     double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
     for(unsigned int i=0; i<vectors_array.size(); i++)
       for(unsigned int j=0; j<query_vectors_array.size(); j++)
         Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
 
+    auto end_of_distance_matrix = std::chrono::high_resolution_clock::now() - start_of_distance_matrix; 
+    long long microseconds = std::chrono::duration_cast<std::chrono::microseconds>(end_of_distance_matrix).count();
 
+    fprintf(stderr, "Time needed for distance matrix calculation is %lld microseconds.\n\n", microseconds);
 
     /*std::ofstream myfile;
     myfile.open ("example.txt");
@@ -129,6 +132,8 @@ int main (int argc, char*argv[]) {
         myfile << Brute_Distance_Matrix[i][j] << "\n";
     myfile.close();*/
 
+    //euresi actual NNs
+    auto start_of_w_calc = std::chrono::high_resolution_clock::now(); 
     std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
     for(unsigned int i=0; i<vectors_array.size(); i++){
 
@@ -227,7 +232,7 @@ int main (int argc, char*argv[]) {
     }
     //afou anetrekse olous tous HT, twra tha brei poia ids emfanisthkan se OLOUS tous HT
     for(unsigned int yod=0; yod < full_potential_neighbs.size(); yod++){
-      int myvcount = std::count(full_potential_neighbs.begin(), full_potential_neighbs.end(), full_potential_neighbs[yod]);
+      //int myvcount = std::count(full_potential_neighbs.begin(), full_potential_neighbs.end(), full_potential_neighbs[yod]);
       //if(myvcount == L) //einai se OLA ta HT sto idio bucket mazi me q kai me idio g
         setOfids.insert(full_potential_neighbs[yod]);
     }
