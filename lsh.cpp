@@ -228,7 +228,7 @@ int main (int argc, char*argv[]) {
     //afou anetrekse olous tous HT, twra tha brei poia ids emfanisthkan se OLOUS tous HT
     for(unsigned int yod=0; yod < full_potential_neighbs.size(); yod++){
       int myvcount = std::count(full_potential_neighbs.begin(), full_potential_neighbs.end(), full_potential_neighbs[yod]);
-      if(myvcount == L) //einai se OLA ta HT sto idio bucket mazi me q kai me idio g
+      //if(myvcount == L) //einai se OLA ta HT sto idio bucket mazi me q kai me idio g
         setOfids.insert(full_potential_neighbs[yod]);
     }
 
@@ -237,7 +237,7 @@ int main (int argc, char*argv[]) {
     for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++)
       std::cout << lsh_neighbs[yod];
     std::cout << "\n";*/
-    if(lsh_neighbs.size() <= (unsigned int)5*L ){
+    if(lsh_neighbs.size() <= (unsigned int)3*L ){
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro arxika
       std::string min_id; //to id tou aNN
       for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){ //gia kathe pithano aNN
