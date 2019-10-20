@@ -178,7 +178,7 @@ int main (int argc, char*argv[]) {
     }
 
     std::ofstream myfile2;
-    myfile2.open ("actualNNs.txt");
+    myfile2.open ("../actualNNs.txt");
     for(unsigned int i=0; i<actual_NNs.size(); i++)
         myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << " " << actual_NNs[i].get_distance() <<"\n";
     myfile2.close();
@@ -229,7 +229,7 @@ int main (int argc, char*argv[]) {
     for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++)
       std::cout << lsh_neighbs[yod];
     std::cout << "\n";*/
-    if(lsh_neighbs.size() <= 3*L ){
+    if(lsh_neighbs.size() <= (unsigned int)5*L ){
       double min = std::numeric_limits<double>::max();//min pairnei timh apeiro arxika
       std::string min_id; //to id tou aNN
       for(unsigned int yod = 0; yod < lsh_neighbs.size(); yod++){ //gia kathe pithano aNN
@@ -261,7 +261,7 @@ int main (int argc, char*argv[]) {
     }
 
     std::ofstream myfile3;
-    myfile3.open ("approxNNs.txt");
+    myfile3.open ("../approxNNs.txt");
     for(unsigned int i=0; i<approx_NNs.size(); i++)
         myfile3 << approx_NNs[i].getq_id() << " " << approx_NNs[i].getp_id() << " " << approx_NNs[i].get_distance() << "\n";
     myfile3.close();
