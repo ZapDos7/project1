@@ -64,6 +64,7 @@ void ht<T>::hash_vector(my_vector<T> v) {
     thepair.second = keyv;
     //table[modded_keyv] = tmp_ht_cell; //vale auto to ht_cell sto katallilo bucket tou table
     table[modded_keyv].push_back(thepair);
+    //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
 }
 
 
@@ -74,9 +75,16 @@ std::vector<int> ht<T>::hash_query(my_vector<T> q) {
     std::vector<int> this_HT_potential_neighbs;
     this_HT_potential_neighbs.clear();
     for(unsigned int i =0; i<table[modded_keyv].size(); i++){
+      //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
       if(table[modded_keyv][i].second == keyv) //prepei na exoyn to idio g epishs
         this_HT_potential_neighbs.push_back(table[modded_keyv][i].first->get_id_as_int()); //valto sth lista pithanwn geitonwn
+        //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
     }
+    /*std::cout << "brhka tous: ";
+    std::cout << "oi ypopshfioi geitonoi moy einai : ";
+    for(unsigned int yod = 0; yod < this_HT_potential_neighbs.size(); yod++)
+      std::cout << this_HT_potential_neighbs[yod];
+    std::cout << "\n";*/
     return this_HT_potential_neighbs;
 }
 
