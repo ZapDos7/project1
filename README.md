@@ -13,3 +13,4 @@ Winter Semester 2019-2020, DIT, NKUA
 *Βιβλιογραφία*<br>
 - [Wikipedia on LSH NN](https://en.wikipedia.org/wiki/Locality-sensitive_hashing#LSH_algorithm_for_nearest_neighbor_search)
 - Σημειώσεις του μαθήματος
+- [Online ML Wiki](http://mlwiki.org/index.php/Locality_Sensitive_Hashing#LSH_Families)
