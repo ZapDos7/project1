@@ -1,4 +1,4 @@
-# 1st assignment for the Project "Software Development for Algorithmic Problems"
+# 1st assignment for the Project "Software Development for Difficult Algorithmic Problems"
 
 
 Winter Semester 2019-2020, DIT, NKUA
