@@ -198,10 +198,12 @@ int main(int argc, char *argv[])
   /*const*/ double w = 4 * mean_distance; //to w pou vazw sta ai
 
   //prepei na brw ton actual nearest neighbour
-  auto start_of_actual_NN = std::chrono::high_resolution_clock::now();
+  auto start_of_actual_NN_all = std::chrono::high_resolution_clock::now();
   std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
+  std::vector<std::chrono::duration<double>> times_of_actual_NNs;
   for (unsigned int i = 0; i < query_vectors_array.size(); i++)
   {
+    auto start_of_this_actual_NN = std::chrono::high_resolution_clock::now();
     std::string min_id;
     double min = std::numeric_limits<double>::max(); //min pairnei timh apeiro
     for (unsigned int j = 0; j < vectors_array.size(); j++)
@@ -215,18 +217,20 @@ int main(int argc, char *argv[])
     NNpair single_pair(query_vectors_array[i].get_id(), min_id);
     single_pair.set_distance(min);
     actual_NNs.push_back(single_pair);
+    auto end_of_this_actual_NN = std::chrono::high_resolution_clock::now() - start_of_this_actual_NN;
+    times_of_actual_NNs.push_back(end_of_this_actual_NN);
   }
 
-  auto end_of_actual_NN = std::chrono::high_resolution_clock::now() - start_of_actual_NN;
-  long long microseconds_act_NN = std::chrono::duration_cast<std::chrono::microseconds>(end_of_actual_NN).count();
-  fprintf(stderr, "Time needed for brute force found NNs is %lld microseconds.\n\n", microseconds_act_NN);
+  auto end_of_actual_NN_all = std::chrono::high_resolution_clock::now() - start_of_actual_NN_all;
+  long long microseconds_act_NN_all = std::chrono::duration_cast<std::chrono::microseconds>(end_of_actual_NN_all).count();
+  fprintf(stderr, "Time needed for brute force found NNs is %lld microseconds.\n\n", microseconds_act_NN_all);
 
-  std::ofstream myfile2;
+  /*  std::ofstream myfile2;
   myfile2.open("../actualNNs.txt");
   for (unsigned int i = 0; i < actual_NNs.size(); i++)
     myfile2 << actual_NNs[i].getq_id() << " " << actual_NNs[i].getp_id() << " " << actual_NNs[i].get_distance() << "\n";
   myfile2.close();
-
+*/
   /*std::ofstream myfile3;
     myfile3.open ("example3.txt");
     for(int i=0; i<input_actual_NNs.size(); i++)
@@ -235,7 +239,9 @@ int main(int argc, char *argv[])
 
   /////////////////////////////LSH TIME////////////////////////////////
 
-  auto start_of_LSH = std::chrono::high_resolution_clock::now();
+  auto start_of_LSH_all = std::chrono::high_resolution_clock::now();
+
+  std::vector<std::chrono::duration<double>> times_of_approx_NNs;
   std::vector<ht<int>> our_hash_tables;
   for (int i = 0; i < L; i++)
   {
@@ -266,7 +272,7 @@ int main(int argc, char *argv[])
   {
     //ola ta input vectors
     //ta pernaei apo L g functions kai ta bazei sta L hash tables
-
+    auto start_of_this_approx_NN = std::chrono::high_resolution_clock::now();
     full_potential_neighbs.clear();
     setOfids.clear();
     for (int j = 0; j < L; j++)
@@ -333,19 +339,21 @@ int main(int argc, char *argv[])
       approx_pair.set_distance(min);
       approx_NNs.push_back(approx_pair);
     }
+    auto end_of_this_approx_NN = std::chrono::high_resolution_clock::now() - start_of_this_approx_NN;
+    times_of_approx_NNs.push_back(end_of_this_approx_NN);
   }
 
-  auto end_of_LSH = std::chrono::high_resolution_clock::now() - start_of_LSH;
-  long long microseconds_LSH = std::chrono::duration_cast<std::chrono::microseconds>(end_of_LSH).count();
+  auto end_of_LSH_all = std::chrono::high_resolution_clock::now() - start_of_LSH_all;
+  long long microseconds_LSH_all = std::chrono::duration_cast<std::chrono::microseconds>(end_of_LSH_all).count();
 
-  fprintf(stderr, "Time needed for LSH is %lld microseconds.\n\n", microseconds_LSH);
+  fprintf(stderr, "Time needed for LSH is %lld microseconds.\n\n", microseconds_LSH_all);
 
-  std::ofstream myfile3;
+  /*  std::ofstream myfile3;
   myfile3.open("../approxNNs.txt");
   for (unsigned int i = 0; i < approx_NNs.size(); i++)
     myfile3 << approx_NNs[i].getq_id() << " " << approx_NNs[i].getp_id() << " " << approx_NNs[i].get_distance() << "\n";
   myfile3.close();
-
+*/
   ////////////////////////output///////////////////////////////////////
   //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
   if (oset == false)
@@ -354,31 +362,32 @@ int main(int argc, char *argv[])
     std::string inp1;
     std::cin >> output_path;
   }
-  std::ofstream outfile(output_path);
+  //std::ofstream outfile(output_path);
+  std::ofstream outfile;
+  outfile.open(output_path);
 
   for (unsigned int i = 0; i < approx_NNs.size(); i++) //for each itemJ in queryset:
   {
-    //http://www.cplusplus.com/reference/ostream/ostream/write/
-    std::string query_id = actual_NNs[i - 1].getq_id();
-    //outfile.write(query_id, size_of(std::string)); //auti i grammi einai lathos, need char * buffer?
-    std::string actual_NN_id = actual_NNs[i - 1].getp_id();
-    double distranceTrue = actual_NNs[i - 1].get_distance();
-    double distanceLSH = approx_NNs[i - 1].get_distance();
-  }
-
-  /*
-    Query: itemJ
-    Nearest neighbor: itemY
-    distanceLSH: <double>
-    distanceTrue: <double>
-    tLSH: <double>
-    tTrue: <double>
-    R-near neighbors: //bonus
-    itemJ //bonus
-    itemK //bonus
-    . . .
-    itemW //bonus
+    outfile << "Query: " << approx_NNs[i].getq_id() << '\n';
+    outfile << "Nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
+    outfile << "distanceLSH: " << approx_NNs[i].get_distance() << '\n';
+    outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
+    outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
+    outfile << "tTrue: " << times_of_actual_NNs[i].count() << '\n';
+    /*if (bonus)
+    {
+      outfile << "R-near neighbors: " << '\n';
+      for (however many R near we found)
+      {
+        outfile << "item_id" << '\n';
+      }
+    }
     */
+  }
+  outfile.close();
+
+  infile.close();
+  qfile.close();
 
   //when done all, ask if repeat with other dataset or exit ektelesi
 }
