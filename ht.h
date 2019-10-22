@@ -2,7 +2,6 @@
 #define _HT_H_
 
 #include "g_funs.h"
-#include <unordered_map>
 #include "my_vector.h"
 
 //HT_CELL
