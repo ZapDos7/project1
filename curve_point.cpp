@@ -3,6 +3,9 @@
 using namespace std;
 
 template <class T>
+curve_point<T>::curve_point() {}
+
+template <class T>
 curve_point<T>::curve_point(T x, T y)
 {
     point.first = x;

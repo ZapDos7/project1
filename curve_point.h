@@ -11,6 +11,7 @@ private:
     std::pair<T, T> point; //leitourgei mono gia 2D curves
 
 public:
+    curve_point<T>();
     curve_point<T>(T, T);
     ~curve_point<T>();
     T get_x();
