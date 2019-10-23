@@ -19,29 +19,9 @@ traversal<T>::traversal(curve<T> *c1, curve<T> *c2)
         temppair.second = m2;
         indices.push_back(temppair);
     }
-    else if ((m1 > 1) && (m2 == 1))
+    else //m1 >= 1 && m2 >= 1
     {
         std::pair<int, int> temppair;
-        temppair.second = m2;
-        for (unsigned int i = 0; i < m1; i++)
-        {
-            temppair.first = i;
-            indices.push_back(temppair);
-        }
-    }
-    else if ((m1 == 1) && (m2 > 1))
-    {
-        std::pair<int, int> temppair;
-        temppair.first = m1;
-        for (unsigned int i = 0; i < m2; i++)
-        {
-            temppair.second = i;
-            indices.push_back(temppair);
-        }
-    }
-    else //m1 > 1 && m2 > 1
-    {
-        /*        std::pair<int, int> temppair;
         for (unsigned int i = 0; i < m1; i++)
         {
             temppair.first = i;
@@ -50,8 +30,8 @@ traversal<T>::traversal(curve<T> *c1, curve<T> *c2)
                 temppair.second = j;
                 indices.push_back(temppair);
             }
-        }*/
-        //anadromikothta :)
+        }
+        //anadromikothta?
     }
 }
 
@@ -59,7 +39,7 @@ template <class T>
 traversal<T>::~traversal() {}
 
 template <class T>
-std::vector<std::pair<int, int>> traversal<T>::get_indices()
+std::vector<std::pair<int, int>> traversal<T>::get_all_possible_travs()
 {
     return indices;
 }
