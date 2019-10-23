@@ -3,10 +3,10 @@ CFLAGS=-c -Wall -Ofast
 LDFLAGS=
 SOURCES=lsh.cpp my_vector.cpp NNpair.cpp h_funs.cpp g_funs.cpp ht.cpp
 SOURCESCUBE = cube.cpp my_vector.cpp
-SOURCESCURVEGRIDHPR = curve_grid_hypercube.cpp
-SOURCESCURVEGRIDLSH = curve_grid_lsh.cpp
-SOURCESCURVEPRJHPR = curve_projection_hypercube.cpp
-SOURCESCURVEPRJLSH = curve_projection_lsh.cpp
+SOURCESCURVEGRIDHPR = curve_grid_hypercube.cpp curve.cpp curve_point.cpp
+SOURCESCURVEGRIDLSH = curve_grid_lsh.cpp curve_point.cpp curve.cpp
+SOURCESCURVEPRJHPR = curve_projection_hypercube.cpp curve.cpp curve_point.cpp
+SOURCESCURVEPRJLSH = curve_projection_lsh.cpp curve.cpp curve_point.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 OBJECTSCUBE=$(SOURCESCUBE:.cpp=.o)
 OBJECTSCURVEGRIDHPR=$(SOURCESCURVEGRIDHPR:.cpp=.o)

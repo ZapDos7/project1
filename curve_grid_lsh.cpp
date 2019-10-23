@@ -1,9 +1,19 @@
-int main()
+#include "curve.h"
+#include "curve_point.h"
+#include <iostream>
+#include <typeinfo>
+#include <chrono> // time measurements
+
+int main(int argc, char *argv[])
 {
+    std::cout.precision(17);
+    std::string inp = "1 2 (-6.43, 53.3) (100.10, 182.2918979)";
+    curve<double> one(inp);
+    std::cout << one.get_id() << '\n'
+              << one.get_size() << '\n';
 
-    ////////////////////////////B - CURVES///////////////////////////////
+    ///////////////////////////////////aa/////////////////////////////////
     //read files
-
     //an oxi apo user:
     //$./curve_grid_lsh –d <input file> –q <query file> –k_vec <int> -L_grid <int> -ο<output file>
 
@@ -32,11 +42,11 @@ int main()
     //when done all, ask if repeat with other dataset or exit ektelesi
 
     //LSH for curves
-    int L = 4; //default timi
+    //int L = 4; //default timi
     //plithos kampulwn plegmatos
 
     //hypercube for curves
-    double e = 0.5; //default timi
+    //double e = 0.5; //default timi
     //o paragontas proseggisis
 
     //output.txt:
@@ -50,17 +60,4 @@ int main()
     distanceFound: <double>
     distanceTrue: <double>
     */
-
-    ////////////////////////////METRISEIS///////////////////////////////
-    /*
-Compare apotelesmata twn 4 parallagwn:{
-LSH for curves / LSH L1,
-LSH for curves / Hypercube,
-Random Projection / LSH L1,
-Random Projection / Hypercube}
-ws pros: {
-    a) max klasma proseggisis = {approx NN distance } / {actual NN distance}
-    b) mean time euresis tou approx NN
-}
-*/
 }
