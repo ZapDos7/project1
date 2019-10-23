@@ -32,12 +32,13 @@ public:
     bool is_leaf();
 };
 
+template <class T>
 class traversal_tree
 {
 private:
     traversal_node root; //h riza tou dentrou me ta traversals
 public:
-    traversal_tree(int curve1_length, int curve2_length);
+    traversal_tree<T>(curve<T> *c1, curve<T> *c2);
     ~traversal_tree(){}; //DOULITSA
 
     //get all traversals

@@ -14,7 +14,7 @@ traversal<T>::traversal(curve<T> *c1, curve<T> *c2)
   }
   else
   {
-    //edw 8a baloume traversal_tree
+
   }
 }
 
@@ -34,8 +34,8 @@ std::vector<std::pair<int, int>> traversal<T>::get_my_traversal()
 }
 
 //TRAVERSAL TREE
-
-traversal_tree::traversal_tree(int curve1_length, int curve2_length)
+template <class T>
+traversal_tree<T>::traversal_tree(curve<T> *c1, curve<T> *c2)
 {
   traversal_node seed_of_life;
   root = seed_of_life;
@@ -44,8 +44,9 @@ traversal_tree::traversal_tree(int curve1_length, int curve2_length)
   root.left = NULL;
   root.center = NULL;
   root.right = NULL;
-  root.recursive_builder(curve1_length, curve2_length);
+  root.recursive_builder((int)c1->get_size(), (int)c2->get_size());
 }
+
 
 bool traversal_node::is_leaf(){
   if((left==NULL)&&(center==NULL)&&(right ==NULL))
