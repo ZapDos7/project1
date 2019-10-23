@@ -37,6 +37,7 @@ std::vector<std::pair<int, int>> traversal<T>::get_my_traversal()
 template <class T>
 traversal_tree<T>::traversal_tree(curve<T> *c1, curve<T> *c2)
 {
+  draft_traversals.clear();
   traversal_node seed_of_life;
   root = seed_of_life;
   root.zeugos.first = 0;
@@ -45,6 +46,24 @@ traversal_tree<T>::traversal_tree(curve<T> *c1, curve<T> *c2)
   root.center = NULL;
   root.right = NULL;
   root.recursive_builder((int)c1->get_size(), (int)c2->get_size());
+}
+
+template <class T>
+void traversal_tree<T>::recursive_search(traversal_node * rut, std::vector<traversal_node *> tool){
+  std::vector<traversal_node *> tool2;
+  tool2.clear();
+  tool2 = tool;
+  tool2.push_back(rut);
+  if(rut->is_leaf()) //einai fyllo, pernaw th diadromh ston MEGALO pinaka
+    draft_traversals.push_back(tool2);
+  else{
+    if(rut->left != NULL)
+      recursive_search(rut->left, tool2);
+    if(rut->center != NULL)
+      recursive_search(rut->center, tool2);
+    if(rut->right != NULL)
+      recursive_search(rut->right, tool2);
+  }
 }
 
 

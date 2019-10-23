@@ -30,6 +30,7 @@ public:
     ~traversal_node(){};                                          //DOULITSA
     void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
     bool is_leaf();
+
 };
 
 template <class T>
@@ -37,11 +38,19 @@ class traversal_tree
 {
 private:
     traversal_node root; //h riza tou dentrou me ta traversals
+    std::vector<std::vector<traversal_node *>> draft_traversals; //pinakas apo pinakes komvwn tou dentrou. Enas pinakas komvwn einai ena traversal.
 public:
     traversal_tree<T>(curve<T> *c1, curve<T> *c2);
-    ~traversal_tree(){}; //DOULITSA
+    ~traversal_tree<T>(){}; //DOULITSA
 
     //get all traversals
+    void recursive_search(traversal_node * rut, std::vector<traversal_node *> tool);
+    /*MIA ENDEIKTIKH KLHSH THS EINAI: (apo to dentro)
+    std::vector<traversal_node *> vek;
+    vek.clear();
+    recursive_search(&root, vek);
+    twra tha prepei na exei gemisei o draft_traversals
+    */
 };
 
 #endif
