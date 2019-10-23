@@ -45,7 +45,7 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
 {
   bool left_ok, center_ok, right_ok = true; //shmainei oti tha ginoyn anadromikes klhseis-dhmiourgia gia autes
   //ypopshfio aristero paidi
-  traversal_node *left = new traversal_node();
+  left = new traversal_node();
   left->zeugos.first = zeugos.first + 1;
   left->zeugos.second = zeugos.second;
   left->left = NULL;
@@ -53,7 +53,7 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
   left->center = NULL;
 
   //ypopshfio kentriko paidi
-  traversal_node *center = new traversal_node();
+  center = new traversal_node();
   center->zeugos.first = zeugos.first + 1;
   center->zeugos.second = zeugos.second + 1;
   center->left = NULL;
@@ -61,7 +61,7 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
   center->center = NULL;
 
   //ypopshfio deksio paidi
-  traversal_node *right = new traversal_node();
+  right = new traversal_node();
   right->zeugos.first = zeugos.first;
   right->zeugos.second = zeugos.second + 1;
   right->left = NULL;
