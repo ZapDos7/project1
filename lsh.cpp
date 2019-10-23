@@ -16,8 +16,11 @@
 #include "ht.h"
 #include <chrono> // time measurements
 
+std::string repeat_answer = "n";
+
 int main(int argc, char *argv[])
 {
+
 
   //test
   //ht<int> a_table(10,20,3,40);
@@ -90,6 +93,18 @@ int main(int argc, char *argv[])
       L = 5;
     }
   }
+
+  do{ //to programma tha ksanatreksei sto telos me alla orismata, an to epi8ymei o xrhsths
+
+    if(repeat_answer == "y"){
+      dset = false;
+      qset = false;
+      oset = false;
+      std::cout << "enter value for k:\n";
+      std::cin >> k;
+      std::cout << "enter value for L:\n";
+      std::cin >> L;
+    }
   //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI DATASET:
   if (dset == false)
   {
@@ -388,6 +403,15 @@ int main(int argc, char *argv[])
 
   infile.close();
   qfile.close();
-
   //when done all, ask if repeat with other dataset or exit ektelesi
+
+  std::cout << "Would you like to repeat with new dataset? Type y for yes or n for no\n";
+  std::cin >> repeat_answer;
+  if(repeat_answer != "y")
+    repeat_answer = "n";
+
+
+}while(repeat_answer=="y");
+
+
 }

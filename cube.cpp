@@ -13,10 +13,13 @@
 #include <cmath>
 #include <chrono> // time measurements
 
+std::string repeat_answer = "n";
+
+
 int main(int argc, char *argv[])
 {
   //DWSE MONOPATI DATASET:
-  std::cout << "to phra";
+  //std::cout << "to phra";
   int k = -1; //
   //int d=0; //diastasi d'
   //default d=3;
@@ -72,6 +75,17 @@ int main(int argc, char *argv[])
       probes = 2;
     }
   }
+  do{ //to programma tha ksanatreksei sto telos me alla orismata, an to epi8ymei o xrhsths
+
+  if(repeat_answer == "y"){
+    dset = false;
+    qset = false;
+    oset = false;
+    std::cout << "enter value for k (d'). If none inserted, unexpected behaviour will occur\n";
+    std::cin >> k;
+    std::cout << "enter value for M. If none inserted, unexpected behaviour will occur\n";
+    std::cin >> M;
+  }
   //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI DATASET:
   if (dset == false)
   {
@@ -80,7 +94,7 @@ int main(int argc, char *argv[])
     std::cin >> dataset_path;
   }
 
-  std::cout << "to phra";
+  //std::cout << "to phra";
 
   int n = 0; //plithos twn vectors tou input file
   std::ifstream infile(dataset_path);
@@ -97,8 +111,7 @@ int main(int argc, char *argv[])
   //upologizw to dimensions tou kosmou mou
   int diastaseis_vector = vectors_array[0].get_v().size();
 
-  for (int i = 0; i < vectors_array.size(); i++)
-    std::cout << vectors_array[i].get_id() << "\n";
+  
   //DWSE MONOPATH QUERIES
   if (qset == false)
   {
@@ -295,4 +308,16 @@ int main(int argc, char *argv[])
 
   infile.close();
   qfile.close();
+  //when done all, ask if repeat with other dataset or exit ektelesi
+
+  std::cout << "Would you like to repeat with new dataset? Type y for yes or n for no\n";
+  std::cin >> repeat_answer;
+  if(repeat_answer != "y")
+    repeat_answer = "n";
+
+
+}while(repeat_answer=="y");
+
+
+
 }

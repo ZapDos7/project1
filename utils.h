@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <typeinfo>
 #include <stdlib.h> //labs, llabs
 #include <sstream>
 #include <cmath> //abs with overload for float
