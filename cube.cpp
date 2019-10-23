@@ -262,50 +262,37 @@ int main(int argc, char *argv[])
         myfile3 << approx_NNs[i].getq_id() << " " << approx_NNs[i].getp_id() << " " << approx_NNs[i].get_distance() << "\n";
       myfile3.close();*/
 
-  //DWSE MONOPATI OUTPUT FILE
-  std::cout << "Define output file path:\n";
-  std::cin >> output_path;
-  //read files
-  //an oxi apo path pou grafei o user
-  //    $./lsh –d <input file> –q <query file> –k <int> -L <int> -ο <output file>
-  //dataset: me tabs anamesa, ka8e grammi: id1    x11     x12     x13...
-  //N to plithos twn
-  //ids mporei na einai mondaikoi akeraioi h strings
+  //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
+  if (oset == false)
+  {
+    std::cout << "Define output file path:\n";
+    std::string inp1;
+    std::cin >> output_path;
+  }
 
-  //queryset: toulax 1 vector & panw panw 1 8etiko double R, an R = 0 tote mono 1 NN, an R>1, tote bonus
-  //ka8e grammi meta: idS1    x11     x12     x13...
-  //q to plithos twn
+  std::ofstream outfile;
+  outfile.open(output_path);
 
-  //define path to dataset & path to output file???
-  //when done all, ask if repeat with other dataset or exit ektelesi
-  //hypercube for vectors
-
-  //output.txt:
-  //for each itemJ in queryset:
-  /*
-    Query: itemJ
-    Nearest neighbor: itemY
-    distanceLSH: <double>
-    distanceTrue: <double>
-    tLSH: <double>
-    tTrue: <double>
-    R-near neighbors: //bonus
-    itemJ //bonus
-    itemK //bonus
-    . . .
-    itemW //bonus
+  for (unsigned int i = 0; i < approx_NNs.size(); i++) //for each itemJ in queryset:
+  {
+    outfile << "Query: " << approx_NNs[i].getq_id() << '\n';
+    outfile << "Nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
+    outfile << "distanceLSH: " << approx_NNs[i].get_distance() << '\n';
+    outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
+    outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
+    outfile << "tTrue: " << times_of_actual_NNs[i].count() << '\n';
+    /*if (bonus)
+    {
+      outfile << "R-near neighbors: " << '\n';
+      for (however many R near we found)
+      {
+        outfile << "item_id" << '\n';
+      }
+    }
     */
+  }
+  outfile.close();
 
-  ////////////////////////////METRISEIS///////////////////////////////
-  /*
-Compare apotelesmata twn 4 parallagwn:{
-LSH for curves / LSH L1,
-LSH for curves / Hypercube,
-Random Projection / LSH L1,
-Random Projection / Hypercube}
-ws pros: {
-    a) max klasma proseggisis = {approx NN distance } / {actual NN distance}
-    b) mean time euresis tou approx NN
-}
-*/
+  infile.close();
+  qfile.close();
 }
