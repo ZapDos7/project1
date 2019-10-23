@@ -47,6 +47,13 @@ traversal_tree::traversal_tree(int curve1_length, int curve2_length)
   root.recursive_builder(curve1_length, curve2_length);
 }
 
+bool traversal_node::is_leaf(){
+  if((left==NULL)&&(center==NULL)&&(right ==NULL))
+    return true;
+  else
+    return false;
+}
+
 void traversal_node::recursive_builder(int curve1_length, int curve2_length)
 {
   bool left_ok, center_ok, right_ok = true; //shmainei oti tha ginoyn anadromikes klhseis-dhmiourgia gia autes

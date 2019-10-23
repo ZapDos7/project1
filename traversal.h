@@ -29,6 +29,7 @@ public:
     traversal_node(){};
     ~traversal_node(){};                                          //DOULITSA
     void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
+    bool is_leaf();
 };
 
 class traversal_tree
