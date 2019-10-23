@@ -22,9 +22,15 @@ template <class T>
 traversal<T>::~traversal() {}
 
 template <class T>
-std::vector<std::pair<int, int>> traversal<T>::get_all_possible_travs()
+std::string traversal<T>::get_c_id_1() { return curve_ids.first; }
+
+template <class T>
+std::string traversal<T>::get_c_id_1() { return curve_ids.second; }
+
+template <class T>
+std::vector<std::pair<int, int>> traversal<T>::get_my_traversal()
 {
-  return indices;
+  return my_traversal;
 }
 
 //TRAVERSAL TREE

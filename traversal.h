@@ -8,12 +8,14 @@ class traversal
 {
 private:
     std::pair<std::string, std::string> curve_ids;
-    <std::vector<std::pair<int, int>>> all_possible_travs;
+    std::vector<std::pair<int, int>> my_traversal;
 
 public:
     traversal<T>(curve<T> *c1, curve<T> *c2);
     ~traversal<T>();
-    std::vector<std::pair<int, int>> get_all_possible_travs();
+    std::string get_c_id_1();
+    std::string get_c_id_2();
+    std::vector<std::pair<int, int>> get_my_traversal();
 };
 
 class traversal_node
