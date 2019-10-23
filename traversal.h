@@ -16,28 +16,28 @@ public:
     std::vector<std::pair<int, int>> get_all_possible_travs();
 };
 
-
-class traversal_node{
+class traversal_node
+{
 public:
-  std::pair<int, int> zeugos;
-  traversal_node * left; //aristera shmainei kineitai o first
-  traversal_node * center; //kentro shmainei kinountai kai oi 2
-  traversal_node * right; //deksia shmainei kineitai o second
+    std::pair<int, int> zeugos;
+    traversal_node *left;   //aristera shmainei kineitai o first
+    traversal_node *center; //kentro shmainei kinountai kai oi 2
+    traversal_node *right;  //deksia shmainei kineitai o second
 
-  traversal_node(){};
-  ~traversal_node(){}; //DOULITSA
-  void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
+    traversal_node(){};
+    ~traversal_node(){};                                          //DOULITSA
+    void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
 };
 
-class traversal_tree{
+class traversal_tree
+{
 private:
-  traversal_node root; //h riza tou dentrou me ta traversals
+    traversal_node root; //h riza tou dentrou me ta traversals
 public:
-  traversal_tree(int curve1_length, int curve2_length);
-  ~traversal_tree(){}; //DOULITSA
+    traversal_tree(int curve1_length, int curve2_length);
+    ~traversal_tree(){}; //DOULITSA
 
-
+    //get all traversals
 };
-
 
 #endif
