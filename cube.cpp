@@ -3,15 +3,22 @@
 #include "h_funs.h"
 #include "g_funs.h"
 #include "utils.h"
+#include "NNpair.h"
+#include "cube_ht.h"
 #include <typeinfo>
 #include <string.h>
 #include <fstream>
+#include <limits>
+#include <set>
+#include <cmath>
+#include <chrono> // time measurements
 
 
 int main (int argc, char*argv[]) {
         //DWSE MONOPATI DATASET:
+        std::cout << "to phra";
       int k = -1; //
-      int d=0; //diastasi d'
+      //int d=0; //diastasi d'
       //default d=3;
       int M=0; //to max allowed plithos ypopsifiwn shmeiwn
       //default M=10;
@@ -73,6 +80,7 @@ int main (int argc, char*argv[]) {
           std::cin >> dataset_path;
         }
 
+        std::cout << "to phra";
 
     int n = 0;                  //plithos twn vectors tou input file
     std::ifstream infile(dataset_path);
@@ -106,6 +114,119 @@ int main (int argc, char*argv[]) {
         query_vectors_array.push_back(one_v_atime2);
     };
     infile.close();
+
+    auto start_of_distance_matrix = std::chrono::high_resolution_clock::now();
+    /*Distance Matrix Input X Query vectors me tis apostaseis tous*/
+    double Brute_Distance_Matrix[vectors_array.size()][query_vectors_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
+    for (unsigned int i = 0; i < vectors_array.size(); i++)
+      for (unsigned int j = 0; j < query_vectors_array.size(); j++)
+        Brute_Distance_Matrix[i][j] = manhattan_distance(vectors_array[i].get_v(), query_vectors_array[j].get_v());
+
+    auto end_of_distance_matrix = std::chrono::high_resolution_clock::now() - start_of_distance_matrix;
+    long long microseconds_DM = std::chrono::duration_cast<std::chrono::microseconds>(end_of_distance_matrix).count();
+
+    fprintf(stderr, "Time needed for distance matrix calculation is %lld microseconds.\n\n", microseconds_DM);
+
+
+
+      //euresi actual NNs
+      auto start_of_w_calc = std::chrono::high_resolution_clock::now();
+      std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to p
+      for (unsigned int i = 0; i < vectors_array.size(); i++)
+      { //prepei na brw ta zeugaria ap to input gia ypologismo w
+
+        std::string min_id1;
+        double min1 = std::numeric_limits<double>::max(); //min pairnei timh apeiro
+        for (unsigned int j = 0; j < vectors_array.size(); j++)
+        {
+          if (manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v()) == 0) //einai to idio shmeio
+            continue;
+
+          if (manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v()) < min1)
+          {
+            min1 = manhattan_distance(vectors_array[i].get_v(), vectors_array[j].get_v());
+            min_id1 = vectors_array[j].get_id();
+          }
+        }
+        NNpair single_pair1(vectors_array[i].get_id(), min_id1);
+        single_pair1.set_distance(min1);
+        input_actual_NNs.push_back(single_pair1);
+      }
+
+      double tmp = 0.0;
+      double mean_distance = 0;
+      for (unsigned int i = 0; i < input_actual_NNs.size(); i++)
+      {
+        tmp += input_actual_NNs.at(i).get_distance();
+      }
+      mean_distance = tmp / input_actual_NNs.size(); //fp division
+      auto end_of_w_calc = std::chrono::high_resolution_clock::now() - start_of_w_calc;
+      long long microseconds_w = std::chrono::duration_cast<std::chrono::microseconds>(end_of_w_calc).count();
+
+      fprintf(stderr, "Time needed for w calculation is %lld microseconds.\n\n", microseconds_w);
+      fprintf(stderr, "Value of w = %f\n", mean_distance);
+
+      //also test gia w = 10 * mean_distance
+      /*const*/ double w = 4 * mean_distance; //to w pou vazw sta ai
+
+
+      //////////////////////////////HYPERCUBE TIME///////////////////////////////////
+      if(k <0) //to k=d' den egine set ara einai iso me log2(n)
+        k = floor(log2((double)n));
+
+      cube_ht<int> hypercube(k, diastaseis_vector, w); //dhmiourgei th domh tou kubou
+      for (unsigned int i = 0; i < vectors_array.size(); i++)
+        hypercube.cubify_vector(&vectors_array[i]); //pernaei ta input dianusmata mesa ston kubo
+
+      std::vector<NNpair> approx_NNs; //pinakas apo zeugaria cube approx NNs me prwto stoixeio to q
+      std::vector<int> full_potential_neighbs;    //major metavlhth, anaferetai se ena q
+      for (unsigned int i = 0; i < query_vectors_array.size(); i++){
+
+        full_potential_neighbs.clear();
+        full_potential_neighbs = hypercube.cubify_query(&query_vectors_array[i], probes); //epistrefei vector me ta int ids twn dianusmatwn sthn idia korufh me to q (kai se alles probes-1)
+
+        if (full_potential_neighbs.size() <= M){ //oi pithanoi geitones einai ligoteroi apo to M
+          double min = std::numeric_limits<double>::max(); //min pairnei timh apeiro arxika
+          std::string min_id;                              //to id tou aNN
+          for (unsigned int yod = 0; yod < full_potential_neighbs.size(); yod++)
+          { //gia kathe pithano aNN
+            //std::cout << "i am q " << query_vectors_array[i].get_id_as_int() << "and this is a prob neighb" << full_potential_neighbs[yod] << "\n" ;
+            if (Brute_Distance_Matrix[full_potential_neighbs[yod] - 1][i] < min)
+            {                                                        //if dist(pi,q) < min
+              min = Brute_Distance_Matrix[full_potential_neighbs[yod] - 1][i];  //this is minimum distance
+              min_id = vectors_array[full_potential_neighbs[yod] - 1].get_id(); //this is min pi
+            }
+          }
+          NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
+          approx_pair.set_distance(min);
+          approx_NNs.push_back(approx_pair);
+        }
+        else{ //tha psaksoume mono mexri M
+          double min = std::numeric_limits<double>::max(); //min pairnei timh apeiro
+          std::string min_id;
+          for (int yod = 0; yod < M; yod++)
+          { //but stop
+            if (Brute_Distance_Matrix[full_potential_neighbs[yod] - 1][i] < min)
+            {
+              min = Brute_Distance_Matrix[full_potential_neighbs[yod] - 1][i];
+              min_id = vectors_array[full_potential_neighbs[yod] - 1].get_id();
+            }
+          }
+          NNpair approx_pair(query_vectors_array[i].get_id(), min_id);
+          approx_pair.set_distance(min);
+          approx_NNs.push_back(approx_pair);
+        }
+
+      }
+
+      /*std::ofstream myfile3;
+      myfile3.open("../approxNNs.txt");
+      for (unsigned int i = 0; i < approx_NNs.size(); i++)
+        myfile3 << approx_NNs[i].getq_id() << " " << approx_NNs[i].getp_id() << " " << approx_NNs[i].get_distance() << "\n";
+      myfile3.close();*/
+
+
+
     //DWSE MONOPATI OUTPUT FILE
     std::cout << "Define output file path:\n";
     std::cin >> output_path;
