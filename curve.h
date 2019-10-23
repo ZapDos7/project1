@@ -16,7 +16,7 @@ class curve
 {
 private:
     //std::vector<curve_point<T>> my_points;
-    int num_of_points; //plithos shmeiwn twn kampulwn
+    unsigned int num_of_points; //plithos shmeiwn twn kampulwn
     std::string id;
 
 public:
@@ -25,9 +25,9 @@ public:
     curve<T>(std::string inp);                                             //apo string
     curve<T>(std::vector<curve_point<T>>, int pointsnum, std::string idd); //parametropoihmenos
     ~curve<T>();                                                           //destructor
-    int get_size();                                                        //epistrefei to posa shmeia exei
+    unsigned int get_size();                                               //epistrefei to posa shmeia exei
     std::string get_id();                                                  //epistrefei to ID ws string
-    int get_id_as_int();                                                   //epistrefei to ID ws int
+    unsigned int get_id_as_int();                                          //epistrefei to ID ws int
     std::vector<curve_point<T>> get_points();                              //epistrefei ta shmeia ths kampulhs se ena vector apo pairs
 };
 
