@@ -1,13 +1,14 @@
 #include "curve_point.h"
 #include "curve.h"
 #include "traversal.h"
-#include "utils.h"
-#include "NNpair.h"
+#include "dtw.h"
+//#include "utils.h"
+//#include "NNpair.h"
 #include <iostream>
 #include <typeinfo>
-#include "h_funs.h"
-#include "g_funs.h"
-#include "ht.h"
+//#include "h_funs.h"
+//#include "g_funs.h"
+//#include "ht.h"
 #include <chrono> // time measurements
 #include <fstream>
 #include <stdlib.h>
@@ -22,16 +23,21 @@ std::string repeat_answer = "n";
 int main(int argc, char *argv[])
 {
     //test chamber
-    //std::cout.precision(17);
-    //std::string inp = "1	7	(-6.4227999999999996, 53.288000000000004) (-6.4257099999999996, 53.289299999999997) (-6.4268099999999997, 53.290300000000002) (-6.4268099999999997, 53.290300000000002) (-6.4268099999999997, 53.290300000000002) (-6.4271699999999994, 53.290599999999998) (-6.4271699999999994, 53.290599999999998)";
-    //curve<double> crv(inp);
-    //std::cout << crv.get_points()[0].get_x();
+    std::cout.precision(17);
+    std::string inp = "1	7	(-6.4227999999999996, 53.288000000000004) (-6.4257099999999996, 53.289299999999997) (-6.4268099999999997, 53.290300000000002) (-6.4268099999999997, 53.290300000000002) (-6.4268099999999997, 53.290300000000002) (-6.4271699999999994, 53.290599999999998) (-6.4271699999999994, 53.290599999999998)";
+    curve<double> crv1(inp);
+    std::string inp2 = "6	8	(-6.2582100000000001, 53.347799999999999) (-6.4272499999999999, 53.290799999999997) (-6.4272499999999999, 53.290799999999997) (-6.4272900000000002, 53.290799999999997) (-6.4272900000000002, 53.290799999999997) (-6.4271799999999999, 53.291400000000003) (-6.4265499999999998, 53.290100000000002) (-6.4272099999999996, 53.2911)";
+    curve<double> crv2(inp2);
+
+    dtw<double> tsutsu;
+    double lala = tsutsu.actual_dtw(&crv1, &crv2);
+    std::cout << lala << '\n';
 
     //main
     //$./curve_grid_lsh -d <input file> -k_vec <int> -L_grid <int> -ο <output file>
     int k_vec = -1;
     int L_grid = -1;
-    bool dset, oset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
+    bool dset, oset = false; ////an oxi orisma grammis entolon, 8a parw ta files apo path pou grafei o user
     char dataset_path[256];
     char output_path[256];
 
@@ -107,7 +113,6 @@ int main(int argc, char *argv[])
             n--;
         }
 
-        //we gotta define DTW
         //then we make the Grids
         //L times we map each curve to a grid curve
         //we concat the points of them ^ and make a vector x //first we make them vectors

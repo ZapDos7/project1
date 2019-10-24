@@ -1,5 +1,5 @@
 CC=g++  -std=c++11
-CFLAGS=-c -Wall -Ofast
+CFLAGS=-c -Wall# -Ofast
 LDFLAGS=
 SOURCES=lsh.cpp my_vector.cpp NNpair.cpp h_funs.cpp g_funs.cpp ht.cpp
 SOURCESCUBE = cube.cpp my_vector.cpp h_funs.cpp g_funs.cpp cube_ht.cpp NNpair.cpp

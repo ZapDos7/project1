@@ -45,7 +45,7 @@ private:
 public:
     traversal_tree<T>(curve<T> *c1, curve<T> *c2);
     ~traversal_tree<T>(){}; //DOULITSA
-
+    traversal_node *access_root();
     //get all traversals
     void recursive_search(traversal_node *rut, std::vector<traversal_node *> tool);
     /*MIA ENDEIKTIKH KLHSH THS EINAI: (apo to dentro)
@@ -56,5 +56,6 @@ public:
     */
     std::vector<traversal<T>> objectify_travs(curve<T> *c1, curve<T> *c2); //kanei to draft traversals --> proper vector apo traversals!
 };
+
 
 #endif

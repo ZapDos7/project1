@@ -142,6 +142,8 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
   if (right_ok)
     right->recursive_builder(curve1_length, curve2_length);
 }
+template <class T>
+traversal_node *traversal_tree<T>::access_root() { return &root; }
 
 template <class T>
 std::vector<traversal<T>> traversal_tree<T>::objectify_travs(curve<T> *c1, curve<T> *c2)
@@ -161,3 +163,11 @@ std::vector<traversal<T>> traversal_tree<T>::objectify_travs(curve<T> *c1, curve
   }
   return to_be_returned;
 }
+
+template class traversal_tree<float>;
+template class traversal_tree<int>;
+template class traversal_tree<double>;
+
+template class traversal<float>;
+template class traversal<int>;
+template class traversal<double>;
