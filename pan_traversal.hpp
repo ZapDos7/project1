@@ -7,127 +7,120 @@
 #include <limits>
 #include <typeinfo>
 
-
-
 template <class T>
 class traversal
 {
 private:
-    std::pair<std::string, std::string> curve_ids;
-    std::vector<std::pair<int, int>> my_traversal;
+  std::pair<std::string, std::string> curve_ids;
+  std::vector<std::pair<int, int>> my_traversal;
 
 public:
-    traversal<T>(){};
-    traversal<T>(curve<T> *c1, curve<T> *c2);
-    ~traversal<T>();
-    std::string get_c_id_1();
-    std::string get_c_id_2();
-    std::vector<std::pair<int, int>> get_my_traversal();
-    void add_pair(int, int);
-    void set_c_id_1(std::string);
-    void set_c_id_2(std::string);
+  traversal<T>(){};
+  traversal<T>(curve<T> *c1, curve<T> *c2);
+  ~traversal<T>();
+  std::string get_c_id_1();
+  std::string get_c_id_2();
+  std::vector<std::pair<int, int>> get_my_traversal();
+  void add_pair(int, int);
+  void set_c_id_1(std::string);
+  void set_c_id_2(std::string);
 };
-
 
 class traversal_node
 {
 public:
-    std::pair<int, int> zeugos;
-    traversal_node *left;   //aristera shmainei kineitai o first
-    traversal_node *center; //kentro shmainei kinountai kai oi 2
-    traversal_node *right;  //deksia shmainei kineitai o second
+  std::pair<int, int> zeugos;
+  traversal_node *left;   //aristera shmainei kineitai o first
+  traversal_node *center; //kentro shmainei kinountai kai oi 2
+  traversal_node *right;  //deksia shmainei kineitai o second
 
-    traversal_node(){};
-    ~traversal_node(){};                                          //DOULITSA
-    void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
-    bool is_leaf();
+  traversal_node(){};
+  ~traversal_node(){};                                          //DOULITSA
+  void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
+  bool is_leaf();
 };
-
-
 
 template <class T>
 class traversal_tree
 {
 private:
-    traversal_node root;                                         //h riza tou dentrou me ta traversals
-    std::vector<std::vector<traversal_node *>> draft_traversals; //pinakas apo pinakes komvwn tou dentrou. Enas pinakas komvwn einai ena traversal.
+  traversal_node root;                                         //h riza tou dentrou me ta traversals
+  std::vector<std::vector<traversal_node *>> draft_traversals; //pinakas apo pinakes komvwn tou dentrou. Enas pinakas komvwn einai ena traversal.
 public:
-    traversal_tree<T>(curve<T> *c1, curve<T> *c2);
-    ~traversal_tree<T>(){}; //DOULITSA
-    traversal_node *access_root();
-    //get all traversals
-    void recursive_search(traversal_node *rut, std::vector<traversal_node *> tool);
-    /*MIA ENDEIKTIKH KLHSH THS EINAI: (apo to dentro)
+  traversal_tree<T>(curve<T> *c1, curve<T> *c2);
+  ~traversal_tree<T>(){}; //DOULITSA
+  traversal_node *access_root();
+  //get all traversals
+  void recursive_search(traversal_node *rut, std::vector<traversal_node *> tool);
+  /*MIA ENDEIKTIKH KLHSH THS EINAI: (apo to dentro)
     std::vector<traversal_node *> vek;
     vek.clear();
     recursive_search(&root, vek);
     twra tha prepei na exei gemisei o draft_traversals
     */
-    std::vector<traversal<T>> objectify_travs(curve<T> *c1, curve<T> *c2); //kanei to draft traversals --> proper vector apo traversals!
+  std::vector<traversal<T>> objectify_travs(curve<T> *c1, curve<T> *c2); //kanei to draft traversals --> proper vector apo traversals!
 };
-
-
 
 template <class T>
 class dtw
 {
 private:
-    /* data */
+  /* data */
 public:
-    dtw(){};
-    ~dtw(){};
-    double euclidean(curve_point<T> cp1, curve_point<T> cp2);
-    double actual_dtw(curve<T> *c1, curve<T> *c2);
+  dtw(){};
+  ~dtw(){};
+  double euclidean(curve_point<T> cp1, curve_point<T> cp2);
+  double actual_dtw(curve<T> *c1, curve<T> *c2);
 };
 
 template <class T>
 double dtw<T>::actual_dtw(curve<T> *c1, curve<T> *c2)
 {
-    //gia kathe pithano traversal metaksu twn 2 kampulwn
-    //pairnw to min sum twn apolutwn diaforwn kapoiwn shmeiwn pk, qk (idio indice gia ta 2 curves)
-    traversal_tree<T> my_tree(c1, c2);
-    std::vector<traversal_node *> tool;
-    tool.clear();
-    my_tree.recursive_search(my_tree.access_root(), tool); //gemise o draft_traversals mou
-    std::vector<traversal<T>> vec_trav;
-    vec_trav = my_tree.objectify_travs(c1, c2);
-    std::vector<double> apostaseis;
-    for (unsigned int i = 0; i < vec_trav.size(); i++) //gia kathe pithano traversal metaksu twn 2 kampulwn
+  //gia kathe pithano traversal metaksu twn 2 kampulwn
+  //pairnw to min sum twn apolutwn diaforwn kapoiwn shmeiwn pk, qk (idio indice gia ta 2 curves)
+  traversal_tree<T> my_tree(c1, c2);
+  std::vector<traversal_node *> tool;
+  tool.clear();
+  my_tree.recursive_search(my_tree.access_root(), tool); //gemise o draft_traversals mou
+  std::vector<traversal<T>> vec_trav;
+  vec_trav = my_tree.objectify_travs(c1, c2);
+  std::vector<double> apostaseis;
+  for (unsigned int i = 0; i < vec_trav.size(); i++) //gia kathe pithano traversal metaksu twn 2 kampulwn
+  {
+    std::vector<std::pair<int, int>> ena_traversal;
+    ena_traversal = vec_trav[i].get_my_traversal();
+    double sum_eucl = 0.0;
+    double eucl = 0.0;
+    for (unsigned int j = 0; j < ena_traversal.size(); j++) //gia kathe zeugari apo indices
     {
-        std::vector<std::pair<int, int>> ena_traversal;
-        ena_traversal = vec_trav[i].get_my_traversal();
-        double sum_eucl = 0.0;
-        double eucl = 0.0;
-        for (unsigned int j = 0; j < ena_traversal.size(); j++) //gia kathe zeugari apo indices
-        {
-            curve_point<T> shmeio_ths_c1 = c1->get_points()[ena_traversal[j].first];  //c1[first] = curvepoimt1
-            curve_point<T> shmeio_ths_c2 = c2->get_points()[ena_traversal[j].second]; //c2[second] = curvepoint2
-            eucl = euclidean(shmeio_ths_c1, shmeio_ths_c2);                           //euclidean apostasi (cp1, cp2)
-            sum_eucl += eucl;                                                         //a8roizw tis euclidean ana index gia auto to traversal
-        }
-        eucl = 0.0; //ksanamhdenizw to eucl pou einai o metritis kathe apostasis
-        apostaseis.push_back(sum_eucl);
-        sum_eucl = 0.0;
+      curve_point<T> shmeio_ths_c1 = c1->get_points()[ena_traversal[j].first];  //c1[first] = curvepoimt1
+      curve_point<T> shmeio_ths_c2 = c2->get_points()[ena_traversal[j].second]; //c2[second] = curvepoint2
+      eucl = euclidean(shmeio_ths_c1, shmeio_ths_c2);                           //euclidean apostasi (cp1, cp2)
+      sum_eucl += eucl;                                                         //a8roizw tis euclidean ana index gia auto to traversal
     }
-    double result = std::numeric_limits<double>::max();  //pairnei timh apeiro;
-    for (unsigned int i = 0; i < apostaseis.size(); i++) //get min of apostaseis
+    eucl = 0.0; //ksanamhdenizw to eucl pou einai o metritis kathe apostasis
+    apostaseis.push_back(sum_eucl);
+    sum_eucl = 0.0;
+  }
+  double result = std::numeric_limits<double>::max();  //pairnei timh apeiro;
+  for (unsigned int i = 0; i < apostaseis.size(); i++) //get min of apostaseis
+  {
+    if (apostaseis[i] <= apostaseis[i + 1])
     {
-        if (apostaseis[i] <= apostaseis[i + 1])
-        {
-            if (result > apostaseis[i])
-            {
-                result = apostaseis[i];
-            }
-        }
-        else //(apostaseis[i] > apostaseis[i+1])
-        {
-            if (result > apostaseis[i + 1])
-            {
-                result = apostaseis[i + 1];
-            }
-        }
+      if (result > apostaseis[i])
+      {
+        result = apostaseis[i];
+      }
     }
-    return result;
+    else //(apostaseis[i] > apostaseis[i+1])
+    {
+      if (result > apostaseis[i + 1])
+      {
+        result = apostaseis[i + 1];
+      }
+    }
+  }
+  return result;
 }
 
 template <class T>
@@ -238,7 +231,7 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
   right->center = NULL;
   bool right_ok = true;
 
-  if( (zeugos.first == curve1_length - 1) || (zeugos.second == curve2_length - 1))
+  if ((zeugos.first == curve1_length - 1) || (zeugos.second == curve2_length - 1))
   {
 
     delete center;
@@ -292,43 +285,40 @@ std::vector<traversal<T>> traversal_tree<T>::objectify_travs(curve<T> *c1, curve
   return to_be_returned;
 }
 
-
 template <class T>
 double dtw<T>::euclidean(curve_point<T> cp1, curve_point<T> cp2)
 {
-    T x1 = cp1.get_x();
-    T y1 = cp1.get_y();
+  T x1 = cp1.get_x();
+  T y1 = cp1.get_y();
 
-    T x2 = cp2.get_x();
-    T y2 = cp2.get_y();
+  T x2 = cp2.get_x();
+  T y2 = cp2.get_y();
 
-    T x = x1 - x2; //calculating number to square in next step
-    T y = y1 - y2;
-    double dist;
+  T x = x1 - x2; //calculating number to square in next step
+  T y = y1 - y2;
+  double dist;
 
-    if (typeid(x) != typeid(y))
-    {
-        std::cerr << "Incompatible curve point types (What are you doing?!)\n";
-        exit(-1);
-    }
-    if (typeid(x) == typeid(int))
-    {
-        int x_faux = x;
-        int y_faux = y;
-        dist = pow((double)x_faux, 2) + pow((double)y_faux, 2); //calculating Euclidean distance
-        dist = sqrt(dist);
-    }
-    else if (typeid(x) == typeid(double))
-    {
-        double x_faux = x;
-        double y_faux = y;
-        dist = pow(x_faux, 2) + pow(y_faux, 2); //calculating Euclidean distance
-        dist = sqrt(dist);
-    }
+  if (typeid(x) != typeid(y))
+  {
+    std::cerr << "Incompatible curve point types (What are you doing?!)\n";
+    exit(-1);
+  }
+  if (typeid(x) == typeid(int))
+  {
+    int x_faux = x;
+    int y_faux = y;
+    dist = pow((double)x_faux, 2) + pow((double)y_faux, 2); //calculating Euclidean distance
+    dist = sqrt(dist);
+  }
+  else if (typeid(x) == typeid(double))
+  {
+    double x_faux = x;
+    double y_faux = y;
+    dist = pow(x_faux, 2) + pow(y_faux, 2); //calculating Euclidean distance
+    dist = sqrt(dist);
+  }
 
-    return dist;
+  return dist;
 }
-
-
 
 #endif

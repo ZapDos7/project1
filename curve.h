@@ -30,6 +30,9 @@ public:
     std::string get_id();                                                  //epistrefei to ID ws string
     unsigned int get_id_as_int();                                          //epistrefei to ID ws int
     std::vector<curve_point<T>> get_points();                              //epistrefei ta shmeia ths kampulhs se ena vector apo pairs
+    void set_id(std::string);
+    void set_points(std::vector<curve_point<T>>);
+    void set_num_of_pnts(unsigned int);
 };
 
 #endif

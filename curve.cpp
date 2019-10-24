@@ -138,6 +138,27 @@ std::vector<curve_point<T>> curve<T>::get_points()
     return my_points;
 }
 
+template <class T>
+void curve<T>::set_id(std::string s1) { id = s1; }
+
+template <class T>
+void curve<T>::set_points(std::vector<curve_point<T>> vc)
+{
+    typename vector<T>::iterator it2 = vc.begin();
+    for (typename vector<T>::iterator it = my_points.begin(); it != my_points.end(); ++it)
+    {
+        *it = *it2;
+        ++it2;
+    }
+    return;
+}
+
+template <class T>
+void curve<T>::set_num_of_pnts(unsigned int nop)
+{
+    num_of_points = nop;
+}
+
 template class curve<float>;
 template class curve<int>;
 template class curve<double>;
