@@ -1,66 +1,168 @@
-int main()
+#include "curve_point.h"
+#include "curve.h"
+#include "traversal.h"
+#include "utils.h"
+#include "NNpair.h"
+#include <iostream>
+#include <typeinfo>
+#include "h_funs.h"
+#include "g_funs.h"
+#include "ht.h"
+#include <chrono> // time measurements
+#include <fstream>
+#include <stdlib.h>
+//#include <algorithm> // std::count
+#include <cstring>
+//#include <limits>
+//#include <set>
+//#include <cmath>
+
+std::string repeat_answer = "n";
+
+int main(int argc, char *argv[])
 {
+    //test chamber
+    //std::cout.precision(17);
+    //std::string inp = "1	7	(-6.4227999999999996, 53.288000000000004) (-6.4257099999999996, 53.289299999999997) (-6.4268099999999997, 53.290300000000002) (-6.4268099999999997, 53.290300000000002) (-6.4268099999999997, 53.290300000000002) (-6.4271699999999994, 53.290599999999998) (-6.4271699999999994, 53.290599999999998)";
+    //curve<double> crv(inp);
+    //std::cout << crv.get_points()[0].get_x();
 
-    ////////////////////////////B - CURVES///////////////////////////////
-    //read files
+    //main
+    //$./curve_grid_hypercube -d <input file> -q <query file> -k_hypercube <int> -M <int> -probes <int> -L_grid -ο <output file>
+    int k_hypercube = -1;
+    int M = -1;
+    int probes = -1;
+    bool dset, oset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
+    char dataset_path[256];
+    char output_path[256];
 
-    //an oxi apo user:
-    //$./curve_grid_hypercube –d <input file> –q <query file> –k_hypercube <int> -M <int> -probes <int> -L_grid -ο <output file>
+    for (int i = 0; i < argc; i++)
+    {
+        if (strcmp("-d", argv[i]) == 0)
+        {
+            strcpy(dataset_path, argv[i + 1]);
+            dset = true;
+        }
+        if (strcmp("-o", argv[i]) == 0)
+        {
+            strcpy(output_path, argv[i + 1]);
+            oset = true;
+        }
+        if (strcmp("-k_hypercube", argv[i]) == 0)
+        {
+            k_hypercube = atoi(argv[i + 1]);
+        }
+        else
+        {
+            k_hypercube = 3; //d_tonos
+        }
 
-    //dataset: me tabs anamesa, ka8e grammi: curve_id1      m1    (x11,y11)     (x12,y12)     ...
-    //N to plithos twn kampulwn
-    //mi to plithos twn shmeiwn tis kampulis
-    //xij einai tupou double
-    //j shmeio me j <= mi
-    //ids mporei na einai mondaikoi akeraioi h strings
+        if (strcmp("-M", argv[i]) == 0)
+        {
+            M = atoi(argv[i + 1]);
+        }
+        else
+        {
+            M = 10; //h oso sto erwthma A
+        }
 
-    //queryset: toulax 1 vector & panw panw 1 8etiko double R, an R = 0 tote mono 1 NN, an R>1, tote bonus
-    //ka8e grammi meta: idS1    x11     x12     x13...
-    //q to plithos twn
+        if (strcmp("-probes", argv[i]) == 0)
+        {
+            probes = atoi(argv[i + 1]);
+        }
+        else
+        {
+            probes = 2; //h oso sto erwthma A
+        }
+    }
+    do
+    { //to programma tha ksanatreksei sto telos me alla orismata, an to epi8ymei o xrhsths
 
-    // PES MOU an 8es Bi - dld se kampules plegmatos alla anaparistwntai ws vectors - h Bii - dld se vectors-
-    //&& PES MOU an 8es LSH h hypercube
+        if (repeat_answer == "y")
+        {
+            dset = false;
+            oset = false;
+            std::cout << "enter value for k_hypercube:\n";
+            std::cin >> k_hypercube;
+            std::cout << "enter value for M:\n";
+            std::cin >> M;
+            std::cout << "enter value for probes:\n";
+            std::cin >> probes;
+        }
+        //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI DATASET:
+        if (dset == false)
+        {
+            std::cout << "Define dataset path:\n";
+            std::string inp1;
+            std::cin >> dataset_path;
+        }
 
-    //define path to dataset
-    //populate HTs
+        int n = 0;                          //plithos twn kampulwn tou input file
+        std::ifstream infile(dataset_path); //dataset
+        std::string line;
+        std::vector<curve<double>> curves_array;
+        while (std::getline(infile, line))
+        { //read files
+            curve<double> one_v_atime(line);
+            //std::cout << one_v_atime.get_id()  <<"\n" ;
+            curves_array.push_back(one_v_atime);
+            n++;
+        };
+        infile.close();
+        std::vector<curve<double>> query_curves_array;
+        //ta teleutaia 86 einai ta query
+        const int q = 86;
+        for (unsigned int i = curves_array.size(); i >= -curves_array.size() - 87; i--)
+        {
+            query_curves_array.push_back(curves_array[i]); //to teleutaio einai query
+            curves_array.pop_back();                       //remove from input vector
+            n--;
+        }
 
-    //define path to output file & query file
-    //queryset: ka8e grammi meta: curve_idS1    ms1    (xs11,ys11)     (xs12,ys12)     ...
-    //q to plithos twn
-    //pali ID = unique int or string
+        //we gotta define DTW
+        //then we make the Grids
+        //L times we map each curve to a grid curve
+        //we concat the points of them ^ and make a vector x //first we make them vectors
+        //padd <super large number> to all vectors so they have the same length
+        //then hypercube
+        //then we find approx NN
 
-    //when done all, ask if repeat with other dataset or exit ektelesi
+        //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
+        if (oset == false)
+        {
+            std::cout << "Define output file path:\n";
+            std::string inp1;
+            std::cin >> output_path;
+        }
+        //std::ofstream outfile(output_path);
+        std::ofstream outfile;
+        outfile.open(output_path);
 
-    //LSH for curves
-    int L = 4; //default timi
-    //plithos kampulwn plegmatos
+        /*for (unsigned int i = 0; i < approx_NNs.size(); i++) //for each itemJ in queryset:
+        {
+            outfile << "Query: " << approx_NNs[i].getq_id() << '\n';
+            outfile << "Nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
+            outfile << "distanceLSH: " << approx_NNs[i].get_distance() << '\n';
+            outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
+            outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
+            outfile << "tTrue: " << times_of_actual_NNs[i].count() << '\n';*/
+        /*if (bonus)
+    {
+      outfile << "R-near neighbors: " << '\n';
+      for (however many R near we found)
+      {
+        outfile << "item_id" << '\n';
+      }
+    }
+    
+    }*/
+        outfile.close();
+        infile.close();
 
-    //hypercube for curves
-    double e = 0.5; //default timi
-    //o paragontas proseggisis
-
-    //output.txt:
-    /*
-    for each curveJ in queryset:
-    Query: curveJ
-    Method: {LSH, Projection}
-    HashFunction: {LSH, Hypercube}
-    Found Nearest neighbor: curveY
-    True Nearest neighbor: curveX
-    distanceFound: <double>
-    distanceTrue: <double>
-    */
-
-    ////////////////////////////METRISEIS///////////////////////////////
-    /*
-Compare apotelesmata twn 4 parallagwn:{
-LSH for curves / LSH L1,
-LSH for curves / Hypercube,
-Random Projection / LSH L1,
-Random Projection / Hypercube}
-ws pros: {
-    a) max klasma proseggisis = {approx NN distance } / {actual NN distance}
-    b) mean time euresis tou approx NN
-}
-*/
+        //when done all, ask if repeat with other dataset or exit ektelesi
+        std::cout << "Would you like to repeat with new dataset? Type y for yes or n for no\n";
+        std::cin >> repeat_answer;
+        if (repeat_answer != "y")
+            repeat_answer = "n";
+    } while (repeat_answer == "y");
 }

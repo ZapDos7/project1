@@ -99,11 +99,21 @@ int main(int argc, char *argv[])
         infile.close();
         std::vector<curve<double>> query_curves_array;
         //ta teleutaia 86 einai ta query
+        const int q = 86;
         for (unsigned int i = curves_array.size(); i >= -curves_array.size() - 87; i--)
         {
             query_curves_array.push_back(curves_array[i]); //to teleutaio einai query
             curves_array.pop_back();                       //remove from input vector
+            n--;
         }
+
+        //we gotta define DTW
+        //then we make the Grids
+        //L times we map each curve to a grid curve
+        //we concat the points of them ^ and make a vector x //first we make them vectors
+        //padd <super large number> to all vectors so they have the same length
+        //then LSH
+        //then we find approx NN
 
         //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
         if (oset == false)

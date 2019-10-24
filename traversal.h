@@ -11,11 +11,15 @@ private:
     std::vector<std::pair<int, int>> my_traversal;
 
 public:
+    traversal<T>(){};
     traversal<T>(curve<T> *c1, curve<T> *c2);
     ~traversal<T>();
     std::string get_c_id_1();
     std::string get_c_id_2();
     std::vector<std::pair<int, int>> get_my_traversal();
+    void add_pair(int, int);
+    void set_c_id_1(std::string);
+    void set_c_id_2(std::string);
 };
 
 class traversal_node
@@ -30,27 +34,27 @@ public:
     ~traversal_node(){};                                          //DOULITSA
     void recursive_builder(int curve1_length, int curve2_length); //sunexizei to dentro me riza ton idio ton komvo
     bool is_leaf();
-
 };
 
 template <class T>
 class traversal_tree
 {
 private:
-    traversal_node root; //h riza tou dentrou me ta traversals
+    traversal_node root;                                         //h riza tou dentrou me ta traversals
     std::vector<std::vector<traversal_node *>> draft_traversals; //pinakas apo pinakes komvwn tou dentrou. Enas pinakas komvwn einai ena traversal.
 public:
     traversal_tree<T>(curve<T> *c1, curve<T> *c2);
     ~traversal_tree<T>(){}; //DOULITSA
 
     //get all traversals
-    void recursive_search(traversal_node * rut, std::vector<traversal_node *> tool);
+    void recursive_search(traversal_node *rut, std::vector<traversal_node *> tool);
     /*MIA ENDEIKTIKH KLHSH THS EINAI: (apo to dentro)
     std::vector<traversal_node *> vek;
     vek.clear();
     recursive_search(&root, vek);
     twra tha prepei na exei gemisei o draft_traversals
     */
+    std::vector<traversal<T>> objectify_travs(curve<T> *c1, curve<T> *c2); //kanei to draft traversals --> proper vector apo traversals!
 };
 
 #endif
