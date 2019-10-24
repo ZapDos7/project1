@@ -61,8 +61,8 @@ $(EXECUTABLECURVEPRJLSH): $(OBJECTSCURVEPRJLSH)
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 
-run:
-	./$(EXECUTABLE) -d /home/ioanna/Desktop/sample_datasets/a_vectors/siftsmall/input_small_id_n -q /home/ioanna/Desktop/sample_datasets/a_vectors/XS/query_xs -k 4 -L 3 -o /home/ioanna/Desktop/outputfile.txt
+#run:
+#	./$(EXECUTABLE) -d /home/ioanna/Desktop/sample_datasets/a_vectors/siftsmall/input_small_id_n -q /home/ioanna/Desktop/sample_datasets/a_vectors/XS/query_xs -k 4 -L 3 -o /home/ioanna/Desktop/outputfile.txt
 
 clean:
 	rm -f $(OBJECTS) $(EXECUTABLE) $(OBJECTSCUBE) $(EXECUTABLECUBE) $(OBJECTSCURVEGRIDHPR) $(EXECUTABLECURVEGRIDHPR) $(OBJECTSCURVEGRIDLSH) $(EXECUTABLECURVEGRIDLSH) $(OBJECTSCURVEPRJHPR) $(EXECUTABLECURVEPRJHPR) $(OBJECTSCURVEPRJLSH) $(EXECUTABLECURVEPRJLSH)
