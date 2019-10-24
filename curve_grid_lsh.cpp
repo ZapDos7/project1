@@ -104,6 +104,11 @@ int main(int argc, char *argv[])
             n++;
         };
         infile.close();
+
+        //prin ta xwrisoume:
+        //vres delta ws meso oro apostasewn metaksu 2 diadoxikwn curve_points se kathe curve tou dataset
+        //krata kapou thn timi tis megistis suntetagmenis olwn twn curve tou dataset
+
         std::vector<curve<double>> query_curves_array;
         //ta teleutaia 86 einai ta query
         const int q = 86;
@@ -114,12 +119,14 @@ int main(int argc, char *argv[])
             n--;
         }
 
-        //then we make the Grids
-        //L times we map each curve to a grid curve
-        //we concat the points of them ^ and make a vector x //first we make them vectors
-        //padd <super large number> to all vectors so they have the same length
-        //then LSH
-        //then we find approx NN
+        //make L grids
+        //pername apo auta tis input curves -> grid curves -> vectors
+        //Twra kanoume LSH apo A erwthma sta vectors auta
+        //analoga to ti epistrefoun apothikeuoume sta hash tables (posa?) tis antistoixes kampules
+        //epeita pername apo ta grids tis query curves -> grid curves -> vectors
+        //apo LSH blepoume pou 8a epefte kathe query kai kratame ena vector me curves ws pithanous geitones (opws A)
+        //epeita sugkrinoume autes me DTW
+        //pairnoyme ton kontinotero, profit
 
         //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
         if (oset == false)
