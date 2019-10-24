@@ -9,6 +9,7 @@
 #include <cctype>        //isdigit
 #include <cstddef>       // std::size_t
 #include <iostream>
+#include <typeinfo>
 
 //oi kampules
 template <class T>

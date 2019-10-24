@@ -1,7 +1,8 @@
 #include "curve_point.h"
 #include "curve.h"
-#include "traversal.h"
-#include "dtw.h"
+#include "pan_traversal.hpp"
+//#include "traversal.h"
+//#include "dtw.h"
 //#include "utils.h"
 //#include "NNpair.h"
 #include <iostream>
@@ -147,7 +148,7 @@ int main(int argc, char *argv[])
         outfile << "item_id" << '\n';
       }
     }
-    
+
     }*/
         outfile.close();
         infile.close();
