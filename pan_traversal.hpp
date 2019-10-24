@@ -179,7 +179,15 @@ void traversal_tree<T>::recursive_search(traversal_node *rut, std::vector<traver
   tool2 = tool;
   tool2.push_back(rut);
   if (rut->is_leaf()) //einai fyllo, pernaw th diadromh ston MEGALO pinaka
+  {
     draft_traversals.push_back(tool2);
+    for (unsigned int mama = 0; mama < tool2.size(); mama++)
+    {
+      std::cout << tool2[mama]->zeugos.first << ' ' << tool2[mama]->zeugos.second << '\t';
+    }
+    std::cout << '\n';
+  }
+
   else
   {
     if (rut->left != NULL)
@@ -201,14 +209,16 @@ bool traversal_node::is_leaf()
 
 void traversal_node::recursive_builder(int curve1_length, int curve2_length)
 {
-  bool left_ok, center_ok, right_ok = true; //shmainei oti tha ginoyn anadromikes klhseis-dhmiourgia gia autes
+  //shmainei oti tha ginoyn anadromikes klhseis-dhmiourgia gia autes
   //ypopshfio aristero paidi
+  //std::cout << zeugos.first << " " << zeugos.second << curve1_length <<"\n";
   left = new traversal_node();
   left->zeugos.first = zeugos.first + 1;
   left->zeugos.second = zeugos.second;
   left->left = NULL;
   left->right = NULL;
   left->center = NULL;
+  bool left_ok = true;
 
   //ypopshfio kentriko paidi
   center = new traversal_node();
@@ -217,6 +227,7 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
   center->left = NULL;
   center->right = NULL;
   center->center = NULL;
+  bool center_ok = true;
 
   //ypopshfio deksio paidi
   right = new traversal_node();
@@ -225,15 +236,22 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
   right->left = NULL;
   right->right = NULL;
   right->center = NULL;
+  bool right_ok = true;
 
-  if (zeugos.first == curve1_length - 1) //ftasame sto telos ths 1hs kampylhs
+  if( (zeugos.first == curve1_length - 1) || (zeugos.second == curve2_length - 1))
   {
-    delete left;
-    left = NULL;
-    left_ok = false;
+
     delete center;
     center = NULL;
     center_ok = false;
+  }
+
+  if (zeugos.first == curve1_length - 1) //ftasame sto telos ths 1hs kampylhs
+  {
+
+    delete left;
+    left = NULL;
+    left_ok = false;
   }
 
   if (zeugos.second == curve2_length - 1) //ftasame sto telos ths 1hs kampylhs
@@ -241,9 +259,6 @@ void traversal_node::recursive_builder(int curve1_length, int curve2_length)
     delete right;
     right = NULL;
     right_ok = false;
-    delete center;
-    center = NULL;
-    center_ok = false;
   }
 
   if (left_ok)
