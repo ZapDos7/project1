@@ -5,6 +5,8 @@
 #include "curve.h"
 #include <random> // uniform_real_distribution
 #include "my_vector.h"
+#include <set>
+//#include "my_vector.cpp"
 
 template <class T>
 class grid
@@ -17,8 +19,8 @@ public:
     grid(double, int);
     ~grid();
     curve<double> gridify(curve<T> *);
-    my_vector<double> vectorify(curve<double>);
-    my_vector<double> add_pad(my_vector<double>, double, unsigned int);
+    //my_vector<double> vectorify(curve<double>);
+    //void add_pad(my_vector<double> *, double, unsigned int);
 };
 
 #endif

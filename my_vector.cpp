@@ -50,12 +50,24 @@ void my_vector<T>::set_id(string idd)
 template <class T>
 void my_vector<T>::set_v(std::vector<T> vv)
 {
-    typename vector<T>::iterator it2 = vv.begin();
+    vec.clear();
+    for (unsigned int i = 0; i < vv.size(); i++)
+    {
+        vec.push_back(vv[i]);
+    }
+
+    /*    typename vector<T>::iterator it2 = vv.begin();
     for (typename vector<T>::iterator it = vec.begin(); it != vec.end(); ++it)
     {
         *it = *it2;
         ++it2;
+    }*/
+    if (vv.size() != vec.size())
+    {
+        fprintf(stderr, "Error in set_v\n");
+        exit(-1);
     }
+
     return;
 }
 

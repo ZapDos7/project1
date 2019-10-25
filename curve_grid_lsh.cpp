@@ -1,6 +1,8 @@
 #include "curve_point.h"
 #include "curve.h"
 #include "pan_traversal.hpp"
+#include "grid.h"
+#include "my_vector.h"
 //#include "traversal.h"
 //#include "dtw.h"
 //#include "utils.h"
@@ -30,9 +32,14 @@ int main(int argc, char *argv[])
     std::string inp2 = "6	2	(-6.2582100000000001, 53.347799999999999) (-6.4272499999999999, 53.290799999999997)";
     curve<double> crv2(inp2);
 
-    dtw<double> tsutsu;
-    double lala = tsutsu.actual_dtw(&crv1, &crv2);
-    std::cout << lala << '\n';
+    my_vector<double> mv("item_id1	1.1 25.1 23.1 1.1 ");
+    grid<double> grd(2.2, 1);
+
+    /*grd.add_pad(&mv, 3.14, 2);
+    for (unsigned int i = 0; i < mv.get_v().size(); i++)
+    {
+        std::cout << mv.get_v()[i] << '\n';
+    }*/
 
     //main
     //$./curve_grid_lsh -d <input file> -k_vec <int> -L_grid <int> -ο <output file>

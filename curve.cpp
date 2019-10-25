@@ -144,12 +144,18 @@ void curve<T>::set_id(std::string s1) { id = s1; }
 template <class T>
 void curve<T>::set_points(std::vector<curve_point<T>> vc)
 {
-    typename vector<T>::iterator it2 = vc.begin();
+    my_points.clear();
+    for (unsigned int i = 0; i < vc.size(); i++)
+    {
+        my_points.push_back(vc[i]);
+    }
+
+    /*typename vector<T>::iterator it2 = vc.begin();
     for (typename vector<T>::iterator it = my_points.begin(); it != my_points.end(); ++it)
     {
         *it = *it2;
         ++it2;
-    }
+    }*/
     return;
 }
 
