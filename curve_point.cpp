@@ -27,6 +27,6 @@ void curve_point<T>::set_x(T x_to_be) { point.first = x_to_be; }
 template <class T>
 void curve_point<T>::set_y(T y_to_be) { point.second = y_to_be; }
 
+template class curve_point<double>;
 template class curve_point<float>;
 template class curve_point<int>;
-template class curve_point<double>;

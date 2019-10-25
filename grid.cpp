@@ -24,7 +24,8 @@ curve<double> grid<T>::gridify(curve<T> *c)
     curve<double> gc;
     gc.set_id(c->get_id()); //diathrw to id giati eimai magkas
     //gia kathe shmeio ths c briskw to a = floor(c[i])/delta, kanw a * delta gia na brw to coordinate (se kathe aksona)
-    std::set<curve_point<double>> uniques;
+    //std::set<curve_point<double>> uniques;
+    std::set<std::pair<double, double>> uniques;
     for (unsigned int i = 0; i < c->get_size(); i++)
     {
         T x1 = c->get_points()[i].get_x();
@@ -33,10 +34,18 @@ curve<double> grid<T>::gridify(curve<T> *c)
         T y1 = c->get_points()[i].get_y();
         double y2 = floor((double)y1 / delta);
         y2 *= delta; //to y tou grid curve gia to shmeio c[i]
-        curve_point<double> cp(x2, y2);
-        uniques.insert(cp); //ara krataei monadika
+        //curve_point<double> cp(x2, y2);
+        std::pair<double, double> cp_rep;
+        cp_rep.first = x2;
+        cp_rep.second = y2;
+        uniques.insert(cp_rep); //ara krataei monadika
     }
-    std::vector<curve_point<double>> tmp(uniques.begin(), uniques.end());
+    std::vector<curve_point<double>> tmp;
+    std::vector<std::pair<double, double>> temp2(uniques.begin(), uniques.end());
+    for(unsigned int i = 0; i < temp2.size(); i++){
+      curve_point<double> cp(temp2[i].first, temp2[i].second);
+      tmp.push_back(cp);
+    }
     gc.set_points(tmp);
     gc.set_num_of_pnts(tmp.size());
     return gc;

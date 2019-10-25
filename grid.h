@@ -6,6 +6,7 @@
 #include <random> // uniform_real_distribution
 #include "my_vector.h"
 #include <set>
+#include <algorithm>
 //#include "my_vector.cpp"
 
 template <class T>
