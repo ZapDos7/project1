@@ -6,6 +6,8 @@
 #include <cmath>
 #include <limits>
 #include <typeinfo>
+#include <iostream>     // std::cout
+#include <algorithm>    // std::min
 
 /*traversal*/
 template <class T>
@@ -264,8 +266,30 @@ double true_euclidean(curve_point<T> cp1, curve_point<T> cp2)
   return dist;
 }
 
+//dtw me dynamic programming
 template <typename T>
-double actual_dtw(curve<T> *c1, curve<T> *c2)
+double dtw(curve<T> *c1, curve<T> *c2){
+
+  double dist_mat[c1->get_size()+1][c2->get_size()+1];
+  for(unsigned int i=1; i<= c1->get_size(); i++)
+    dist_mat[i][0] = std::numeric_limits<double>::max();
+  for(unsigned int i=1; i<= c2->get_size(); i++)
+    dist_mat[0][i] = std::numeric_limits<double>::max();
+  dist_mat[0][0] = 0.0;
+  for(unsigned int i=1; i<= c1->get_size(); i++){
+    for(unsigned int j=1; j<= c2->get_size(); j++){
+      double mintrash = std::min(dist_mat[i-1][j-1], dist_mat[i][j-1]);
+      mintrash = std::min(mintrash, dist_mat[i-1][j]);
+      dist_mat[i][j] = true_euclidean(c1->get_points()[i-1], c2->get_points()[j-1] ) + mintrash;
+    }
+  }
+  return dist_mat[c1->get_size()][c2->get_size()];
+
+}
+
+//OXI RECOMMENDED
+template <typename T>
+double dtw1(curve<T> *c1, curve<T> *c2)
 {
   //gia kathe pithano traversal metaksu twn 2 kampulwn
   //pairnw to min sum twn apolutwn diaforwn kapoiwn shmeiwn pk, qk (idio indice gia ta 2 curves)

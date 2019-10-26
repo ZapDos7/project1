@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
         delta = delta / (double)(curves_array.size() - 86); //ki edw sbhnw to "-86" an eimai stin periptosi pou thelw kai ta query
         /*std::cerr << "Oliko delta is " << delta << '\n';*/
 
-        //std::cerr << "Max coord is " << max_coord << '\n';
+        std::cerr << "Max coord is " << max_coord << '\n';
 
         std::vector<curve<double>> query_curves_array;
         //ta teleutaia 86 einai ta query
@@ -174,14 +174,17 @@ int main(int argc, char *argv[])
             curves_array.pop_back();
             n--;
         }
-        dtw<double> dtww; //klash metrikwn kai ergaleiwn
 
         auto start_of_distance_matrix = std::chrono::high_resolution_clock::now();
         /*Distance Matrix Input X Query vectors me tis apostaseis tous*/
         double Brute_Distance_Matrix[curves_array.size()][query_curves_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
         for (unsigned int i = 0; i < curves_array.size(); i++)
-          for (unsigned int j = 0; j < query_curves_array.size(); j++)
-            Brute_Distance_Matrix[i][j] = dtww.actual_dtw(&curves_array[i], &curves_array[j]);
+          for (unsigned int j = 0; j < query_curves_array.size(); j++){
+            std::cout << "pro kampylhs";
+            Brute_Distance_Matrix[i][j] = dtw(&curves_array[i], &query_curves_array[j]);
+            std::cout << "poutso-skampylhs";
+          }
+
 
         auto end_of_distance_matrix = std::chrono::high_resolution_clock::now() - start_of_distance_matrix;
         long long microseconds_DM = std::chrono::duration_cast<std::chrono::microseconds>(end_of_distance_matrix).count();
@@ -199,12 +202,12 @@ int main(int argc, char *argv[])
           double min1 = std::numeric_limits<double>::max(); //min pairnei timh apeiro
           for (unsigned int j = 0; j < curves_array.size(); j++)
           {
-            if (dtww.actual_dtw(&curves_array[i], &curves_array[j]) == 0) //einai to idio shmeio
+            if (dtw(&curves_array[i], &curves_array[j]) == 0) //einai to idio shmeio
               continue;
 
-            if (dtww.actual_dtw(&curves_array[i], &curves_array[j])  < min1)
+            if (dtw(&curves_array[i], &curves_array[j])  < min1)
             {
-              min1 = dtww.actual_dtw(&curves_array[i], &curves_array[j]);
+              min1 = dtw(&curves_array[i], &curves_array[j]);
               min_id1 = curves_array[j].get_id();
             }
           }
