@@ -17,7 +17,7 @@
 #include <stdlib.h>
 //#include <algorithm> // std::count
 #include <cstring>
-//#include <limits>
+#include <limits>
 //#include <set>
 //#include <cmath>
 
@@ -114,6 +114,9 @@ int main(int argc, char *argv[])
         infile.close();
 
         double delta = 0.0;                                         //mesi apostasi shmeiwn kampulws
+        double inf = std::numeric_limits<double>::max();            //apeiro kai kala
+        double max_coord = -1 * inf;                                //arxika -apeiro
+        ;                                                           //h megisti metabliti pou uparxei sto dataset
         for (unsigned int i = 0; i < curves_array.size() - 86; i++) //an theloume ola & query, sbhnoume to "-86" kai ola popa
         {
             double tmp = 0.0;
@@ -121,10 +124,26 @@ int main(int argc, char *argv[])
             std::vector<curve_point<double>> shmeia = curves_array[i].get_points(); //pairnw to vector apo shmeia kathe kampulhs
             if (shmeia.size() < 2)
             {
-                i++;
+                if (shmeia[i].get_x() > max_coord)
+                {
+                    max_coord = shmeia[i].get_x();
+                }
+                if (shmeia[i].get_y() > max_coord)
+                {
+                    max_coord = shmeia[i].get_y();
+                }
+                continue;
             }
             else
             {
+                if (shmeia[i].get_x() > max_coord)
+                {
+                    max_coord = shmeia[i].get_x();
+                }
+                if (shmeia[i].get_y() > max_coord)
+                {
+                    max_coord = shmeia[i].get_y();
+                }
                 for (unsigned int j = 0; j < shmeia.size() - 1; j++) //pairnw kathe shmeio tou vector ^
                 {
                     tmp += true_euclidean<double>(shmeia[j], shmeia[j + 1]);
@@ -136,9 +155,9 @@ int main(int argc, char *argv[])
             }
         }
         delta = delta / (double)(curves_array.size() - 86); //ki edw sbhnw to "-86" an eimai stin periptosi pou thelw kai ta query
-        //std::cerr << "Oliko delta is " << delta << '\n';
+        /*std::cerr << "Oliko delta is " << delta << '\n';*/
 
-        //krata kapou thn timi tis megistis suntetagmenis olwn twn curve tou dataset
+        //std::cerr << "Max coord is " << max_coord << '\n';
 
         std::vector<curve<double>> query_curves_array;
         //ta teleutaia 86 einai ta query
