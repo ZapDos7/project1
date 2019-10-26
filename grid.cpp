@@ -52,8 +52,8 @@ curve<double> grid<T>::gridify(curve<T> *c)
     return gc;
 }
 
-template <class T>
-my_vector<double> grid<T>::vectorify(curve<double> gc) //kanw to grid curve --> vector
+
+my_vector<double> vectorify(curve<double> gc) //kanw to grid curve --> vector
 {
     my_vector<double> gcv;
     std::vector<double> tmp;
@@ -73,8 +73,8 @@ my_vector<double> grid<T>::vectorify(curve<double> gc) //kanw to grid curve --> 
     return gcv;
 }
 
-template <class T>
-void grid<T>::add_pad(my_vector<double> *gcv, double timi, unsigned int max_vec_size)
+
+void add_pad(my_vector<double> *gcv, double timi, unsigned int max_vec_size)
 {
     //vale "timi" sto "gcv" mexri na exei megethos "max_vec_size"
     std::vector<double> tmp = gcv->get_v();

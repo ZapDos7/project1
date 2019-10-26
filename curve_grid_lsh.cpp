@@ -37,9 +37,9 @@ int main(int argc, char *argv[])
     std::cerr << crv1.get_v_size() << '\n'; //3
     curve<double> lala = grd.gridify(&crv1);
     std::cerr << lala.get_v_size() << '\n'; //1
-    my_vector<double> mv = grd.vectorify(lala);
+    my_vector<double> mv = vectorify(lala);
     std::cerr << mv.get_v().size() << '\n'; //2
-    grd.add_pad(&mv, 2.1, 10);
+    add_pad(&mv, 2.1, 10);
     std::cerr << mv.get_v().size() << '\n'; //10
 
     //main
@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
     bool dset, oset = false; ////an oxi orisma grammis entolon, 8a parw ta files apo path pou grafei o user
     char dataset_path[256];
     char output_path[256];
+
 
     for (int i = 0; i < argc; i++)
     {
@@ -112,7 +113,6 @@ int main(int argc, char *argv[])
             n++;
         };
         infile.close();
-
         double delta = 0.0;                                         //mesi apostasi shmeiwn kampulws
         double inf = std::numeric_limits<double>::max();            //apeiro kai kala
         double max_coord = -1 * inf;                                //arxika -apeiro
@@ -162,13 +162,129 @@ int main(int argc, char *argv[])
         std::vector<curve<double>> query_curves_array;
         //ta teleutaia 86 einai ta query
         const int q = 86;
-        for (unsigned int i = curves_array.size(); i >= -curves_array.size() - 87; i--)
+        for (unsigned int i = curves_array.size() -86; i < curves_array.size(); i++)
         {
             query_curves_array.push_back(curves_array[i]); //to teleutaio einai query
-            curves_array.pop_back();                       //remove from input vector
+            //curves_array.pop_back();                       //remove from input vector
+            //n--;
+        }
+        //std::cout << query_curves_array.size() ;
+        for(unsigned int i = 0; i < query_curves_array.size(); i++){
+            curves_array.pop_back();
             n--;
         }
+        dtw<double> dtww; //klash metrikwn kai ergaleiwn
 
+        auto start_of_distance_matrix = std::chrono::high_resolution_clock::now();
+        /*Distance Matrix Input X Query vectors me tis apostaseis tous*/
+        double Brute_Distance_Matrix[curves_array.size()][query_curves_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
+        for (unsigned int i = 0; i < curves_array.size(); i++)
+          for (unsigned int j = 0; j < query_curves_array.size(); j++)
+            Brute_Distance_Matrix[i][j] = dtww.actual_dtw(&curves_array[i], &curves_array[j]);
+
+        auto end_of_distance_matrix = std::chrono::high_resolution_clock::now() - start_of_distance_matrix;
+        long long microseconds_DM = std::chrono::duration_cast<std::chrono::microseconds>(end_of_distance_matrix).count();
+
+        fprintf(stderr, "Time needed for distance matrix calculation is %lld microseconds.\n\n", microseconds_DM);
+
+
+        //euresi actual NNs
+        auto start_of_w_calc = std::chrono::high_resolution_clock::now();
+        std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to p
+        for (unsigned int i = 0; i < curves_array.size(); i++)
+        { //prepei na brw ta zeugaria ap to input gia ypologismo w
+
+          std::string min_id1;
+          double min1 = std::numeric_limits<double>::max(); //min pairnei timh apeiro
+          for (unsigned int j = 0; j < curves_array.size(); j++)
+          {
+            if (dtww.actual_dtw(&curves_array[i], &curves_array[j]) == 0) //einai to idio shmeio
+              continue;
+
+            if (dtww.actual_dtw(&curves_array[i], &curves_array[j])  < min1)
+            {
+              min1 = dtww.actual_dtw(&curves_array[i], &curves_array[j]);
+              min_id1 = curves_array[j].get_id();
+            }
+          }
+          NNpair single_pair1(curves_array[i].get_id(), min_id1);
+          single_pair1.set_distance(min1);
+          input_actual_NNs.push_back(single_pair1);
+        }
+
+        double tmp5 = 0.0;
+        double mean_distance = 0.0;
+        for (unsigned int i = 0; i < input_actual_NNs.size(); i++)
+        {
+          tmp5 += input_actual_NNs.at(i).get_distance();
+        }
+        mean_distance = tmp5 / input_actual_NNs.size(); //fp division
+        auto end_of_w_calc = std::chrono::high_resolution_clock::now() - start_of_w_calc;
+        long long microseconds_w = std::chrono::duration_cast<std::chrono::microseconds>(end_of_w_calc).count();
+
+        fprintf(stderr, "Time needed for w calculation is %lld microseconds.\n\n", microseconds_w);
+        fprintf(stderr, "Value of w = %f\n", mean_distance);
+
+        //also test gia w = 10 * mean_distance
+        /*const*/ double w = 4 * mean_distance; //to w pou vazw sta ai
+
+        //prepei na brw ton actual nearest neighbour
+        auto start_of_actual_NN_all = std::chrono::high_resolution_clock::now();
+        std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
+        std::vector<std::chrono::duration<double>> times_of_actual_NNs;
+        for (unsigned int i = 0; i < query_curves_array.size(); i++)
+        {
+          auto start_of_this_actual_NN = std::chrono::high_resolution_clock::now();
+          std::string min_id;
+          double min = std::numeric_limits<double>::max(); //min pairnei timh apeiro
+          for (unsigned int j = 0; j < curves_array.size(); j++)
+          {
+            if (Brute_Distance_Matrix[j][i] < min)
+            {
+              min = Brute_Distance_Matrix[j][i];
+              min_id = curves_array[j].get_id();
+            }
+          }
+          NNpair single_pair(query_curves_array[i].get_id(), min_id);
+          single_pair.set_distance(min);
+          actual_NNs.push_back(single_pair);
+          auto end_of_this_actual_NN = std::chrono::high_resolution_clock::now() - start_of_this_actual_NN;
+          times_of_actual_NNs.push_back(end_of_this_actual_NN);
+        }
+
+        auto end_of_actual_NN_all = std::chrono::high_resolution_clock::now() - start_of_actual_NN_all;
+        long long microseconds_act_NN_all = std::chrono::duration_cast<std::chrono::microseconds>(end_of_actual_NN_all).count();
+        fprintf(stderr, "Time needed for brute force found NNs is %lld microseconds.\n\n", microseconds_act_NN_all);
+
+
+
+
+
+        std::vector<grid<double>> grids_v; //o pinakas twn grids
+        for(int i =0; i<L_grid; i++){
+          grid<double> tmp(delta,2);  //2 einai oi diastaseis mas gia tis kampyles
+          grids_v.push_back(tmp);
+        }
+
+        int Table_Size = floor(n / 16);
+
+        for(int j=0; j<L_grid; j++){
+          std::vector<my_vector<double>> input_vectors_array; //TA VECTORS POY PROEKYPSAN APO TIS KAMPYLES EISODOU
+          int max_dims = -1;
+          for(unsigned int i = 0; i < curves_array.size(); i++){
+            curve<double> grid_curve;
+            grid_curve = grids_v[j].gridify(&curves_array[i]);
+            my_vector<double> converted_vec;
+            converted_vec = vectorify(grid_curve);
+            if(converted_vec.get_v().size() > max_dims)
+              max_dims = converted_vec.get_v().size() ;
+            input_vectors_array.push_back(converted_vec);
+          }
+          for(unsigned int i = 0; i < input_vectors_array.size(); i++){
+            add_pad(&input_vectors_array[i], 100*max_coord, max_dims);
+          }
+
+        }
         //make L grids
         //pername apo auta tis input curves -> grid curves -> vectors
         //Twra kanoume LSH apo A erwthma sta vectors auta
