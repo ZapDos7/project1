@@ -110,6 +110,12 @@ unsigned int curve<T>::get_size()
 }
 
 template <class T>
+unsigned int curve<T>::get_v_size()
+{
+    return my_points.size();
+}
+
+template <class T>
 std::string curve<T>::get_id()
 {
     return id;

@@ -42,28 +42,29 @@ curve<double> grid<T>::gridify(curve<T> *c)
     }
     std::vector<curve_point<double>> tmp;
     std::vector<std::pair<double, double>> temp2(uniques.begin(), uniques.end());
-    for(unsigned int i = 0; i < temp2.size(); i++){
-      curve_point<double> cp(temp2[i].first, temp2[i].second);
-      tmp.push_back(cp);
+    for (unsigned int i = 0; i < temp2.size(); i++)
+    {
+        curve_point<double> cp(temp2[i].first, temp2[i].second);
+        tmp.push_back(cp);
     }
     gc.set_points(tmp);
     gc.set_num_of_pnts(tmp.size());
     return gc;
 }
-/*
+
 template <class T>
 my_vector<double> grid<T>::vectorify(curve<double> gc) //kanw to grid curve --> vector
 {
     my_vector<double> gcv;
     std::vector<double> tmp;
     tmp.clear();
-    for (unsigned int i = 0; i < gc.get_size(); i++) //kathe curve point tis gc
+    for (unsigned int i = 0; i < gc.get_v_size(); i++) //kathe curve point tis gc
     {
         tmp.push_back(gc.get_points()[i].get_x());
         tmp.push_back(gc.get_points()[i].get_y());
     }
     gcv.set_v(tmp);
-    if (2 * gcv.get_v().size() != gc.get_size())
+    if (gcv.get_v().size() != 2 * gc.get_v_size())
     {
         std::cerr << "Error pushing back grid curve's elements to vector (vectorify)\n";
         exit(-1);
@@ -77,19 +78,21 @@ void grid<T>::add_pad(my_vector<double> *gcv, double timi, unsigned int max_vec_
 {
     //vale "timi" sto "gcv" mexri na exei megethos "max_vec_size"
     std::vector<double> tmp = gcv->get_v();
-    for (unsigned int i = 0; i < max_vec_size - gcv->get_v().size(); i++)
+    for (unsigned int i = 0; i < max_vec_size - gcv->get_v().size(); i++) //an px theloume max size = 10 kai exoume 2 8eloume na baloume 10-2=8 ara apo 0 ws 7
     {
         tmp.push_back(timi);
     }
+    //std::cerr << "tmp size2 is " << tmp.size();
     gcv->set_v(tmp);
     if (gcv->get_v().size() != max_vec_size)
     {
         std::cerr << "Error in add_pad\n";
         exit(-1);
     }
+    //std::cerr << "tmp size3 is " << gcv->get_v().size();
     return; //an exei error, isws thelei na kanoume ena tmp antigrafo tou gcv, na baloume ekei ta "timi" & na epistrepsoume auto
 }
-*/
+
 template class grid<float>;
 template class grid<int>;
 template class grid<double>;

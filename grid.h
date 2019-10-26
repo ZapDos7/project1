@@ -20,8 +20,8 @@ public:
     grid(double, int);
     ~grid();
     curve<double> gridify(curve<T> *);
-    //my_vector<double> vectorify(curve<double>);
-    //void add_pad(my_vector<double> *, double, unsigned int);
+    my_vector<double> vectorify(curve<double>);
+    void add_pad(my_vector<double> *, double, unsigned int);
 };
 
 #endif

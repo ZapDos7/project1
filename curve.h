@@ -27,6 +27,7 @@ public:
     curve<T>(std::vector<curve_point<T>>, int pointsnum, std::string idd); //parametropoihmenos
     ~curve<T>();                                                           //destructor
     unsigned int get_size();                                               //epistrefei to posa shmeia exei
+    unsigned int get_v_size();
     std::string get_id();                                                  //epistrefei to ID ws string
     unsigned int get_id_as_int();                                          //epistrefei to ID ws int
     std::vector<curve_point<T>> get_points();                              //epistrefei ta shmeia ths kampulhs se ena vector apo pairs

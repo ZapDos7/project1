@@ -32,14 +32,15 @@ int main(int argc, char *argv[])
     std::string inp2 = "6	2	(-6.2582100000000001, 53.347799999999999) (-6.4272499999999999, 53.290799999999997)";
     curve<double> crv2(inp2);
 
-    my_vector<double> mv("item_id1	1.1 25.1 23.1 1.1 ");
+    //my_vector<double> mv("item_id1	1.1 25.1 23.1 1.1 ");
     grid<double> grd(2.2, 1);
-
-    /*grd.add_pad(&mv, 3.14, 2);
-    for (unsigned int i = 0; i < mv.get_v().size(); i++)
-    {
-        std::cout << mv.get_v()[i] << '\n';
-    }*/
+    std::cerr << crv1.get_v_size() << '\n'; //3
+    curve<double> lala = grd.gridify(&crv1);
+    std::cerr << lala.get_v_size() << '\n'; //1
+    my_vector<double> mv = grd.vectorify(lala);
+    std::cerr << mv.get_v().size() << '\n'; //2
+    grd.add_pad(&mv, 2.1, 10);
+    std::cerr << mv.get_v().size() << '\n'; //10
 
     //main
     //$./curve_grid_lsh -d <input file> -k_vec <int> -L_grid <int> -ο <output file>
@@ -112,8 +113,31 @@ int main(int argc, char *argv[])
         };
         infile.close();
 
-        //prin ta xwrisoume:
-        //vres delta ws meso oro apostasewn metaksu 2 diadoxikwn curve_points se kathe curve tou dataset
+        double delta = 0.0;                                         //mesi apostasi shmeiwn kampulws
+        for (unsigned int i = 0; i < curves_array.size() - 86; i++) //an theloume ola & query, sbhnoume to "-86" kai ola popa
+        {
+            double tmp = 0.0;
+            double plithos_athroismatwn = 0.0;
+            std::vector<curve_point<double>> shmeia = curves_array[i].get_points(); //pairnw to vector apo shmeia kathe kampulhs
+            if (shmeia.size() < 2)
+            {
+                i++;
+            }
+            else
+            {
+                for (unsigned int j = 0; j < shmeia.size() - 1; j++) //pairnw kathe shmeio tou vector ^
+                {
+                    tmp += true_euclidean<double>(shmeia[j], shmeia[j + 1]);
+                    plithos_athroismatwn += 1.0;
+                }
+                tmp = tmp / plithos_athroismatwn;
+                delta += tmp;
+                //std::cerr << "Tmp delta is " << delta << '\n';
+            }
+        }
+        delta = delta / (double)(curves_array.size() - 86); //ki edw sbhnw to "-86" an eimai stin periptosi pou thelw kai ta query
+        //std::cerr << "Oliko delta is " << delta << '\n';
+
         //krata kapou thn timi tis megistis suntetagmenis olwn twn curve tou dataset
 
         std::vector<curve<double>> query_curves_array;
