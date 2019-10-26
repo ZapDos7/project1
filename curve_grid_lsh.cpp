@@ -12,6 +12,7 @@
 //#include "h_funs.h"
 //#include "g_funs.h"
 //#include "ht.h"
+#include "NNpair.h"
 #include <chrono> // time measurements
 #include <fstream>
 #include <stdlib.h>
