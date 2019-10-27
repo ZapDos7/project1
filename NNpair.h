@@ -11,6 +11,7 @@ private:
   double distance;
 
 public:
+  NNpair(){};
   NNpair(std::string q, std::string p); // o conustructor gia parametropoihsh
   std::string getq_id();
   int getq_id_as_int();
