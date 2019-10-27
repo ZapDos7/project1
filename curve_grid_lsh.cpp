@@ -165,8 +165,6 @@ int main(int argc, char *argv[])
     for (unsigned int i = curves_array.size() - 86; i < curves_array.size(); i++)
     {
       query_curves_array.push_back(curves_array[i]); //to teleutaio einai query
-                                                     //curves_array.pop_back();                       //remove from input vector
-                                                     //n--;
     }
     //std::cout << query_curves_array.size() ;
     for (unsigned int i = 0; i < query_curves_array.size(); i++)
@@ -267,6 +265,10 @@ int main(int argc, char *argv[])
 
     int Table_Size = floor(n / 4); //shmantiko na mhn einai 0
 
+    //LSH time
+    auto start_of_LSH_all = std::chrono::high_resolution_clock::now();
+    std::vector<std::chrono::duration<double>> times_of_approx_NNs;
+
     NNpair approxNNS[query_curves_array.size()][L_grid]; //opou approxNNs[i][j] = o approx NN ths query_curve[i] sto grid[j]
 
     std::vector<my_vector<double>> input_vectors_array; //TA VECTORS POY PROEKYPSAN APO TIS KAMPYLES EISODOU
@@ -320,6 +322,7 @@ int main(int argc, char *argv[])
       }
       for (unsigned int i = 0; i < query_vectors_array.size(); i++)
       {
+        auto start_of_this_approx_NN_part1 = std::chrono::high_resolution_clock::now();
         double minaki = std::numeric_limits<double>::max(); //min pairnei timh apeiro arxika
         std::string min_id;                                 //to id tou aNN
         std::vector<int> pithanoi_geitones_mou;
@@ -339,8 +342,37 @@ int main(int argc, char *argv[])
             approxNNS[i][j].setq_id(query_curves_array[i].get_id());
           }
         }
+        auto end_of_this_approx_NN_part1 = std::chrono::high_resolution_clock::now() - start_of_this_approx_NN_part1;
+        times_of_approx_NNs.push_back(end_of_this_approx_NN_part1);
       }
     }
+
+    //kratame ton gia kathe grid apporx NN
+    NNpair complete_approxNNs[query_curves_array.size()];
+    for (unsigned int i = 0; i < query_curves_array.size(); i++)
+    {
+      auto start_of_this_approx_NN_part2 = std::chrono::high_resolution_clock::now();
+      double minaki = std::numeric_limits<double>::max(); //min pairnei timh apeiro arxika
+      std::string min_id;                                 //to id tou aNN
+      for (int j = 0; j < L_grid; j++)                    //exw L kontinoterous gia kathe query, thelw ton ultimate
+      {
+        if (approxNNS[i][j].get_distance() < minaki)
+        {
+          minaki = approxNNS[i][j].get_distance();
+          min_id = approxNNS[i][j].getp_id();
+          complete_approxNNs[i].setp_id(min_id);
+          complete_approxNNs[i].setq_id(query_curves_array[i].get_id());
+          complete_approxNNs[i].set_distance(minaki);
+        }
+      }
+      auto end_of_this_approx_NN_part2 = std::chrono::high_resolution_clock::now() - start_of_this_approx_NN_part2;
+      times_of_approx_NNs[i] += end_of_this_approx_NN_part2;
+    }
+
+    auto end_of_LSH_all = std::chrono::high_resolution_clock::now() - start_of_LSH_all;
+    long long microseconds_LSH_all = std::chrono::duration_cast<std::chrono::microseconds>(end_of_LSH_all).count();
+
+    fprintf(stderr, "Time needed for LSH is %lld microseconds.\n\n", microseconds_LSH_all);
 
     //EAN DEN ORISTHKE APO GRAMMH ENTOLWN, DWSE MONOPATI OUTPUT FILE
     if (oset == false)
@@ -353,15 +385,15 @@ int main(int argc, char *argv[])
     std::ofstream outfile;
     outfile.open(output_path);
 
-    /*for (unsigned int i = 0; i < approx_NNs.size(); i++) //for each itemJ in queryset:
-        {
-            outfile << "Query: " << approx_NNs[i].getq_id() << '\n';
-            outfile << "Nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
-            outfile << "distanceLSH: " << approx_NNs[i].get_distance() << '\n';
-            outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
-            outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
-            outfile << "tTrue: " << times_of_actual_NNs[i].count() << '\n';*/
-    /*if (bonus)
+    for (unsigned int i = 0; i < query_curves_array.size(); i++) //for each itemJ in queryset:
+    {
+      outfile << "Query: " << complete_approxNNs[i].getq_id() << '\n';
+      outfile << "Nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
+      outfile << "distanceLSH: " << complete_approxNNs[i].get_distance() << '\n';
+      outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
+      outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
+      outfile << "tTrue: " << times_of_actual_NNs[i].count() << '\n';
+      /*if (bonus)
     {
       outfile << "R-near neighbors: " << '\n';
       for (however many R near we found)
@@ -369,8 +401,8 @@ int main(int argc, char *argv[])
         outfile << "item_id" << '\n';
       }
     }
-
-    }*/
+*/
+    }
     outfile.close();
     infile.close();
 
