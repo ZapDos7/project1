@@ -388,11 +388,12 @@ int main(int argc, char *argv[])
     for (unsigned int i = 0; i < query_curves_array.size(); i++) //for each itemJ in queryset:
     {
       outfile << "Query: " << complete_approxNNs[i].getq_id() << '\n';
-      outfile << "Nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
+      outfile << "Actual nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
+      outfile << "Approximate nearest neighbor: " << complete_approxNNs[i].getp_id() << '\n';
       outfile << "distanceLSH: " << complete_approxNNs[i].get_distance() << '\n';
       outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
       outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
-      outfile << "tTrue: " << times_of_actual_NNs[i].count() << '\n';
+      outfile << "tTrue: " << times_of_actual_NNs[i].count() << "\n\n";
       /*if (bonus)
     {
       outfile << "R-near neighbors: " << '\n';
