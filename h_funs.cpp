@@ -9,7 +9,7 @@ int our_mod(T a, T b){ //returns remainder as it should
 
 
 template <class T>
-h_funs<T>::h_funs(int k, int dimens, int w_to_be) {
+h_funs<T>::h_funs(int k, int dimens, double w_to_be) {
     M = (long int) floor(pow(2,(double)(32/k)));
     //std::cout << "eftiaksa" << M <<"\n";
     dimensions = dimens;

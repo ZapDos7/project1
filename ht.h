@@ -33,7 +33,7 @@ private:
   g_funs<T> my_g;
 
 public:
-  ht<T>(int size_to_be, int k_to_be, int dimensions, int w_to_be);
+  ht<T>(int size_to_be, int k_to_be, int dimensions, double w_to_be);
   ~ht();
   void hash_vector(my_vector<T> *v);
   std::vector<int> hash_query(my_vector<T> *q);
