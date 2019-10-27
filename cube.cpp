@@ -216,7 +216,7 @@ int main(int argc, char *argv[])
     if (k < 0) //to k=d' den egine set ara einai iso me log2(n)
       k = floor(log2((double)n));
 
-    std::cout << "kappa is " << k << "\n";
+    //std::cout << "kappa is " << k << "\n";
 
     cube_ht<int> hypercube(k, diastaseis_vector, w); //dhmiourgei th domh tou kubou
     for (unsigned int i = 0; i < vectors_array.size(); i++)
@@ -230,7 +230,7 @@ int main(int argc, char *argv[])
       full_potential_neighbs.clear();
       full_potential_neighbs = hypercube.cubify_query(&query_vectors_array[i], probes); //epistrefei vector me ta int ids twn dianusmatwn sthn idia korufh me to q (kai se alles probes-1)
 
-      if (full_potential_neighbs.size() <= M)
+      if (full_potential_neighbs.size() <= (unsigned int)M)
       {                                                  //oi pithanoi geitones einai ligoteroi apo to M
         double min = std::numeric_limits<double>::max(); //min pairnei timh apeiro arxika
         std::string min_id;                              //to id tou aNN
