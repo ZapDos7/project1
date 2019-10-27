@@ -291,9 +291,9 @@ int main(int argc, char *argv[])
       outfile << "Query: " << approx_NNs[i].getq_id() << '\n';
       outfile << "Actual nearest neighbor: " << actual_NNs[i].getp_id() << '\n';
       outfile << "Approximate nearest neighbor: " << approx_NNs[i].getp_id() << '\n';
-      outfile << "distanceLSH: " << approx_NNs[i].get_distance() << '\n';
+      outfile << "distanceHypercube: " << approx_NNs[i].get_distance() << '\n';
       outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
-      outfile << "tLSH: " << times_of_approx_NNs[i].count() << '\n';
+      outfile << "tHyprcube: " << times_of_approx_NNs[i].count() << '\n';
       outfile << "tTrue: " << times_of_actual_NNs[i].count() << "\n\n";
       /*if (bonus)
     {
