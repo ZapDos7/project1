@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <cstring>
 #include <limits>
+#include <cmath>
 
 std::string repeat_answer = "n";
 
@@ -40,10 +41,6 @@ int main(int argc, char *argv[])
         if (strcmp("-k_hypercube", argv[i]) == 0)
         {
             k_hypercube = atoi(argv[i + 1]);
-        }
-        else
-        {
-            k_hypercube = 3; //d_tonos
         }
 
         if (strcmp("-M", argv[i]) == 0)
@@ -98,8 +95,6 @@ int main(int argc, char *argv[])
             n++;
         };
         infile.close();
-        std::vector<curve<double>> query_curves_array;
-
         double delta = 0.0;                                        //mesi apostasi shmeiwn kampulws
         double inf = std::numeric_limits<double>::max();           //apeiro kai kala
         double max_coord = -1 * inf;                               //arxika -apeiro
@@ -158,6 +153,11 @@ int main(int argc, char *argv[])
         {
             curves_array.pop_back();
             n--;
+        }
+
+        if (k_hypercube < 0)
+        {
+            k_hypercube = floor(log2((double)n));
         }
 
         auto start_of_distance_matrix = std::chrono::high_resolution_clock::now();

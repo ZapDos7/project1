@@ -3,16 +3,19 @@
 #include <random> // uniform_real_distribution
 
 template <class T>
-void cube_ht<T>::hamming_magic(std::string str, int i, int changesLeft)
+void curve_cube_ht<T>::hamming_magic(std::string str, int i, int changesLeft)
 {
   if (changesLeft == 0)
   {
     //printf("%s\n", str.c_str());
 
-    if(std::find(verticizer.begin(), verticizer.end(), str) != verticizer.end()) {
-    /* v contains x */
-    } else {
-    verticizer.push_back(str);
+    if (std::find(verticizer.begin(), verticizer.end(), str) != verticizer.end())
+    {
+      /* v contains x */
+    }
+    else
+    {
+      verticizer.push_back(str);
     }
     //verticizerx.insert(str);
   }
@@ -27,7 +30,7 @@ void cube_ht<T>::hamming_magic(std::string str, int i, int changesLeft)
 }
 
 template <class T>
-cube_ht<T>::cube_ht(int d_ton, int vector_dimensions, double w_to_be)
+curve_cube_ht<T>::curve_cube_ht(int d_ton, int vector_dimensions, double w_to_be)
 {
   d_tonos = d_ton;
   size = (int)floor(pow(2, (double)d_ton));
@@ -40,9 +43,9 @@ cube_ht<T>::cube_ht(int d_ton, int vector_dimensions, double w_to_be)
 
   fi_seeds.clear();
 
-   std::random_device rand_dev;
-   std::mt19937 generator(rand_dev());
-   std::uniform_real_distribution<double>  distr(0, w_to_be);
+  std::random_device rand_dev;
+  std::mt19937 generator(rand_dev());
+  std::uniform_real_distribution<double> distr(0, w_to_be);
   for (int i = 0; i < d_ton; i++)
   {
 
@@ -62,13 +65,13 @@ cube_ht<T>::cube_ht(int d_ton, int vector_dimensions, double w_to_be)
 }
 
 template <class T>
-cube_ht<T>::~cube_ht() {}
+curve_cube_ht<T>::~curve_cube_ht() {}
 
 template <class T>
-int cube_ht<T>::fi_function(long int gval, int index)
+int curve_cube_ht<T>::fi_function(long int gval, int index)
 {
   //long int mix = gval + fi_seeds[index];
-  long int mix = (gval + fi_seeds[index])/10;
+  long int mix = (gval + fi_seeds[index]) / 10;
   //int fi = our_mod(mix, 2); //isws thelei %
   int fi = mix % 2;
   //std::cout << gval << " " << fi_seeds[index] << "\n";
@@ -76,14 +79,13 @@ int cube_ht<T>::fi_function(long int gval, int index)
 }
 
 template <class T>
-void cube_ht<T>::cubify_vector(my_vector<T> *v)
+void curve_cube_ht<T>::cubify_vector(my_vector<T> *v, curve<T> *cu)
 {
   /*std::cout << "etsi hto o pinax prin hasharw to " << v->get_id_as_int() <<":";
     for(int i =0; i< table.size(); i++)
       for(int j =0; j< table[i].size(); j++)
         std::cout << table[i][j].first->get_id_as_int();
     std::cout << "\n";*/
-
 
   std::string vertex = ""; //arxika adeio bitstring, einai h korufh tou yperkuvou sthn opoia tha brethei
   for (unsigned int i = 0; i < my_gs.size(); i++)
@@ -104,11 +106,8 @@ void cube_ht<T>::cubify_vector(my_vector<T> *v)
   //std::cout << "inputvec  " << v->get_id() << " sto bucket " <<  key_vertex << '\n';
 }
 
-
-
-
 template <class T>
-std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
+std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
 {
 
   int check_probes = probes;
@@ -139,27 +138,29 @@ std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   std::string tempver = vertex;
   size_t len = vertex.length();
   size_t maxHammingDistance = len;
-  for (size_t i = 1 ; i <= maxHammingDistance ; ++i) {
-                //printf("Computing for distance %d from %s\n", i, vertex.c_str());
-                hamming_magic(tempver, len-1, i);
-                //printf("----------------\n");
+  for (size_t i = 1; i <= maxHammingDistance; ++i)
+  {
+    //printf("Computing for distance %d from %s\n", i, vertex.c_str());
+    hamming_magic(tempver, len - 1, i);
+    //printf("----------------\n");
   }
   //std::vector<std::string> verticizer(verticizerx.begin(), verticizerx.end());
 
   //if (check_probes > d_tonos - 1) //den yparxoyn panw apo d_tonos-1 korufes gia na koitaksei
-    //check_probes = d_tonos - 1;
-  if (check_probes <= 0){
+  //check_probes = d_tonos - 1;
+  if (check_probes <= 0)
+  {
     //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
     return this_q_potential_neighbs;
   }
-
 
   //o verticizer periexei ta bitstrings twn korufwn poy mporoyn na koitaxtoun -alla de tha koitaxtoyn oles-
   unsigned long long vert_key;
   //std::vector<std::string> verticizer(verticizerx.begin(), verticizerx.end());
   for (unsigned int i = 0; i < verticizer.size(); i++)
   {
-    if (check_probes <= 0){
+    if (check_probes <= 0)
+    {
       //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
       return this_q_potential_neighbs;
     }
@@ -186,6 +187,6 @@ std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   return this_q_potential_neighbs;
 }
 
-//template class cube_ht<float>;
-template class cube_ht<int>;
-//template class cube_ht<double>;
+template class curve_cube_ht<float>;
+template class curve_cube_ht<int>;
+template class curve_cube_ht<double>;
