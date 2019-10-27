@@ -33,5 +33,5 @@ long int g_funs<T>::actual_g_function(my_vector<T> x) {//epistrefei int >= 0
 }
 
 template class g_funs<int>;
-//template class g_funs<float>;
-//template class g_funs<double>;
+template class g_funs<float>;
+template class g_funs<double>;

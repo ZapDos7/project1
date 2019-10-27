@@ -1,5 +1,11 @@
 #include "grid.h"
 //#include "my_vector.cpp"
+template <class T>
+void grid<T>::define_hash_table(int size_to_be, int k_to_be, int dimensions, int w_to_be){
+  curve_ht<T> myht(size_to_be, k_to_be, dimensions, w_to_be);
+  hash_table = myht;
+
+}
 
 template <class T>
 grid<T>::grid(double d_to_be, int dimensions)

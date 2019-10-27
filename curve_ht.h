@@ -1,6 +1,8 @@
 #ifndef _CURVE_HT_H
 #define _CURVE_HT_H
 #include "curve.h"
+#include "g_funs.h"
+#include "my_vector.h"
 
 template <class T>
 class curve_ht
@@ -11,8 +13,9 @@ private:
   g_funs<T> my_g;
 
 public:
-  ht<T>(int size_to_be, int k_to_be, int dimensions, int w_to_be);
-  ~ht();
+  curve_ht<T>(int size_to_be, int k_to_be, int dimensions, int w_to_be);
+  curve_ht<T>(){};
+  ~curve_ht();
   void hash_vector(my_vector<T> *v, curve<T> *cu);
   std::vector<int> hash_query(my_vector<T> *q);
   //int get_vector_bucket_number(my_vector v);

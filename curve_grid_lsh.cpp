@@ -272,8 +272,9 @@ int main(int argc, char *argv[])
 
         int Table_Size = floor(n / 16);
 
+        std::vector<my_vector<double>> input_vectors_array; //TA VECTORS POY PROEKYPSAN APO TIS KAMPYLES EISODOU
         for(int j=0; j<L_grid; j++){
-          std::vector<my_vector<double>> input_vectors_array; //TA VECTORS POY PROEKYPSAN APO TIS KAMPYLES EISODOU
+          input_vectors_array.clear();
           int max_dims = -1;
           for(unsigned int i = 0; i < curves_array.size(); i++){
             curve<double> grid_curve;
@@ -284,9 +285,11 @@ int main(int argc, char *argv[])
               max_dims = converted_vec.get_v().size() ;
             input_vectors_array.push_back(converted_vec);
           }
+          grids_v[j].define_hash_table(Table_Size, k_vec, max_dims, w); //gia auto to grid dhmiourgei ton hash table tou gia na kanoyme lsh
           for(unsigned int i = 0; i < input_vectors_array.size(); i++){
             add_pad(&input_vectors_array[i], 100*max_coord, max_dims);
           }
+
 
         }
         //make L grids

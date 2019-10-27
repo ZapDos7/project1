@@ -38,7 +38,6 @@ void curve_ht<T>::hash_vector(my_vector<T> *v, curve<T> *cu) {
     //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
 }
 
-
 template <class T>
 std::vector<int> curve_ht<T>::hash_query(my_vector<T> *q) {
     long int keyv = my_g.actual_g_function(*q); //ypologise thn timh ths g gia to vector v
@@ -59,8 +58,6 @@ std::vector<int> curve_ht<T>::hash_query(my_vector<T> *q) {
     return this_HT_potential_neighbs;
 }
 
-
-
-template class curve_ht<float>;
-template class curve_ht<int>;
 template class curve_ht<double>;
+template class curve_ht<int>;
+template class curve_ht<float>;
