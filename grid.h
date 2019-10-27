@@ -16,10 +16,11 @@ class grid
 private:
     std::vector<double> t;
     double delta;
-    curve_ht<T> hash_table;
+    //curve_ht<T> hash_table;
     //pithanws deutero antikeimeno edw gia kybo
 
 public:
+    curve_ht<T> hash_table;
     grid(double, int);
     ~grid();
     curve<double> gridify(curve<T> *);

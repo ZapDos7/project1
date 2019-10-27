@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
     std::cerr << lala.get_v_size() << '\n'; //1
     my_vector<double> mv = vectorify(lala);
     std::cerr << mv.get_v().size() << '\n'; //2
-    add_pad(&mv, 2.1, 10);
+    add_pad(&mv, 60754.67, 10);
     std::cerr << mv.get_v().size() << '\n'; //10
 
     //main
@@ -156,7 +156,7 @@ int main(int argc, char *argv[])
             }
         }
         delta = delta / (double)(curves_array.size() - 86); //ki edw sbhnw to "-86" an eimai stin periptosi pou thelw kai ta query
-        /*std::cerr << "Oliko delta is " << delta << '\n';*/
+        std::cerr << "Oliko delta is " << delta << '\n';
 
         std::cerr << "Max coord is " << max_coord << '\n';
 
@@ -180,9 +180,8 @@ int main(int argc, char *argv[])
         double Brute_Distance_Matrix[curves_array.size()][query_curves_array.size()]; // o pinakas twn apostasewn gia to brute force kommati pragmatikhs sugkrishs
         for (unsigned int i = 0; i < curves_array.size(); i++)
           for (unsigned int j = 0; j < query_curves_array.size(); j++){
-            std::cout << "pro kampylhs";
+            //std::cout << "pro kampylhs";
             Brute_Distance_Matrix[i][j] = dtw(&curves_array[i], &query_curves_array[j]);
-            std::cout << "poutso-skampylhs";
           }
 
 
@@ -270,17 +269,19 @@ int main(int argc, char *argv[])
           grids_v.push_back(tmp);
         }
 
-        int Table_Size = floor(n / 16);
+        int Table_Size = floor(n / 4); //shmantiko na mhn einai 0
 
         std::vector<my_vector<double>> input_vectors_array; //TA VECTORS POY PROEKYPSAN APO TIS KAMPYLES EISODOU
         for(int j=0; j<L_grid; j++){
           input_vectors_array.clear();
-          int max_dims = -1;
+          unsigned int max_dims = 0;
           for(unsigned int i = 0; i < curves_array.size(); i++){
             curve<double> grid_curve;
             grid_curve = grids_v[j].gridify(&curves_array[i]);
+            //std::cout << grid_curve.get_points().size() << std::endl;
             my_vector<double> converted_vec;
             converted_vec = vectorify(grid_curve);
+            //std::cout << converted_vec.get_v().size() << std::endl;
             if(converted_vec.get_v().size() > max_dims)
               max_dims = converted_vec.get_v().size() ;
             input_vectors_array.push_back(converted_vec);
@@ -289,6 +290,10 @@ int main(int argc, char *argv[])
           for(unsigned int i = 0; i < input_vectors_array.size(); i++){
             add_pad(&input_vectors_array[i], 100*max_coord, max_dims);
           }
+          for(unsigned int i = 0; i < input_vectors_array.size(); i++){
+            grids_v[j].hash_table.hash_vector(&input_vectors_array[i], &curves_array[i]);
+          }
+
 
 
         }

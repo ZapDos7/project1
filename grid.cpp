@@ -37,9 +37,11 @@ curve<double> grid<T>::gridify(curve<T> *c)
         T x1 = c->get_points()[i].get_x();
         double x2 = floor((double)x1 / delta);
         x2 *= delta; //to x tou grid curve gia to shmeio c[i]
+        x2 += t[0]; //h metatopish gia to x
         T y1 = c->get_points()[i].get_y();
         double y2 = floor((double)y1 / delta);
         y2 *= delta; //to y tou grid curve gia to shmeio c[i]
+        y2 += t[1]; //h metatopish gia to y
         //curve_point<double> cp(x2, y2);
         std::pair<double, double> cp_rep;
         cp_rep.first = x2;
@@ -83,12 +85,15 @@ my_vector<double> vectorify(curve<double> gc) //kanw to grid curve --> vector
 void add_pad(my_vector<double> *gcv, double timi, unsigned int max_vec_size)
 {
     //vale "timi" sto "gcv" mexri na exei megethos "max_vec_size"
+    //std::cout << "maxdims is " << max_vec_size << std::endl;
     std::vector<double> tmp = gcv->get_v();
+    //std::cout << "hello2\n";
     for (unsigned int i = 0; i < max_vec_size - gcv->get_v().size(); i++) //an px theloume max size = 10 kai exoume 2 8eloume na baloume 10-2=8 ara apo 0 ws 7
     {
         tmp.push_back(timi);
     }
     //std::cerr << "tmp size2 is " << tmp.size();
+    //std::cout << "hello3\n";
     gcv->set_v(tmp);
     if (gcv->get_v().size() != max_vec_size)
     {
