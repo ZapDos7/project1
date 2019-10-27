@@ -3,7 +3,7 @@
 //HT
 
 template <class T>
-curve_ht<T>::curve_ht(int size_to_be, int k_to_be, int dimensions, int w_to_be){
+curve_ht<T>::curve_ht(int size_to_be, int k_to_be, int dimensions, double w_to_be){
     //g_funs<T> my_g_to_be(k_to_be, dimensions, w_to_be);
     my_g = g_funs<T>(k_to_be, dimensions, w_to_be);
     size = size_to_be;

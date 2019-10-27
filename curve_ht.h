@@ -13,7 +13,7 @@ private:
   g_funs<T> my_g;
 
 public:
-  curve_ht<T>(int size_to_be, int k_to_be, int dimensions, int w_to_be);
+  curve_ht<T>(int size_to_be, int k_to_be, int dimensions, double w_to_be);
   curve_ht<T>(){};
   ~curve_ht();
   void hash_vector(my_vector<T> *v, curve<T> *cu);
