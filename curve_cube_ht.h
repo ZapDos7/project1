@@ -29,6 +29,7 @@ public:
   //std::vector< std::vector< std::pair<my_vector<T> * , long int> > > table; //pinakas (o hash table) apo pinakes (h lista ana bucket) apo zeugaria (zeugari dianusmatos kai timhs g)
   //g_funs<T> my_g;
   curve_cube_ht<T>(int d_ton, int vector_dimensions, double w_to_be); //constructor
+  curve_cube_ht<T>(){};
   ~curve_cube_ht();
   int fi_function(long int gval, int index);
   void cubify_vector(my_vector<T> *v, curve<T> *cu);

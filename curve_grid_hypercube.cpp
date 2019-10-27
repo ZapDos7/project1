@@ -1,7 +1,7 @@
 #include "curve_point.h"
 #include "curve.h"
 #include "pan_traversal.hpp"
-#include "grid.h"
+#include "cube_grid.h"
 #include "my_vector.h"
 #include <iostream>
 #include <typeinfo>

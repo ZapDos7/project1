@@ -101,7 +101,7 @@ void curve_cube_ht<T>::cubify_vector(my_vector<T> *v, curve<T> *cu)
   //std::pair<my_vector<T> * , long int> thepair;
   //thepair.first = v;
   //thepair.second = keyv;
-  cube[key_vertex].push_back(v); //apo8hkeuse to deikth sto dianusma
+  cube[key_vertex].push_back(cu); //apo8hkeuse to deikth sto dianusma
                                  //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
   //std::cout << "inputvec  " << v->get_id() << " sto bucket " <<  key_vertex << '\n';
 }
