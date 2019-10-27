@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     }
     else
     {
-      probes = 2;
+      probes = 10;
     }
   }
   do
@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
     long long microseconds_DM = std::chrono::duration_cast<std::chrono::microseconds>(end_of_distance_matrix).count();
 
     fprintf(stderr, "Time needed for distance matrix calculation is %lld microseconds.\n\n", microseconds_DM);
-
+/*
     //euresi actual NNs
     auto start_of_w_calc = std::chrono::high_resolution_clock::now();
     std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to p
@@ -178,9 +178,9 @@ int main(int argc, char *argv[])
 
     fprintf(stderr, "Time needed for w calculation is %lld microseconds.\n\n", microseconds_w);
     fprintf(stderr, "Value of w = %f\n", mean_distance);
-
-    //also test gia w = 10 * mean_distance
-    /*const*/ double w = 4 * mean_distance; //to w pou vazw sta ai
+*/
+    //also test gia w = 4 * mean_distance
+    /*const*/ double w = 1164.091700; //to w pou vazw sta ai
     //prepei na brw ton actual nearest neighbour
     auto start_of_actual_NN_all = std::chrono::high_resolution_clock::now();
     std::vector<NNpair> actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to q
@@ -215,6 +215,8 @@ int main(int argc, char *argv[])
 
     if (k < 0) //to k=d' den egine set ara einai iso me log2(n)
       k = floor(log2((double)n));
+
+    std::cout << "kappa is " << k << "\n" ;
 
     cube_ht<int> hypercube(k, diastaseis_vector, w); //dhmiourgei th domh tou kubou
     for (unsigned int i = 0; i < vectors_array.size(); i++)
@@ -251,6 +253,7 @@ int main(int argc, char *argv[])
         std::string min_id;
         for (int yod = 0; yod < M; yod++)
         { //but stop
+          //std::cout << vectors_array[full_potential_neighbs[yod] - 1].get_id() << " ";
           if (Brute_Distance_Matrix[full_potential_neighbs[yod] - 1][i] < min)
           {
             min = Brute_Distance_Matrix[full_potential_neighbs[yod] - 1][i];

@@ -4,6 +4,8 @@
 #include "g_funs.h"
 #include <unordered_map>
 #include "my_vector.h"
+#include <fstream>
+#include <algorithm>
 
 
 template <class T>
@@ -20,6 +22,7 @@ private:
   std::vector<int> fi_seeds; //prokyptei apo uniform kai krata enan tetoio arithmo gia kathe f poy tha "dhmiourghsoyme"
 
   std::vector<std::string> verticizer;
+  //std::set<std::string> verticizerx;
 
 public:
   //int size;

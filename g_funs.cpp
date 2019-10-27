@@ -20,16 +20,15 @@ long int g_funs<T>::actual_g_function(my_vector<T> x) {//epistrefei int >= 0
     //auto kathorize pou bazw to v sto Hash Table m
     //std::vector<T> the_v = x.get_v();
 
-    std::bitset<32> g_value2(0);
+    unsigned long g_value1 = 0.0;
     long int temp;
     for(int i =0; i<k; i++){
         temp = my_h_funs[i].actual_h_function(x); //pairnw tis k h_funs gia ena vector v
         std::bitset<32> x(temp);
         x = x << i+1; //tis kanw concat (me left shift...
-        g_value2 = g_value2 | x; //... kai bitwise OR)
+        g_value1 += x.to_ulong();
     }
-    //std::cout << "G_value 2 as a long int is  " << g_value2.to_ulong() << "\n";
-    return (long)(g_value2.to_ulong());
+    return g_value1;
 }
 
 template class g_funs<int>;
