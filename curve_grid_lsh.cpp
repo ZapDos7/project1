@@ -3,46 +3,19 @@
 #include "pan_traversal.hpp"
 #include "grid.h"
 #include "my_vector.h"
-//#include "traversal.h"
-//#include "dtw.h"
-//#include "utils.h"
-//#include "NNpair.h"
 #include <iostream>
 #include <typeinfo>
-//#include "h_funs.h"
-//#include "g_funs.h"
-//#include "ht.h"
 #include "NNpair.h"
 #include <chrono> // time measurements
 #include <fstream>
 #include <stdlib.h>
-//#include <algorithm> // std::count
 #include <cstring>
 #include <limits>
-//#include <set>
-//#include <cmath>
 
 std::string repeat_answer = "n";
 
 int main(int argc, char *argv[])
 {
-  //test chamber
-  std::cout.precision(17);
-  std::string inp = "1	3	(-6.4227999999999996, 53.288000000000004) (-6.4257099999999996, 53.289299999999997) (-6.4268099999999997, 53.290300000000002)";
-  curve<double> crv1(inp);
-  std::string inp2 = "6	2	(-6.2582100000000001, 53.347799999999999) (-6.4272499999999999, 53.290799999999997)";
-  curve<double> crv2(inp2);
-
-  //my_vector<double> mv("item_id1	1.1 25.1 23.1 1.1 ");
-  grid<double> grd(2.2, 1);
-  std::cerr << crv1.get_v_size() << '\n'; //3
-  curve<double> lala = grd.gridify(&crv1);
-  std::cerr << lala.get_v_size() << '\n'; //1
-  my_vector<double> mv = vectorify(lala);
-  std::cerr << mv.get_v().size() << '\n'; //2
-  add_pad(&mv, 60754.67, 10);
-  std::cerr << mv.get_v().size() << '\n'; //10
-
   //main
   //$./curve_grid_lsh -d <input file> -k_vec <int> -L_grid <int> -ο <output file>
   int k_vec = -1;
@@ -50,7 +23,7 @@ int main(int argc, char *argv[])
   bool dset, oset = false; ////an oxi orisma grammis entolon, 8a parw ta files apo path pou grafei o user
   char dataset_path[256];
   char output_path[256];
-
+  const int q = 86;
   for (int i = 0; i < argc; i++)
   {
     if (strcmp("-d", argv[i]) == 0)
@@ -113,11 +86,11 @@ int main(int argc, char *argv[])
       n++;
     };
     infile.close();
-    double delta = 0.0;                                         //mesi apostasi shmeiwn kampulws
-    double inf = std::numeric_limits<double>::max();            //apeiro kai kala
-    double max_coord = -1 * inf;                                //arxika -apeiro
-    ;                                                           //h megisti metabliti pou uparxei sto dataset
-    for (unsigned int i = 0; i < curves_array.size() - 86; i++) //an theloume ola & query, sbhnoume to "-86" kai ola popa
+    double delta = 0.0;                                        //mesi apostasi shmeiwn kampulws
+    double inf = std::numeric_limits<double>::max();           //apeiro kai kala
+    double max_coord = -1 * inf;                               //arxika -apeiro
+    ;                                                          //h megisti metabliti pou uparxei sto dataset
+    for (unsigned int i = 0; i < curves_array.size() - q; i++) //an theloume ola & query, sbhnoume to "-q" kai ola popa
     {
       double tmp = 0.0;
       double plithos_athroismatwn = 0.0;
@@ -154,15 +127,15 @@ int main(int argc, char *argv[])
         //std::cerr << "Tmp delta is " << delta << '\n';
       }
     }
-    delta = delta / (double)(curves_array.size() - 86); //ki edw sbhnw to "-86" an eimai stin periptosi pou thelw kai ta query
+    delta = delta / (double)(curves_array.size() - q); //ki edw sbhnw to "-q" an eimai stin periptosi pou thelw kai ta query
     std::cerr << "Oliko delta is " << delta << '\n';
 
     std::cerr << "Max coord is " << max_coord << '\n';
 
     std::vector<curve<double>> query_curves_array;
-    //ta teleutaia 86 einai ta query
-    const int q = 86;
-    for (unsigned int i = curves_array.size() - 86; i < curves_array.size(); i++)
+    //ta teleutaia q einai ta query
+
+    for (unsigned int i = curves_array.size() - q; i < curves_array.size(); i++)
     {
       query_curves_array.push_back(curves_array[i]); //to teleutaio einai query
     }
