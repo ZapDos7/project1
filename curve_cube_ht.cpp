@@ -148,9 +148,13 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
 
   //if (check_probes > d_tonos - 1) //den yparxoyn panw apo d_tonos-1 korufes gia na koitaksei
   //check_probes = d_tonos - 1;
+  //std::cout << "checku probes = " << check_probes << std::endl;
   if (check_probes <= 0)
   {
     //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
+    /*for(unsigned int ife=0; ife< this_q_potential_neighbs.size(); ife++)
+      std::cout << this_q_potential_neighbs[ife] << " " ;
+    std::cout << std::endl;*/
     return this_q_potential_neighbs;
   }
 
@@ -162,6 +166,9 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
     if (check_probes <= 0)
     {
       //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
+      /*for(unsigned int ife=0; ife< this_q_potential_neighbs.size(); ife++)
+        std::cout << this_q_potential_neighbs[ife] << " " ;
+      std::cout << std::endl;*/
       return this_q_potential_neighbs;
     }
 
@@ -184,6 +191,9 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
     std::cout << "\n";*/
   verticizer.clear();
   //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
+  /*for(unsigned int ife=0; ife< this_q_potential_neighbs.size(); ife++)
+    std::cout << this_q_potential_neighbs[ife] << " " ;
+  std::cout << std::endl;*/
   return this_q_potential_neighbs;
 }
 

@@ -20,9 +20,9 @@ int main(int argc, char *argv[])
     //main
     //$./curve_grid_hypercube -d <input file> -q <query file> -k_hypercube <int> -M <int> -probes <int> -L_grid <int> -ο <output file>
     int k_hypercube = -1;
-    int M = -1;
+    int M = 10;
     int L_grid = -1;
-    int probes = -1;
+    int probes = 2;
     bool dset, oset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
     char dataset_path[256];
     char output_path[256];
@@ -48,19 +48,13 @@ int main(int argc, char *argv[])
         {
             M = atoi(argv[i + 1]);
         }
-        else
-        {
-            M = 10; //h oso sto erwthma A
-        }
+
 
         if (strcmp("-probes", argv[i]) == 0)
         {
             probes = atoi(argv[i + 1]);
         }
-        else
-        {
-            probes = 20; //h oso sto erwthma A
-        }
+
         if (strcmp("-L_grid", argv[i]) == 0)
         {
             L_grid = atoi(argv[i + 1]);
@@ -322,6 +316,9 @@ int main(int argc, char *argv[])
                 std::vector<int> full_potential_neighbs; //major metavlhth, anaferetai se ena q
                 full_potential_neighbs.clear();
                 full_potential_neighbs = grids_v[j].my_cube.cubify_query(&query_vectors_array[i], probes); //epistrefei vector me ta int ids twn dianusmatwn sthn idia korufh me to q (kai se alles probes-1)
+                //for(unsigned int ife=0; ife< full_potential_neighbs.size(); ife++)
+                  //std::cout << full_potential_neighbs[ife] << " " ;
+                //std::cout << std::endl;
                 approxNNS[i][j].set_distance(minaki);
                 approxNNS[i][j].setq_id(query_curves_array[i].get_id());
                 approxNNS[i][j].setp_id("NaN"); //default = not found a nn => elegxoume kathe periptwsh

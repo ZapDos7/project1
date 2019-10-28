@@ -126,6 +126,7 @@ unsigned int curve<T>::get_id_as_int()
 {
     string tmp = id;
     int my_id = 0;
+    int my_id2 = atoi(tmp.c_str());//oi kampyles exoun mono mia leksh(arithmo) ws id
     for (unsigned int i = 0; i < id.length(); i++)
     {
         if (isdigit(id[i]))
@@ -135,7 +136,7 @@ unsigned int curve<T>::get_id_as_int()
             break;
         }
     }
-    return my_id;
+    return my_id2;
 }
 
 template <class T>
