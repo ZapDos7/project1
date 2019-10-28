@@ -34,12 +34,12 @@ curve_cube_ht<T>::curve_cube_ht(int d_ton, int vector_dimensions, double w_to_be
 {
   d_tonos = d_ton;
   size = (int)floor(pow(2, (double)d_ton));
-  cube.clear();
+  /*cube.clear();
   cube.resize(size);
   for (int i = 0; i < size; i++)
   {
     cube[i].clear();
-  }
+  }*/
 
   fi_seeds.clear();
 
@@ -101,10 +101,12 @@ void curve_cube_ht<T>::cubify_vector(my_vector<T> *v, curve<T> *cu)
   //std::pair<my_vector<T> * , long int> thepair;
   //thepair.first = v;
   //thepair.second = keyv;
-  cube[key_vertex].push_back(cu); //apo8hkeuse to deikth sto dianusma
+  cube[vertex].push_back(cu); //apo8hkeuse to deikth sto dianusma
                                  //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
   //std::cout << "inputvec  " << v->get_id() << " sto bucket " <<  key_vertex << '\n';
 }
+
+
 
 template <class T>
 std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
@@ -122,17 +124,20 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
   std::string matroska = "";
   //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  key_vertex << '\n';
-  matroska = std::to_string(key_vertex) + " ";
+  matroska = vertex + " ";
 
   std::vector<int> this_q_potential_neighbs;
   this_q_potential_neighbs.clear();
   //GIA AUTO TO BUCKET/KORUFH
-  for (unsigned int i = 0; i < cube[key_vertex].size(); i++)
-  {
-    //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
-    this_q_potential_neighbs.push_back(cube[key_vertex][i]->get_id_as_int()); //valto sth lista pithanwn geitonwn
-                                                                              //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+  if(!(cube.find(vertex) == cube.end()) ){ //YPARXEI KAPOIOS se authn thn korufh
+    for (unsigned int i = 0; i < cube[vertex].size(); i++)
+    {
+      //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
+      this_q_potential_neighbs.push_back(cube[vertex][i]->get_id_as_int()); //valto sth lista pithanwn geitonwn
+                                                                                //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+    }
   }
+
   check_probes--; //sto eclass eipw8hke oti sta probes sumperilamvanetai kai h idia h korufh
   verticizer.clear();
   std::string tempver = vertex;
@@ -173,13 +178,15 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
     }
 
     vert_key = std::stoull(verticizer[i], NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
-    matroska += std::to_string(vert_key) + " ";
+    matroska +=  verticizer[i] + " ";
     //std::cout << verticizer[i] << "\n";
-    for (unsigned int j = 0; j < cube[vert_key].size(); j++)
-    {
-      //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
-      this_q_potential_neighbs.push_back(cube[vert_key][j]->get_id_as_int()); //valto sth lista pithanwn geitonwn
-                                                                              //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+    if(!(cube.find(verticizer[i]) == cube.end()) ){ //YPARXEI KAPOIOS se authn thn korufh
+      for (unsigned int j = 0; j < cube[verticizer[i]].size(); j++)
+      {
+        //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
+        this_q_potential_neighbs.push_back(cube[verticizer[i]][j]->get_id_as_int()); //valto sth lista pithanwn geitonwn
+                                                                                  //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+      }
     }
     check_probes--;
   }

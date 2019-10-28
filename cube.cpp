@@ -22,9 +22,9 @@ int main(int argc, char *argv[])
   int k = -1; //
   //int d=0; //diastasi d'
   //default d=3;
-  int M = 0; //to max allowed plithos ypopsifiwn shmeiwn
+  int M = 10; //to max allowed plithos ypopsifiwn shmeiwn
   //default M=10;
-  int probes = 0; //megisto epitrepomeno plithos korifwn tou hypercube pou 8a elegx8oun
+  int probes = 2; //megisto epitrepomeno plithos korifwn tou hypercube pou 8a elegx8oun
   //default probes=2;
   bool dset, qset, oset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
   char dataset_path[256];
@@ -60,19 +60,12 @@ int main(int argc, char *argv[])
     {
       M = atoi(argv[i + 1]);
     }
-    else
-    {
-      M = 10;
-    }
 
     if (strcmp("-probes", argv[i]) == 0) //plithos Hash Tables ara Plithos G
     {
       probes = atoi(argv[i + 1]);
     }
-    else
-    {
-      probes = 10;
-    }
+
   }
   do
   { //to programma tha ksanatreksei sto telos me alla orismata, an to epi8ymei o xrhsths
@@ -229,7 +222,7 @@ int main(int argc, char *argv[])
       auto start_of_this_approx_NN = std::chrono::high_resolution_clock::now();
       full_potential_neighbs.clear();
       full_potential_neighbs = hypercube.cubify_query(&query_vectors_array[i], probes); //epistrefei vector me ta int ids twn dianusmatwn sthn idia korufh me to q (kai se alles probes-1)
-
+      //std::cout << "kappa is " << k << "\n";
       if (full_potential_neighbs.size() <= (unsigned int)M)
       {                                                  //oi pithanoi geitones einai ligoteroi apo to M
         double min = std::numeric_limits<double>::max(); //min pairnei timh apeiro arxika

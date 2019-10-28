@@ -17,7 +17,8 @@ private:
   int d_tonos;
   //std::unordered_map<int, ht_cell<T> > table; //key == int, mapped value == my_vectors //https://en.cppreference.com/w/cpp/container/unordered_map
   //std::vector<std::vector<std::pair<my_vector<T> *, long int>>> cube; //o "pinakas" opoy kathe bucket einai mia korufh tou yperkybou
-  std::vector<std::vector<curve<T> *>> cube; //o "pinakas" opoy kathe bucket einai mia korufh tou yperkybou kai exei mesa deikth sto vector
+  //std::vector<std::vector<curve<T> *>> cube; //o "pinakas" opoy kathe bucket einai mia korufh tou yperkybou kai exei mesa deikth sto vector
+  std::unordered_map<std::string, std::vector<curve<T> *> > cube; //key == int, mapped value == my_vectors
   std::vector<g_funs<T>> my_gs;              //oi sunarthseis g gia ton kybo
   std::vector<int> fi_seeds;                 //prokyptei apo uniform kai krata enan tetoio arithmo gia kathe f poy tha "dhmiourghsoyme"
 
