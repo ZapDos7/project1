@@ -20,7 +20,8 @@ int main(int argc, char *argv[])
   //$./curve_grid_lsh -d <input file> -k_vec <int> -L_grid <int> -ο <output file>
   int k_vec = -1;
   int L_grid = -1;
-  bool dset, oset = false; ////an oxi orisma grammis entolon, 8a parw ta files apo path pou grafei o user
+  bool dset = false; ////an oxi orisma grammis entolon, 8a parw ta files apo path pou grafei o user
+  bool oset = false;
   char dataset_path[256];
   char output_path[256];
   const int q = 86;

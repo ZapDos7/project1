@@ -23,7 +23,8 @@ int main(int argc, char *argv[])
     int M = 10;
     int L_grid = -1;
     int probes = 2;
-    bool dset, oset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
+    bool dset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
+    bool oset = false;
     char dataset_path[256];
     char output_path[256];
     const int q = 86;

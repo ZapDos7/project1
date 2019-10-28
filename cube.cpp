@@ -26,7 +26,9 @@ int main(int argc, char *argv[])
   //default M=10;
   int probes = 2; //megisto epitrepomeno plithos korifwn tou hypercube pou 8a elegx8oun
   //default probes=2;
-  bool dset, qset, oset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
+  bool dset = false; ////an oxi orisma grammis entolos, 8a parw ta files apo path pou grafei o user
+  bool qset = false;
+  bool oset = false;
   char dataset_path[256];
   char query_dataset_path[256];
   char output_path[256];
