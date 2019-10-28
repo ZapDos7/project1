@@ -96,17 +96,15 @@ void curve_cube_ht<T>::cubify_vector(my_vector<T> *v, curve<T> *cu)
     vertex += fi_str; //concatenate to apotelesma sto teliko bitstring - korufh yperkuvou
     //std::cout << fi;
   }
-  unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
+  //unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
 
   //std::pair<my_vector<T> * , long int> thepair;
   //thepair.first = v;
   //thepair.second = keyv;
   cube[vertex].push_back(cu); //apo8hkeuse to deikth sto dianusma
-                                 //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
+                              //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
   //std::cout << "inputvec  " << v->get_id() << " sto bucket " <<  key_vertex << '\n';
 }
-
-
 
 template <class T>
 std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
@@ -121,7 +119,7 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
     std::string fi_str = std::to_string(fi);
     vertex += fi_str;
   }
-  unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
+  //unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
   std::string matroska = "";
   //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  key_vertex << '\n';
   matroska = vertex + " ";
@@ -129,12 +127,13 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   std::vector<int> this_q_potential_neighbs;
   this_q_potential_neighbs.clear();
   //GIA AUTO TO BUCKET/KORUFH
-  if(!(cube.find(vertex) == cube.end()) ){ //YPARXEI KAPOIOS se authn thn korufh
+  if (!(cube.find(vertex) == cube.end()))
+  { //YPARXEI KAPOIOS se authn thn korufh
     for (unsigned int i = 0; i < cube[vertex].size(); i++)
     {
       //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
       this_q_potential_neighbs.push_back(cube[vertex][i]->get_id_as_int()); //valto sth lista pithanwn geitonwn
-                                                                                //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+                                                                            //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
     }
   }
 
@@ -164,7 +163,7 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   }
 
   //o verticizer periexei ta bitstrings twn korufwn poy mporoyn na koitaxtoun -alla de tha koitaxtoyn oles-
-  unsigned long long vert_key;
+  //unsigned long long vert_key;
   //std::vector<std::string> verticizer(verticizerx.begin(), verticizerx.end());
   for (unsigned int i = 0; i < verticizer.size(); i++)
   {
@@ -177,15 +176,16 @@ std::vector<int> curve_cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
       return this_q_potential_neighbs;
     }
 
-    vert_key = std::stoull(verticizer[i], NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
-    matroska +=  verticizer[i] + " ";
+    //vert_key = std::stoull(verticizer[i], NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
+    matroska += verticizer[i] + " ";
     //std::cout << verticizer[i] << "\n";
-    if(!(cube.find(verticizer[i]) == cube.end()) ){ //YPARXEI KAPOIOS se authn thn korufh
+    if (!(cube.find(verticizer[i]) == cube.end()))
+    { //YPARXEI KAPOIOS se authn thn korufh
       for (unsigned int j = 0; j < cube[verticizer[i]].size(); j++)
       {
         //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
         this_q_potential_neighbs.push_back(cube[verticizer[i]][j]->get_id_as_int()); //valto sth lista pithanwn geitonwn
-                                                                                  //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+                                                                                     //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
       }
     }
     check_probes--;

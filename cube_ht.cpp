@@ -9,10 +9,13 @@ void cube_ht<T>::hamming_magic(std::string str, int i, int changesLeft)
   {
     //printf("%s\n", str.c_str());
 
-    if(std::find(verticizer.begin(), verticizer.end(), str) != verticizer.end()) {
-    /* v contains x */
-    } else {
-    verticizer.push_back(str);
+    if (std::find(verticizer.begin(), verticizer.end(), str) != verticizer.end())
+    {
+      /* v contains x */
+    }
+    else
+    {
+      verticizer.push_back(str);
     }
     //verticizerx.insert(str);
   }
@@ -40,9 +43,9 @@ cube_ht<T>::cube_ht(int d_ton, int vector_dimensions, double w_to_be)
 
   fi_seeds.clear();
 
-   std::random_device rand_dev;
-   std::mt19937 generator(rand_dev());
-   std::uniform_real_distribution<double>  distr(0, w_to_be);
+  std::random_device rand_dev;
+  std::mt19937 generator(rand_dev());
+  std::uniform_real_distribution<double> distr(0, w_to_be);
   for (int i = 0; i < d_ton; i++)
   {
 
@@ -68,7 +71,7 @@ template <class T>
 int cube_ht<T>::fi_function(long int gval, int index)
 {
   //long int mix = gval + fi_seeds[index];
-  long int mix = (gval + fi_seeds[index])/10;
+  long int mix = (gval + fi_seeds[index]) / 10;
   //int fi = our_mod(mix, 2); //isws thelei %
   int fi = mix % 2;
   //std::cout << gval << " " << fi_seeds[index] << "\n";
@@ -84,7 +87,6 @@ void cube_ht<T>::cubify_vector(my_vector<T> *v)
         std::cout << table[i][j].first->get_id_as_int();
     std::cout << "\n";*/
 
-
   std::string vertex = ""; //arxika adeio bitstring, einai h korufh tou yperkuvou sthn opoia tha brethei
   for (unsigned int i = 0; i < my_gs.size(); i++)
   {                                                  //gia kathe gi
@@ -94,19 +96,16 @@ void cube_ht<T>::cubify_vector(my_vector<T> *v)
     vertex += fi_str; //concatenate to apotelesma sto teliko bitstring - korufh yperkuvou
     //std::cout << fi;
   }
-  unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
+  //unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
 
   //std::pair<my_vector<T> * , long int> thepair;
   //thepair.first = v;
   //thepair.second = keyv;
   cube[vertex].push_back(v); //apo8hkeuse to deikth sto dianusma
   //cube[key_vertex].push_back(v); //apo8hkeuse to deikth sto dianusma
-                                 //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
+  //std::cout << "my id is " << thepair.first->get_id_as_int() << "\n";
   //std::cout << "inputvec  " << v->get_id() << " sto bucket " <<  vertex << '\n';
 }
-
-
-
 
 template <class T>
 std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
@@ -121,7 +120,7 @@ std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
     std::string fi_str = std::to_string(fi);
     vertex += fi_str;
   }
-  unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
+  //unsigned long long key_vertex = std::stoull(vertex, NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
   std::string matroska = "";
   //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  key_vertex << '\n';
   matroska = vertex + " ";
@@ -129,12 +128,13 @@ std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   std::vector<int> this_q_potential_neighbs;
   this_q_potential_neighbs.clear();
   //GIA AUTO TO BUCKET/KORUFH
-  if(!(cube.find(vertex) == cube.end()) ){ //YPARXEI KAPOIOS se authn thn korufh
+  if (!(cube.find(vertex) == cube.end()))
+  { //YPARXEI KAPOIOS se authn thn korufh
     for (unsigned int i = 0; i < cube[vertex].size(); i++)
     {
       //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
       this_q_potential_neighbs.push_back(cube[vertex][i]->get_id_as_int()); //valto sth lista pithanwn geitonwn
-                                                                                //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+                                                                            //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
     }
   }
   /*for (unsigned int i = 0; i < cube[key_vertex].size(); i++)
@@ -148,33 +148,35 @@ std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
   std::string tempver = vertex;
   size_t len = vertex.length();
   size_t maxHammingDistance = len;
-  for (size_t i = 1 ; i <= maxHammingDistance ; ++i) {
-                //printf("Computing for distance %d from %s\n", i, vertex.c_str());
-                hamming_magic(tempver, len-1, i);
-                //printf("----------------\n");
+  for (size_t i = 1; i <= maxHammingDistance; ++i)
+  {
+    //printf("Computing for distance %d from %s\n", i, vertex.c_str());
+    hamming_magic(tempver, len - 1, i);
+    //printf("----------------\n");
   }
   //std::vector<std::string> verticizer(verticizerx.begin(), verticizerx.end());
 
   //if (check_probes > d_tonos - 1) //den yparxoyn panw apo d_tonos-1 korufes gia na koitaksei
-    //check_probes = d_tonos - 1;
-  if (check_probes <= 0){
+  //check_probes = d_tonos - 1;
+  if (check_probes <= 0)
+  {
     //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
     return this_q_potential_neighbs;
   }
 
-
   //o verticizer periexei ta bitstrings twn korufwn poy mporoyn na koitaxtoun -alla de tha koitaxtoyn oles-
-  unsigned long long vert_key;
+  //unsigned long long vert_key;
   //std::vector<std::string> verticizer(verticizerx.begin(), verticizerx.end());
   for (unsigned int i = 0; i < verticizer.size(); i++)
   {
-    if (check_probes <= 0){
+    if (check_probes <= 0)
+    {
       //std::cout << "QUERYtvec  " << q->get_id() << " sto bucket " <<  matroska << '\n';
       return this_q_potential_neighbs;
     }
 
-    vert_key = std::stoull(verticizer[i], NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
-    matroska +=  verticizer[i] + " ";
+    //vert_key = std::stoull(verticizer[i], NULL, 2); //metafrazei to bitstring-korufh yperkuvou se thesh pinaka
+    matroska += verticizer[i] + " ";
     //std::cout << verticizer[i] << "\n";
     /*for (unsigned int j = 0; j < cube[vert_key].size(); j++)
     {
@@ -182,12 +184,13 @@ std::vector<int> cube_ht<T>::cubify_query(my_vector<T> *q, int probes)
       this_q_potential_neighbs.push_back(cube[vert_key][j]->get_id_as_int()); //valto sth lista pithanwn geitonwn
                                                                               //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
     }*/
-    if(!(cube.find(verticizer[i]) == cube.end()) ){ //YPARXEI KAPOIOS se authn thn korufh
+    if (!(cube.find(verticizer[i]) == cube.end()))
+    { //YPARXEI KAPOIOS se authn thn korufh
       for (unsigned int j = 0; j < cube[verticizer[i]].size(); j++)
       {
         //std::cout << table[modded_keyv][i].first->get_id_as_int() << "\n";
         this_q_potential_neighbs.push_back(cube[verticizer[i]][j]->get_id_as_int()); //valto sth lista pithanwn geitonwn
-                                                                                  //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
+                                                                                     //std::cout << "my id is " << table[modded_keyv][i].first->get_id_as_int() << "\n";
       }
     }
     check_probes--;

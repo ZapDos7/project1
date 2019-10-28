@@ -1,0 +1,80 @@
+Query: item_idS1	1
+Actual nearest neighbor: item_id98	98
+Approximate nearest neighbor: item_id98	98
+distanceLSH: 2656
+distanceTrue: 2656
+tLSH: 0.00585416
+tTrue: 2.674e-06
+
+Query: item_idS2	2
+Actual nearest neighbor: item_id98	98
+Approximate nearest neighbor: item_id98	98
+distanceLSH: 2400
+distanceTrue: 2400
+tLSH: 0.00592532
+tTrue: 1.819e-06
+
+Query: item_idS3	3
+Actual nearest neighbor: item_id58	58
+Approximate nearest neighbor: item_id13	13
+distanceLSH: 2019
+distanceTrue: 1952
+tLSH: 0.00588466
+tTrue: 1.902e-06
+
+Query: item_idS4	4
+Actual nearest neighbor: item_id98	98
+Approximate nearest neighbor: item_id23	23
+distanceLSH: 2485
+distanceTrue: 2178
+tLSH: 0.00580344
+tTrue: 3.949e-06
+
+Query: item_idS5	5
+Actual nearest neighbor: item_id93	93
+Approximate nearest neighbor: item_id33	33
+distanceLSH: 2714
+distanceTrue: 2204
+tLSH: 0.00606358
+tTrue: 3.491e-06
+
+Query: item_idS6	6
+Actual nearest neighbor: item_id97	97
+Approximate nearest neighbor: item_id46	46
+distanceLSH: 3094
+distanceTrue: 2666
+tLSH: 0.00592888
+tTrue: 1.0477e-05
+
+Query: item_idS7	7
+Actual nearest neighbor: item_id97	97
+Approximate nearest neighbor: item_id26	26
+distanceLSH: 2663
+distanceTrue: 2587
+tLSH: 0.00576657
+tTrue: 1.403e-06
+
+Query: item_idS8	8
+Actual nearest neighbor: item_id37	37
+Approximate nearest neighbor: item_id37	37
+distanceLSH: 1517
+distanceTrue: 1517
+tLSH: 0.00598105
+tTrue: 1.076e-06
+
+Query: item_idS9	9
+Actual nearest neighbor: item_id74	74
+Approximate nearest neighbor: item_id33	33
+distanceLSH: 2578
+distanceTrue: 2238
+tLSH: 0.0057708
+tTrue: 3.482e-06
+
+Query: item_idS10	10
+Actual nearest neighbor: item_id93	93
+Approximate nearest neighbor: item_id55	55
+distanceLSH: 2228
+distanceTrue: 2133
+tLSH: 0.00588983
+tTrue: 1.003e-06
+
