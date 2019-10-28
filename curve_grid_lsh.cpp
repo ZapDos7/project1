@@ -163,6 +163,7 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Time needed for distance matrix calculation is %lld microseconds.\n\n", microseconds_DM);
 
     //euresi actual NNs
+    
     auto start_of_w_calc = std::chrono::high_resolution_clock::now();
     std::vector<NNpair> input_actual_NNs; //pinakas apo zeugaria actual NNs me prwto stoixeio to p
     for (unsigned int i = 0; i < curves_array.size(); i++)
@@ -198,9 +199,9 @@ int main(int argc, char *argv[])
 
     fprintf(stderr, "Time needed for w calculation is %lld microseconds.\n\n", microseconds_w);
     fprintf(stderr, "Value of w = %f\n", mean_distance);
-
+    
     //also test gia w = 10 * mean_distance
-    /*const*/ double w = 4 * mean_distance; //to w pou vazw sta ai
+    double w = 4 * mean_distance; //to w pou vazw sta ai
 
     //prepei na brw ton actual nearest neighbour
     auto start_of_actual_NN_all = std::chrono::high_resolution_clock::now();
