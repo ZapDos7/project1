@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
             M = atoi(argv[i + 1]);
         }
 
-
         if (strcmp("-probes", argv[i]) == 0)
         {
             probes = atoi(argv[i + 1]);
@@ -318,7 +317,7 @@ int main(int argc, char *argv[])
                 full_potential_neighbs.clear();
                 full_potential_neighbs = grids_v[j].my_cube.cubify_query(&query_vectors_array[i], probes); //epistrefei vector me ta int ids twn dianusmatwn sthn idia korufh me to q (kai se alles probes-1)
                 //for(unsigned int ife=0; ife< full_potential_neighbs.size(); ife++)
-                  //std::cout << full_potential_neighbs[ife] << " " ;
+                //std::cout << full_potential_neighbs[ife] << " " ;
                 //std::cout << std::endl;
                 approxNNS[i][j].set_distance(minaki);
                 approxNNS[i][j].setq_id(query_curves_array[i].get_id());
@@ -405,18 +404,40 @@ int main(int argc, char *argv[])
             outfile << "distanceTrue: " << actual_NNs[i].get_distance() << '\n';
             outfile << "tHypercube: " << times_of_approx_NNs[i].count() << '\n';
             outfile << "tTrue: " << times_of_actual_NNs[i].count() << "\n\n";
-            /*if (bonus)
-            {
-                outfile << "R-near neighbors: " << '\n';
-                for (however many R near we found)
-                {
-                    outfile << "item_id" << '\n';
-                }
-            }
-            */
         }
         outfile.close();
         infile.close();
+
+        //mesi distance approx NN
+        double mesi_apostasi_approx_NN = 0.0;
+        for (unsigned int i = 0; i < query_curves_array.size(); i++)
+        {
+            mesi_apostasi_approx_NN += complete_approxNNs[i].get_distance();
+        }
+        mesi_apostasi_approx_NN = mesi_apostasi_approx_NN / (double)query_curves_array.size();
+        std::cout << "Mesi apostasi approx NN = " << mesi_apostasi_approx_NN << '\n';
+
+        //mesi distance actual NN
+        double mesi_apostasi_actual_NN = 0.0;
+        for (unsigned int i = 0; i < query_curves_array.size(); i++)
+        {
+            mesi_apostasi_actual_NN += actual_NNs[i].get_distance();
+        }
+        mesi_apostasi_actual_NN = mesi_apostasi_actual_NN / (double)query_curves_array.size();
+        std::cout << "Mesi apostasi actual NN = " << mesi_apostasi_actual_NN << '\n';
+
+        std::cout << "klasma proseggisis is " << mesi_apostasi_actual_NN / mesi_apostasi_approx_NN << '\n';
+
+        //mesos xronos upol approx NN
+        double mesos_xronos_approx_NN = 0.0;
+        for (unsigned int i = 0; i < query_curves_array.size(); i++) //for each itemJ in queryset:
+        {
+            mesos_xronos_approx_NN += times_of_approx_NNs[i].count();
+        }
+
+        mesos_xronos_approx_NN = mesos_xronos_approx_NN / (double)query_curves_array.size();
+
+        std::cout << "mesos xronos uppologismou approx NN is " << mesos_xronos_approx_NN << '\n';
 
         //when done all, ask if repeat with other dataset or exit ektelesi
         std::cout << "Would you like to repeat with new dataset? Type y for yes or n for no\n";
